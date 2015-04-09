@@ -1,4 +1,4 @@
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -58,7 +58,7 @@ class Costumer extends JFrame{
     
     public Costumer() {
         setTitle("Costumer");
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//DISPOSE_ON_CLOSE
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
         
         
