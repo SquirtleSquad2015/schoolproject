@@ -78,6 +78,7 @@ class Login extends JFrame{
                 
                 SignUp Vindu2 = new SignUp();
                 Vindu2.setVisible(true);
+                Vindu2.setLocationRelativeTo(null);
                 
                 //visible (false)?
             }
