@@ -77,5 +77,6 @@ class Hoved {
     HovedVindu Vindumain = new HovedVindu();
     Vindumain.setLocationRelativeTo(null);
     Vindumain.setVisible(true);
+      // Jonas er kongen
   }
 }
