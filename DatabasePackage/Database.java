@@ -1,3 +1,4 @@
+package DatabasePackage;
 
 import java.sql.*;
 public class Database {
