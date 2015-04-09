@@ -20,7 +20,7 @@ class Login extends JFrame{
     
     public Login() {
         setTitle("Login");
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//DISPOSE_ON_CLOSE
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setLayout(new GridLayout(4, 2, 5, 5));
         passwordField = new JPasswordField(10);
