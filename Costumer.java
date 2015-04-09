@@ -45,7 +45,7 @@ class Costumer extends JFrame{
     private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
     private JLabel ledetekstSvar3 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("Beskrivelse:",JLabel.CENTER);
-    private JTextArea ledetekstSvar4 = new JTextArea(10,10);
+    private JTextArea ledetekstSvar4 = new JTextArea(5,5);
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
     private JButton knapp4 = new JButton("Close");
@@ -54,6 +54,10 @@ class Costumer extends JFrame{
     private JScrollPane scroll2 = new JScrollPane();
     private JList listbox = new JList();
     private JList listbox2 = new JList();
+    private JPanel panel1 = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JPanel panel3 = new JPanel();
+    private JPanel masterPanel = new JPanel();
     
     
     public Costumer() {
@@ -62,33 +66,51 @@ class Costumer extends JFrame{
         setSize(600,600);
         
         
-        setLayout(new GridLayout(8, 2,10,10));
+        
         
 
 		// Create a new listbox control
+        LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
+        panel1.setLayout(layout1);
+        LayoutManager layout2 = new GridLayout(5, 2, 3, 3);
+        panel2.setLayout(layout2);
+        LayoutManager layout3 = new GridLayout(2, 1, 3, 3);
+        panel3.setLayout(layout3);
+        LayoutManager masterLayout = new BorderLayout();
+        masterPanel.setLayout(masterLayout);
+        
+        
+        
         listbox = new JList( listData );
         listbox2 = new JList( listData2 );
-	add( listbox, BorderLayout.CENTER );
-        add( listbox2, BorderLayout.CENTER );
+	panel1.add( listbox, BorderLayout.CENTER );
+        panel1.add( listbox2, BorderLayout.CENTER );
         scroll =new JScrollPane(listbox);
         scroll2 =new JScrollPane(listbox2);
-        getContentPane().add(scroll, BorderLayout.CENTER);
-        getContentPane().add(scroll2, BorderLayout.CENTER);
+        panel1.add(scroll, BorderLayout.CENTER);
+        panel1.add(scroll2, BorderLayout.CENTER);
         
         
-        add(knapp1);
-        add(knapp2);
-        add(ledetekst1);
-        add(ledetekstSvar1);
-        add(ledetekst2);
-        add(ledetekstSvar2);
-        add(ledetekst3);
-        add(ledetekstSvar3);
-        add(ledetekst4);
-        add(ledetekstSvar4);
-        add(knapp3);
-        add(knapp4);
+        panel2.add(knapp1);
+        panel2.add(knapp2);
+        panel2.add(knapp3);
+        panel2.add(knapp4);
+        panel2.add(ledetekst1);
+        panel2.add(ledetekstSvar1);
+        panel2.add(ledetekst2);
+        panel2.add(ledetekstSvar2);
+        panel2.add(ledetekst3);
+        panel2.add(ledetekstSvar3);
         
+        panel3.add(ledetekst4);
+        panel3.add(ledetekstSvar4);
+        
+        
+        masterPanel.add(panel1, BorderLayout.NORTH);
+        masterPanel.add(panel2, BorderLayout.CENTER);
+        masterPanel.add(panel3, BorderLayout.SOUTH);
+        add(masterPanel);
+        pack();
         
         
         Knappelytter1 lytteren = new Knappelytter1();
