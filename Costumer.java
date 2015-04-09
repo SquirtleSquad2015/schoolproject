@@ -1,4 +1,6 @@
-/**
+
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,7 +47,7 @@ class Costumer extends JFrame{
     private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
     private JLabel ledetekstSvar3 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("Beskrivelse:",JLabel.CENTER);
-    private JTextArea ledetekstSvar4 = new JTextArea(5,5);
+    private JTextArea textArea = new JTextArea(5,5);
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
     private JButton knapp4 = new JButton("Close");
@@ -72,9 +74,9 @@ class Costumer extends JFrame{
 		// Create a new listbox control
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(5, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(6, 2, 3, 3);
         panel2.setLayout(layout2);
-        LayoutManager layout3 = new GridLayout(2, 1, 3, 3);
+        LayoutManager layout3 = new GridLayout(1, 1, 3, 3);
         panel3.setLayout(layout3);
         LayoutManager masterLayout = new BorderLayout();
         masterPanel.setLayout(masterLayout);
@@ -91,6 +93,7 @@ class Costumer extends JFrame{
         panel1.add(scroll2, BorderLayout.CENTER);
         
         
+                
         panel2.add(knapp1);
         panel2.add(knapp2);
         panel2.add(knapp3);
@@ -101,9 +104,9 @@ class Costumer extends JFrame{
         panel2.add(ledetekstSvar2);
         panel2.add(ledetekst3);
         panel2.add(ledetekstSvar3);
-        
-        panel3.add(ledetekst4);
-        panel3.add(ledetekstSvar4);
+        textArea.setLineWrap(true);
+        panel2.add(ledetekst4);
+        panel3.add(textArea);
         
         
         masterPanel.add(panel1, BorderLayout.NORTH);
@@ -145,7 +148,7 @@ class Costumer extends JFrame{
                     ledetekstSvar1.setText("Navn "+listData[index]);
                     ledetekstSvar2.setText("Kategori "+listData[index]);
                     ledetekstSvar3.setText("Manager "+listData[index]);
-                    ledetekstSvar4.setText("Beskrivelse "+listData[index]);
+                    textArea.setText("Beskrivelse "+listData[index]);
                 }
 
             }
@@ -173,7 +176,7 @@ class Costumer extends JFrame{
                     ledetekstSvar1.setText("Navn: "+listData2[index]);
                     ledetekstSvar2.setText("Kategori: "+listData2[index]);
                     ledetekstSvar3.setText("Manager "+listData2[index]);
-                    ledetekstSvar4.setText("Beskrivelse: asdfgkeid dkerides \n ifeksfei skriskdo skeifskaf skr. "+listData2[index]);
+                    textArea.setText("Beskrivelse: asdfgkeid dkerides \n ifeksfei skriskdo skeifskaf skr. "+listData2[index]);
                 }
 
                 
