@@ -16,12 +16,12 @@ class HovedVindu extends JFrame{
     
     
     public HovedVindu() {
+        
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300,200);
 
         setLayout(new GridLayout(4, 1,10,10));
-        getContentPane().setBackground( Color.white);
         
         add(ledetekst);
         add(knapp1);
@@ -43,7 +43,7 @@ class HovedVindu extends JFrame{
         class Knappelytter1 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp1 = (JButton) hendelse.getSource();
-                //Costumer
+                setVisible(false);
                 Costumer CostumerVindu = new Costumer();
                 CostumerVindu.setLocationRelativeTo(null);
                 CostumerVindu.setVisible(true);
@@ -53,6 +53,7 @@ class HovedVindu extends JFrame{
         class Knappelytter2 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp2 = (JButton) hendelse.getSource();
+                getContentPane().setVisible(false);
                 
                 Login LogInVindu = new Login();
                 LogInVindu.setLocationRelativeTo(null);
