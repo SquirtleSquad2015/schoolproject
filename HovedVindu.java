@@ -8,6 +8,7 @@ class HovedVindu extends JFrame {
     private JButton knapp1 = new JButton("Customer");
     private JButton knapp2 = new JButton("Login");
     private JButton knapp3 = new JButton("Close");
+    //test
 
 
     public HovedVindu() {
@@ -53,6 +54,7 @@ class HovedVindu extends JFrame {
             Login LogInVindu = new Login();
             LogInVindu.setLocationRelativeTo(null);
             LogInVindu.setVisible(true);
+            
 
         }
     }
