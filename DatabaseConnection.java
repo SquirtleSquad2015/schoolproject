@@ -15,7 +15,6 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection("jdbc:derby://localhost:1527/KjøpesenterTest");
         } catch (Exception e){
             Database.printMesssage(e, "Konstruktør");
-            // test
         }
     }
  
