@@ -118,4 +118,28 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    public int checkLogIn(String username, String password){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String checkInfo = "select DISTINCT access_lvl from bruker where username='" + username + "'" +
+                    " and password='" + password + "'";
+            resultSet = statement.executeQuery(checkInfo);
+            resultSet.next();
+            ok = resultSet.getInt("access_lvl");
+            System.out.println(ok);
+
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "checkLogIn");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }

@@ -1,12 +1,11 @@
+import DatabasePackage.Database;
+import DatabasePackage.DatabaseConnection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import static javax.swing.JOptionPane.*;
-/*
-import java.util.ArrayList;
-import javax.swing.event.*;
-ok
-*/
+
 
 class Login extends JFrame{
     private JTextField felt = new JTextField(15);
@@ -49,8 +48,9 @@ class Login extends JFrame{
     }
     
 
-        class Knappelytter1 extends JFrame implements ActionListener {
+        class Knappelytter1 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
+                int ok = 0;
                 JButton knapp1 = (JButton) hendelse.getSource();
                 char [] pas = passwordField.getPassword();
                 String password="";
@@ -58,15 +58,24 @@ class Login extends JFrame{
                     password+= Character.toString(pas[i]);
                 }
                 String bruker = felt.getText();
-                System.out.println("Brukernavn: "+ bruker+ "\n" +"Passord: "+password);
+
+                try {
+                    openConnection();
+                    ok = checkLogIn(bruker, password);
+                    System.out.println(ok);
+                    closeConnection();
+                }
+                catch (Exception e){
+                    System.out.println("Username fail");
+                }
                 boolean loggin=true;
                 if(!loggin || bruker.equals("")||bruker.equals(null)|| password.equals("")){ //login fail
                     showMessageDialog (null, "Incorrect Password or Username", "Login fail", JOptionPane.ERROR_MESSAGE); 
                 }
-                else{//login
-                    System.out.println("bra");
+                if(ok < 0){//login
                     Menu  MenuVindu = new Menu();
                     MenuVindu.setVisible(true);
+                    System.out.println(ok);
                     
                 }
             }
