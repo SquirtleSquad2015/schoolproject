@@ -1,3 +1,4 @@
+package shoolprodject;
 
 class Hoved {
     public static void main(String[] args) {
