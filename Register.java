@@ -1,3 +1,5 @@
+package shoolprodject;
+
 import java.sql.*;
 import javax.swing.*;
 
