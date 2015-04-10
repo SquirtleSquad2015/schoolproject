@@ -192,32 +192,22 @@ class Costumer extends JFrame{
             public void actionPerformed(ActionEvent hendelse) {
                JButton knapp5 = (JButton) hendelse.getSource();
                 int index = listbox.getSelectedIndex();
-                try{
-                    openConnection();
-                    list = getCenters("");
-                    defaultListModel.clear();
-
-                    for(int i = 0; i < list.size(); i++){
-                        defaultListModel.addElement(list.get(i));
+                String centerName=list.get(index);
+                
+                if(index>=0){
+                    try{
+                        openConnection();
+                        list2 = getStore(centerName);
+                        defaultListModel2.clear();
+                        for(int i = 0; i < list2.size(); i++){
+                            defaultListModel2.addElement(list2.get(i));
+                        }
+                        closeConnection();
                     }
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
-                try{
-                    openConnection();
-                    list2 = getStore("");
-                    defaultListModel2.clear();
-
-                    for(int i = 0; i < list.size(); i++){
-                        defaultListModel2.addElement(list.get(i));
+                    catch (Exception e){
+                        Database.printMesssage(e, "getCenters");
                     }
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
+                }              
             }
         }
 
