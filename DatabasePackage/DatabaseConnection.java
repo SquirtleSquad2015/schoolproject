@@ -47,6 +47,28 @@ public class DatabaseConnection {
         }
         return list;
     }
+    
+    public ArrayList<String> getStore(String storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlCenter = "SELECT DISTINCT store_name from store where LCASE(store_name) LIKE LCASE('" + storename + "%')";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCenter);
+            while(resultSet.next()){
+                list.add(resultSet.getString("store_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStore");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
  
  
     public boolean checkUsername(String userName) throws Exception{
