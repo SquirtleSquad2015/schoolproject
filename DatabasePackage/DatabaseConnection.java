@@ -48,12 +48,12 @@ public class DatabaseConnection {
         return list;
     }
     
-    public ArrayList<String> getStore(String storename){
+    public ArrayList<String> getStore(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            String sqlCenter = "SELECT DISTINCT store_name from store where LCASE(store_name) LIKE LCASE('" + storename + "%')";
+            String sqlCenter = "SELECT DISTINCT store_name from store, center where store.CENTER_NAME=center.CENTER_NAME and center.CENTER_NAME='"+centerName+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlCenter);
             while(resultSet.next()){
