@@ -46,11 +46,13 @@ class Costumer extends JFrame{
     private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
     private JLabel ledetekstSvar3 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("Beskrivelse:",JLabel.CENTER);
+    private JLabel blank = new JLabel("",JLabel.CENTER);
     private JTextArea textArea = new JTextArea(5,5);
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
     private JButton knapp4 = new JButton("Close");
     private JButton knapp3 = new JButton("Costumer Service");
+    private JButton knapp5 = new JButton("Update");
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
     private JList listbox = new JList();
@@ -65,15 +67,11 @@ class Costumer extends JFrame{
         setTitle("Costumer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
-        
-        
-        
-        
 
 		// Create a new listbox control
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(6, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(7, 2, 3, 3);
         panel2.setLayout(layout2);
         LayoutManager layout3 = new GridLayout(1, 1, 3, 3);
         panel3.setLayout(layout3);
@@ -97,6 +95,8 @@ class Costumer extends JFrame{
         panel2.add(knapp2);
         panel2.add(knapp3);
         panel2.add(knapp4);
+        panel2.add(knapp5);
+        panel2.add(blank);
         panel2.add(ledetekst1);
         panel2.add(ledetekstSvar1);
         panel2.add(ledetekst2);
@@ -126,10 +126,11 @@ class Costumer extends JFrame{
         
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
+        
+        Knappelytter5 lytteren5 = new Knappelytter5();
+        knapp5.addActionListener(lytteren5);
     }
-   
 
-    
 
         class Knappelytter1 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
@@ -196,6 +197,16 @@ class Costumer extends JFrame{
                 System.out.println("Close");
                 System.exit(0);
                 
+            }
+        }
+        class Knappelytter5 extends JFrame implements ActionListener {
+            public void actionPerformed(ActionEvent hendelse) {
+                JButton knapp1 = (JButton) hendelse.getSource();
+                int index = listbox.getSelectedIndex();
+                
+                              
+                
+
             }
         }
         
