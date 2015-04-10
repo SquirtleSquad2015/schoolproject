@@ -117,6 +117,13 @@ class Costumer extends JFrame{
         
         Knappelytter5 lytteren5 = new Knappelytter5();
         knapp5.addActionListener(lytteren5);
+
+        AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, lytteren6);
+        timer.start();
+        timer.setRepeats(false);
+
     }
 
 
@@ -181,13 +188,13 @@ class Costumer extends JFrame{
         }
         class Knappelytter5 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp5 = (JButton) hendelse.getSource();
+               JButton knapp5 = (JButton) hendelse.getSource();
                 int index = listbox.getSelectedIndex();
                 try{
                     openConnection();
                     ArrayList<String> list = getCenters("");
                     defaultListModel.clear();
-                    
+
                     for(int i = 0; i < list.size(); i++){
                         defaultListModel.addElement(list.get(i));
                     }
@@ -200,7 +207,7 @@ class Costumer extends JFrame{
                     openConnection();
                     ArrayList<String> list = getStore("");
                     defaultListModel2.clear();
-                    
+
                     for(int i = 0; i < list.size(); i++){
                         defaultListModel2.addElement(list.get(i));
                     }
@@ -211,6 +218,39 @@ class Costumer extends JFrame{
                 }
             }
         }
+
+    class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            // JButton knapp5 = (JButton) hendelse.getSource();
+            int index = listbox.getSelectedIndex();
+            try{
+                openConnection();
+                ArrayList<String> list = getCenters("");
+                defaultListModel.clear();
+
+                for(int i = 0; i < list.size(); i++){
+                    defaultListModel.addElement(list.get(i));
+                }
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getCenters");
+            }
+            try{
+                openConnection();
+                ArrayList<String> list = getStore("");
+                defaultListModel2.clear();
+
+                for(int i = 0; i < list.size(); i++){
+                    defaultListModel2.addElement(list.get(i));
+                }
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getCenters");
+            }
+        }
+    }
         
         
 }

@@ -10,6 +10,7 @@ class HovedVindu extends JFrame {
     private JButton knapp1 = new JButton("Customer");
     private JButton knapp2 = new JButton("Login");
     private JButton knapp3 = new JButton("Close");
+    private JButton knapp4 = new JButton("testinloggin meny");
     //test
 
 
@@ -19,12 +20,13 @@ class HovedVindu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300,200);
 
-        setLayout(new GridLayout(4, 1,10,10));
+        setLayout(new GridLayout(5, 1,10,10));
 
         add(ledetekst);
         add(knapp1);
         add(knapp2);
         add(knapp3);
+        add(knapp4);
 
         Knappelytter1 lytteren = new Knappelytter1();
         knapp1.addActionListener(lytteren);  // knytter lytteren til knappen
@@ -34,6 +36,9 @@ class HovedVindu extends JFrame {
 
         Knappelytter3 lytteren3 = new Knappelytter3();
         knapp3.addActionListener(lytteren3);
+
+        Knappelytter4 lytteren4 = new Knappelytter4();
+        knapp4.addActionListener(lytteren4);
     }
 
 
@@ -67,6 +72,16 @@ class HovedVindu extends JFrame {
             System.out.println("Close");
             System.exit(0);
 
+        }
+    }
+
+    class Knappelytter4 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp4 = (JButton) hendelse.getSource();
+            setVisible(false);
+            InloggedMeny inloggedMeny  = new InloggedMeny();
+            inloggedMeny.setLocationRelativeTo(null);
+            inloggedMeny.setVisible(true);
         }
     }
 }
