@@ -1,6 +1,6 @@
-package DatabasePackage;
+package shoolprodject.DatabasePackage;
 
-import DatabasePackage.Database;
+import shoolprodject.DatabasePackage.Database;
 
 import java.sql.*;
 import java.util.ArrayList;

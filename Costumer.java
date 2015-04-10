@@ -9,9 +9,12 @@ package shoolprodject;
  *
  * @author Martin
  */
+import shoolprodject.DatabasePackage.Database;
+import shoolprodject.DatabasePackage.DatabaseConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import static javax.swing.JOptionPane.*;
 /*
 import java.util.ArrayList;
@@ -55,7 +58,8 @@ class Costumer extends JFrame{
     private JButton knapp5 = new JButton("Update");
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
-    private JList listbox = new JList();
+    DefaultListModel defaultListModel = new DefaultListModel();
+    private JList listbox = new JList(defaultListModel);
     private JList listbox2 = new JList();
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
@@ -199,14 +203,23 @@ class Costumer extends JFrame{
                 
             }
         }
-        class Knappelytter5 extends JFrame implements ActionListener {
+        class Knappelytter5 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp1 = (JButton) hendelse.getSource();
+                JButton knapp5 = (JButton) hendelse.getSource();
                 int index = listbox.getSelectedIndex();
-                
-                              
-                
-
+                try{
+                    openConnection();
+                    ArrayList<String> list = getCenters("");
+                    defaultListModel.clear();
+                    
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel.addElement(list.get(i));
+                    }
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
             }
         }
         
