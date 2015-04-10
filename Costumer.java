@@ -58,7 +58,8 @@ class Costumer extends JFrame{
     private JButton knapp5 = new JButton("Update");
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
-    private JList listbox = new JList();
+    DefaultListModel defaultListModel = new DefaultListModel();
+    private JList listbox = new JList(defaultListModel);
     private JList listbox2 = new JList();
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
@@ -210,7 +211,7 @@ class Costumer extends JFrame{
                     openConnection();
                     ArrayList<String> list = getCenters("");
                     defaultListModel.clear();
-                    System.out.println(choice);
+                    
                     for(int i = 0; i < list.size(); i++){
                         defaultListModel.addElement(list.get(i));
                     }
@@ -220,66 +221,6 @@ class Costumer extends JFrame{
                     Database.printMesssage(e, "getCenters");
                 }
             }
-            if(actionEvent.getSource() == back){
-                dispose();
-            } else if(actionEvent.getSource() == next) {
-                if(!name12.equals("") && !email.equals("")){
-                    if(choice != -1){
-                        String centerName1 = list.getSelectedValue().toString();
-
-                        if(userType.equals("CenterManager")){
-                            userLevel = 3;
-                        }
-                        else if(userType.equals("CustomerService")) {
-                            userLevel = 1;
-                        }
-                        else {
-                            userLevel = 2;
-                        }
-                        int ok = 0;
-                        try {
-                            openConnection();
-                            ok = regNewCenterUser(username, telephone, password, centerName1, name12, email, userLevel, userType);
-                            closeConnection();
-                        }
-                        catch (Exception e){
-                            Database.printMesssage(e, "regNewCenterManager");
-                        }
-                        if(ok == 1){
-                            showMessageDialog(null, "Registration complete");
-                            dispose();
-
-
-
-                        } else if(ok == 2){
-                            String newUsername = showInputDialog("Username already registered, please enter new one");
-                            username = newUsername;
-                        } else {
-                            String newTelephone = showInputDialog("Telephone number already registered, try again: ");
-                            telephone = newTelephone;
-                            /*while(ok == false){
-                                try {
-                                    int testTelephone = Integer.parseInt(newTelephone)
-                                    ok = true;
-                                }
-                                catch (NumberFormatException){
-                                    showMessageDialog(null, "Wrong number format");
-                                }
-                                if(newTelephone.length() == 8 ) }
-
-                            }*/
-                        }
-                    } else {
-                        showMessageDialog(null, "Please select center");
-                    }
-                } else {
-                    showMessageDialog(null, "Please enter real name and email");
-                }              
-                
-
-            }
-
-
         }
         
         
