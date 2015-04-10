@@ -25,6 +25,8 @@ import javax.swing.JPasswordField.*;
 
 class Costumer extends JFrame{
 
+    private ArrayList<String> list;
+    private ArrayList<String> list2;
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
     private JLabel ledetekstSvar1 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
@@ -192,7 +194,7 @@ class Costumer extends JFrame{
                 int index = listbox.getSelectedIndex();
                 try{
                     openConnection();
-                    ArrayList<String> list = getCenters("");
+                    list = getCenters("");
                     defaultListModel.clear();
 
                     for(int i = 0; i < list.size(); i++){
@@ -205,7 +207,7 @@ class Costumer extends JFrame{
                 }
                 try{
                     openConnection();
-                    ArrayList<String> list = getStore("");
+                    list2 = getStore("");
                     defaultListModel2.clear();
 
                     for(int i = 0; i < list.size(); i++){
@@ -225,7 +227,7 @@ class Costumer extends JFrame{
             int index = listbox.getSelectedIndex();
             try{
                 openConnection();
-                ArrayList<String> list = getCenters("");
+                list = getCenters("");
                 defaultListModel.clear();
 
                 for(int i = 0; i < list.size(); i++){
@@ -236,19 +238,7 @@ class Costumer extends JFrame{
             catch (Exception e){
                 Database.printMesssage(e, "getCenters");
             }
-            try{
-                openConnection();
-                ArrayList<String> list = getStore("");
-                defaultListModel2.clear();
 
-                for(int i = 0; i < list.size(); i++){
-                    defaultListModel2.addElement(list.get(i));
-                }
-                closeConnection();
-            }
-            catch (Exception e){
-                Database.printMesssage(e, "getCenters");
-            }
         }
     }
         
