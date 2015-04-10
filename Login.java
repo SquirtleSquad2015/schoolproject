@@ -71,13 +71,22 @@ class Login extends JFrame{
                     System.out.println("Username fail");
                 }
                 boolean loggin=true;
-                if(!loggin || bruker.equals("")||bruker.equals(null)|| password.equals("")){ //login fail
+                if((!loggin || bruker.equals("")||bruker.equals(null)|| password.equals("")) || ok == 0){ //login fail
                     showMessageDialog (null, "Incorrect Password or Username", "Login fail", JOptionPane.ERROR_MESSAGE); 
                 }
-                if(ok < 0){//login
+                if(ok > 0){//login
                     Menu  MenuVindu = new Menu();
                     MenuVindu.setVisible(true);
                     System.out.println(ok);
+                    if(ok == 1){
+                        System.out.println("Access level 1");
+                    }
+                    else if(ok == 2){
+                        System.out.println("Access level 2");
+                    }else {
+                        System.out.println("Access level 3");
+                    }
+
                     
                 }
             }
