@@ -24,24 +24,7 @@ import javax.swing.JPasswordField.*;
 */
 
 class Costumer extends JFrame{
-    private String[] listData = {
-            "Center",
-            "Sirkus",
-            "City Lade",
-            "Trondheim torg",
-            "Merkur senteret",
-            "Malvik Senteret",
-            "Solsiden"
-        };
-    private String[] listData2 = {
-            "All shops",
-            "Shop 2",
-            "Shop 3",
-            "Shop 4",
-            "Shop 5",
-            "Shop 6",
-            "Shop 7"
-        };
+
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
     private JLabel ledetekstSvar1 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
@@ -59,8 +42,9 @@ class Costumer extends JFrame{
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
     DefaultListModel defaultListModel = new DefaultListModel();
+    DefaultListModel defaultListModel2 = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
-    private JList listbox2 = new JList();
+    private JList listbox2 = new JList(defaultListModel2);
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
@@ -84,8 +68,8 @@ class Costumer extends JFrame{
         
         
         
-        listbox = new JList( listData );
-        listbox2 = new JList( listData2 );
+        
+        
 	panel1.add( listbox, BorderLayout.CENTER );
         panel1.add( listbox2, BorderLayout.CENTER );
         scroll =new JScrollPane(listbox);
@@ -143,16 +127,12 @@ class Costumer extends JFrame{
                 
                 System.out.println(index);
                 
-                if(index==-1 || index==0){
+                if(index==-1){
                     System.out.println("Chose Shoping Center");
                     showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
                 }
                 if(index>0){
-                    System.out.println("info info:  " + listData[index] );
-                    ledetekstSvar1.setText("Navn "+listData[index]);
-                    ledetekstSvar2.setText("Kategori "+listData[index]);
-                    ledetekstSvar3.setText("Manager "+listData[index]);
-                    textArea.setText("Beskrivelse "+listData[index]);
+                    
                 }
 
             }
@@ -167,20 +147,16 @@ class Costumer extends JFrame{
                 
                 System.out.println(index+" og "+ index2);
                 
-                if(index==-1 || index==0){
+                if(index==-1){
                     showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
                 }
-                if(index2==-1 || index2==0){
+                if(index2==-1){
                     showMessageDialog (null, "Chose Shop", "Fail", JOptionPane.ERROR_MESSAGE);
                     
                 }
                 
-                if(index>0  && index2>0){
-                    System.out.println("info info:  " +listData2[index2]+" på "+ listData[index] );
-                    ledetekstSvar1.setText("Navn: "+listData2[index]);
-                    ledetekstSvar2.setText("Kategori: "+listData2[index]);
-                    ledetekstSvar3.setText("Manager "+listData2[index]);
-                    textArea.setText("Beskrivelse: asdfgkeid dkerides \n ifeksfei skriskdo skeifskaf skr. "+listData2[index]);
+                if(index>=0  && index2>=0){
+                    
                 }
 
                 
@@ -214,6 +190,19 @@ class Costumer extends JFrame{
                     
                     for(int i = 0; i < list.size(); i++){
                         defaultListModel.addElement(list.get(i));
+                    }
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
+                try{
+                    openConnection();
+                    ArrayList<String> list = getStore("");
+                    defaultListModel2.clear();
+                    
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel2.addElement(list.get(i));
                     }
                     closeConnection();
                 }
