@@ -1,3 +1,5 @@
+package shoolprodject;
+
 import DatabasePackage.Database;
 import DatabasePackage.DatabaseConnection;
 
