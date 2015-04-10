@@ -9,9 +9,12 @@ package shoolprodject;
  *
  * @author Martin
  */
+import shoolprodject.DatabasePackage.Database;
+import shoolprodject.DatabasePackage.DatabaseConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import static javax.swing.JOptionPane.*;
 /*
 import java.util.ArrayList;
@@ -199,15 +202,84 @@ class Costumer extends JFrame{
                 
             }
         }
-        class Knappelytter5 extends JFrame implements ActionListener {
+        class Knappelytter5 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp1 = (JButton) hendelse.getSource();
+                JButton knapp5 = (JButton) hendelse.getSource();
                 int index = listbox.getSelectedIndex();
-                
-                              
+                try{
+                    openConnection();
+                    ArrayList<String> list = getCenters("");
+                    defaultListModel.clear();
+                    System.out.println(choice);
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel.addElement(list.get(i));
+                    }
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
+            }
+            if(actionEvent.getSource() == back){
+                dispose();
+            } else if(actionEvent.getSource() == next) {
+                if(!name12.equals("") && !email.equals("")){
+                    if(choice != -1){
+                        String centerName1 = list.getSelectedValue().toString();
+
+                        if(userType.equals("CenterManager")){
+                            userLevel = 3;
+                        }
+                        else if(userType.equals("CustomerService")) {
+                            userLevel = 1;
+                        }
+                        else {
+                            userLevel = 2;
+                        }
+                        int ok = 0;
+                        try {
+                            openConnection();
+                            ok = regNewCenterUser(username, telephone, password, centerName1, name12, email, userLevel, userType);
+                            closeConnection();
+                        }
+                        catch (Exception e){
+                            Database.printMesssage(e, "regNewCenterManager");
+                        }
+                        if(ok == 1){
+                            showMessageDialog(null, "Registration complete");
+                            dispose();
+
+
+
+                        } else if(ok == 2){
+                            String newUsername = showInputDialog("Username already registered, please enter new one");
+                            username = newUsername;
+                        } else {
+                            String newTelephone = showInputDialog("Telephone number already registered, try again: ");
+                            telephone = newTelephone;
+                            /*while(ok == false){
+                                try {
+                                    int testTelephone = Integer.parseInt(newTelephone)
+                                    ok = true;
+                                }
+                                catch (NumberFormatException){
+                                    showMessageDialog(null, "Wrong number format");
+                                }
+                                if(newTelephone.length() == 8 ) }
+
+                            }*/
+                        }
+                    } else {
+                        showMessageDialog(null, "Please select center");
+                    }
+                } else {
+                    showMessageDialog(null, "Please enter real name and email");
+                }              
                 
 
             }
+
+
         }
         
         
