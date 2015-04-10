@@ -1,7 +1,7 @@
 package shoolprodject;
 
-import DatabasePackage.Database;
-import DatabasePackage.DatabaseConnection;
+import shoolprodject.DatabasePackage.Database;
+import shoolprodject.DatabasePackage.DatabaseConnection;
 
 import javax.swing.*;
 import java.awt.*;
