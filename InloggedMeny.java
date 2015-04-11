@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import shoolprodject.DatabasePackage.Database;
+import shoolprodject.DatabasePackage.DatabaseConnection;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -10,33 +13,11 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * Created by Andreas on 10.04.2015.
  */
 public class InloggedMeny extends JFrame {
-    private String username;
-    private int access_level;
-
-    private String[] listData = {
-            "Center",
-            "Sirkus",
-            "City Lade",
-            "Trondheim torg",
-            "Merkur senteret",
-            "Malvik Senteret",
-            "Solsiden"
-    };
-    private String[] listData2 = {
-            "All shops",
-            "Shop 2",
-            "Shop 3",
-            "Shop 4",
-            "Shop 5",
-            "Shop 6",
-            "Shop 7"
-    };
-
-    private int[][] listData3 = new int[40][100];
 
     private JLabel ledetekst1 = new JLabel("Turnover: ", JLabel.CENTER);
     private JLabel ledetekstSvar1 = new JLabel("", JLabel.CENTER);
-
+    private ArrayList<String> list;
+    private ArrayList<String> list2;
 
     private JTextArea textArea = new JTextArea(5, 5);
     private JButton knapp1 = new JButton("Turnover store");
@@ -46,13 +27,18 @@ public class InloggedMeny extends JFrame {
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
     private JScrollPane scroll3 = new JScrollPane();
-    private JList listbox = new JList();
-    private JList listbox2 = new JList();
-    private JList listbox3 = new JList();
+    DefaultListModel defaultListModel = new DefaultListModel();
+    DefaultListModel defaultListModel2 = new DefaultListModel();
+    //DefaultListModel defaultListModel3 = new DefaultListModel();
+    private JList listbox = new JList(defaultListModel);
+    private JList listbox2 = new JList(defaultListModel2);
+    //private JList listbox3 = new JList(defaultListModel3);
+
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
     private JPanel masterPanel = new JPanel();
+
 
 
     public InloggedMeny() {
@@ -72,15 +58,17 @@ public class InloggedMeny extends JFrame {
         masterPanel.setLayout(masterLayout);
 
 
-        listbox = new JList(listData);
-        listbox2 = new JList(listData2);
-        listbox3 = new JList(listData3);
+
+        //listbox3 = new JList(listData3);
         panel1.add(listbox, BorderLayout.CENTER);
         panel1.add(listbox2, BorderLayout.CENTER);
+        //panel1.add(listbox3, BorderLayout.CENTER);
         scroll = new JScrollPane(listbox);
         scroll2 = new JScrollPane(listbox2);
+        //scroll3 = new JScrollPane(listbox3);
         panel1.add(scroll, BorderLayout.CENTER);
         panel1.add(scroll2, BorderLayout.CENTER);
+        //panel1.add(scroll3, BorderLayout.CENTER);
 
 
         panel2.add(knapp1);
@@ -112,28 +100,30 @@ public class InloggedMeny extends JFrame {
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
 
+        AutomatiskOppdatering2 lytteren6 = new AutomatiskOppdatering2();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, lytteren6);
+        timer.start();
+        timer.setRepeats(false);
+        listbox2.addAc
+
     }
 
 
-    class Knappelytter1 extends JFrame implements ActionListener {
+    class Knappelytter1 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp1 = (JButton) hendelse.getSource();
             int index = listbox.getSelectedIndex();
             int index2 = listbox2.getSelectedIndex();
 
-            if (index == -1 || index == 0) {
-                System.out.println("Choose Shopping Center");
-                showMessageDialog(null, "Choose Shopping Center", "Fail", JOptionPane.ERROR_MESSAGE);
+            try{
+                openConnection();
+                Integer svar = getTurnoverStore(listbox.getSelectedValue().toString(),listbox2.getSelectedValue().toString());
+                ledetekstSvar1.setText(svar.toString());
+                closeConnection();
             }
-            if (index > 0) {
-                System.out.println(listData3[index][index2]);
-                if(listData3[index][index2] == 0){
-                    ledetekstSvar1.setText("No registered turnover");
-                }else {
-                    String svar = Integer.toString(listData3[index][index2]);
-                    ledetekstSvar1.setText(svar);
-
-                }
+            catch (Exception e){
+                Database.printMesssage(e, "getTurnover");
             }
 
         }
@@ -145,15 +135,12 @@ public class InloggedMeny extends JFrame {
             int index = listbox.getSelectedIndex();
             int index2 = listbox2.getSelectedIndex();
 
-            if (index == -1 || index == 0) {
-                System.out.println("Choose Shopping Center");
-                showMessageDialog(null, "Choose Shopping Center", "Fail", JOptionPane.ERROR_MESSAGE);
-            }
+
             if (index > 0) {
                 JFrame frame = new JFrame("Register turnover:");
                 String newturnover = JOptionPane.showInputDialog(frame,"Turnover...");
                 int turnover = Integer.parseInt(newturnover);
-                listData3[index][index2] = turnover;
+                //listData3[index][index2] = turnover;
             }
         }
     }
@@ -167,18 +154,39 @@ public class InloggedMeny extends JFrame {
             int index = listbox.getSelectedIndex();
             int index2 = listbox2.getSelectedIndex();
 
-            if (index == -1 || index == 0) {
-                System.out.println("Choose Shopping Center");
-                showMessageDialog(null, "Choose Shopping Center", "Fail", JOptionPane.ERROR_MESSAGE);
-            }
+
             if (index > 0) {
                 int sum = 0;
-                for(int i = 1; i < listData3.length; i++){
-                    sum += (listData3[index][i]);
-                }
+               // for(int i = 1; i < listData3.length; i++){
+               //     sum += (listData3[index][i]);
+               // }
                 String svar = Integer.toString(sum);
                 ledetekstSvar1.setText(svar);
             }
+        }
+    }
+
+
+    class AutomatiskOppdatering2 extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+
+            int index = listbox.getSelectedIndex();
+            try{
+                openConnection();
+                list = getCenters("");
+                defaultListModel.clear();
+
+                for(int i = 0; i < list.size(); i++){
+                    defaultListModel.addElement(list.get(i));
+                }
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getCenters");
+            }
+
+
+
         }
     }
 }

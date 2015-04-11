@@ -69,6 +69,30 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    public Integer getTurnoverStore(String centername, String storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        int svar = -1;
+        try {
+            String sqlCenter = "SELECT turnover from store where LCASE(store_name) LIKE LCASE('" + storename + "%') AND LCASE(center_name) LIKE LCASE('" + centername + "')";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCenter);
+
+            while(resultSet.next()){
+                svar = resultSet.getInt(1);
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTurnover");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return svar;
+    }
  
  
     public boolean checkUsername(String userName) throws Exception{
