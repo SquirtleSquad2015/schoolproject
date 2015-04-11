@@ -43,8 +43,8 @@ class Costumer extends JFrame{
     private JButton knapp5 = new JButton("Update");
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
-    DefaultListModel defaultListModel = new DefaultListModel();
-    DefaultListModel defaultListModel2 = new DefaultListModel();
+    private DefaultListModel defaultListModel = new DefaultListModel();
+    private DefaultListModel defaultListModel2 = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
     private JList listbox2 = new JList(defaultListModel2);
     private JPanel panel1 = new JPanel();
@@ -67,11 +67,7 @@ class Costumer extends JFrame{
         panel3.setLayout(layout3);
         LayoutManager masterLayout = new BorderLayout();
         masterPanel.setLayout(masterLayout);
-        
-        
-        
-        
-        
+
 	panel1.add( listbox, BorderLayout.CENTER );
         panel1.add( listbox2, BorderLayout.CENTER );
         scroll =new JScrollPane(listbox);
@@ -79,8 +75,6 @@ class Costumer extends JFrame{
         panel1.add(scroll, BorderLayout.CENTER);
         panel1.add(scroll2, BorderLayout.CENTER);
         
-        
-                
         panel2.add(knapp1);
         panel2.add(knapp2);
         panel2.add(knapp3);
@@ -96,8 +90,7 @@ class Costumer extends JFrame{
         textArea.setLineWrap(true);
         panel2.add(ledetekst4);
         panel3.add(textArea);
-        
-        
+
         masterPanel.add(panel1, BorderLayout.NORTH);
         masterPanel.add(panel2, BorderLayout.CENTER);
         masterPanel.add(panel3, BorderLayout.SOUTH);
@@ -128,13 +121,16 @@ class Costumer extends JFrame{
 
     }
 
-
+        //Info, senter
         class Knappelytter1 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp1 = (JButton) hendelse.getSource();
-                int index = listbox.getSelectedIndex();
                 
-                System.out.println(index);
+                int index = listbox.getSelectedIndex();
+                String centerName=list.get(index);
+                ledetekstSvar1.setText(centerName);
+                
+                System.out.println(centerName);
                 
                 if(index==-1){
                     System.out.println("Chose Shoping Center");
@@ -146,13 +142,14 @@ class Costumer extends JFrame{
 
             }
         }
-        
+        //Info, shop
         class Knappelytter2 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp2 = (JButton) hendelse.getSource();
                 
                 int index = listbox.getSelectedIndex();
                 int index2 = listbox2.getSelectedIndex();
+                
                 
                 System.out.println(index+" og "+ index2);
                 
@@ -171,7 +168,7 @@ class Costumer extends JFrame{
                 
             }
         }
-        
+        //Costumer service
         class Knappelytter3 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp3 = (JButton) hendelse.getSource();
@@ -180,6 +177,7 @@ class Costumer extends JFrame{
                 
             }
         }
+        //Close
         class Knappelytter4 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp4 = (JButton) hendelse.getSource();
@@ -188,6 +186,7 @@ class Costumer extends JFrame{
                 
             }
         }
+        //Update
         class Knappelytter5 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                JButton knapp5 = (JButton) hendelse.getSource();
@@ -210,27 +209,26 @@ class Costumer extends JFrame{
                 }              
             }
         }
-
-    class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
+        //automatisk oppdattering
+        class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+            public void actionPerformed(ActionEvent hendelse) {
             // JButton knapp5 = (JButton) hendelse.getSource();
-            int index = listbox.getSelectedIndex();
-            try{
-                openConnection();
-                list = getCenters("");
-                defaultListModel.clear();
 
-                for(int i = 0; i < list.size(); i++){
-                    defaultListModel.addElement(list.get(i));
+                int index = listbox.getSelectedIndex();
+                try{
+                    openConnection();
+                    list = getCenters("");
+                    defaultListModel.clear();
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel.addElement(list.get(i));
+                    }
+                    closeConnection();
                 }
-                closeConnection();
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
             }
-            catch (Exception e){
-                Database.printMesssage(e, "getCenters");
-            }
-
         }
-    }
         
         
 }
