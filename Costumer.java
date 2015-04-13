@@ -127,19 +127,17 @@ class Costumer extends JFrame{
                 JButton knapp1 = (JButton) hendelse.getSource();
                 
                 int index = listbox.getSelectedIndex();
-                String centerName=list.get(index);
-                ledetekstSvar1.setText(centerName);
                 
-                System.out.println(centerName);
-                
+                if(index>=0){
+                    //print all info
+                    String centerName=list.get(index);
+                    ledetekstSvar1.setText(centerName); 
+                    System.out.println(centerName);
+                }
                 if(index==-1){
                     System.out.println("Chose Shoping Center");
                     showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
                 }
-                if(index>0){
-                    
-                }
-
             }
         }
         //Info, shop
@@ -149,32 +147,25 @@ class Costumer extends JFrame{
                 
                 int index = listbox.getSelectedIndex();
                 int index2 = listbox2.getSelectedIndex();
-                
-                
                 System.out.println(index+" og "+ index2);
                 
-                if(index==-1){
-                    showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
-                }
-                if(index2==-1){
-                    showMessageDialog (null, "Chose Shop", "Fail", JOptionPane.ERROR_MESSAGE);
+                if(index>=0 && index2>=0){
+                    //print all info
+                    String ShopName=list2.get(index2);
+                    ledetekstSvar1.setText(ShopName); 
+                    System.out.println(ShopName);
                     
                 }
-                
-                if(index>=0  && index2>=0){
-                    
-                }
-
-                
+                if(index==-1 || index2==-1){
+                    showMessageDialog (null, "Chose Shoping Center and Shop", "Fail", JOptionPane.ERROR_MESSAGE);
+                }             
             }
         }
         //Costumer service
         class Knappelytter3 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp3 = (JButton) hendelse.getSource();
-                System.out.println("Costumer Service");
-                
-                
+                System.out.println("Costumer Service");  
             }
         }
         //Close
