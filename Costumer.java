@@ -24,7 +24,6 @@ import javax.swing.JPasswordField.*;
 */
 
 class Costumer extends JFrame{
-
     private ArrayList<String> list;
     private ArrayList<String> list2;
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
@@ -52,13 +51,11 @@ class Costumer extends JFrame{
     private JPanel panel3 = new JPanel();
     private JPanel masterPanel = new JPanel();
     
-    
     public Costumer() {
         setTitle("Costumer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600,600);
-
-		// Create a new listbox control
+        
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
         LayoutManager layout2 = new GridLayout(7, 2, 3, 3);
@@ -97,19 +94,14 @@ class Costumer extends JFrame{
         add(masterPanel);
         pack();
         
-        
         Knappelytter1 lytteren = new Knappelytter1();
-        knapp1.addActionListener(lytteren);  // knytter lytteren til knappen
-
+        knapp1.addActionListener(lytteren);
         Knappelytter2 lytteren2 = new Knappelytter2();
         knapp2.addActionListener(lytteren2);
-        
         Knappelytter3 lytteren3 = new Knappelytter3();
         knapp3.addActionListener(lytteren3);
-        
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
-        
         Knappelytter5 lytteren5 = new Knappelytter5();
         knapp5.addActionListener(lytteren5);
 
@@ -120,102 +112,75 @@ class Costumer extends JFrame{
         timer.setRepeats(false);
 
     }
+    //Info, senter
+    class Knappelytter1 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp1 = (JButton) hendelse.getSource();
+            int index = listbox.getSelectedIndex();
+            
+            if(index>=0){
+            //print all info
+                String centerName=list.get(index);
+                ledetekstSvar1.setText(centerName);
+                System.out.println(centerName);
+            }
+            if(index==-1){
+                System.out.println("Chose Shoping Center");
+                showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    //Info, shop
+    class Knappelytter2 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp2 = (JButton) hendelse.getSource();
 
-        //Info, senter
-        class Knappelytter1 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp1 = (JButton) hendelse.getSource();
-                
-                int index = listbox.getSelectedIndex();
-                
-                if(index>=0){
-                    //print all info
-                    String centerName=list.get(index);
-                    ledetekstSvar1.setText(centerName); 
-                    System.out.println(centerName);
-                }
-                if(index==-1){
-                    System.out.println("Chose Shoping Center");
-                    showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-        //Info, shop
-        class Knappelytter2 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp2 = (JButton) hendelse.getSource();
-                
-                int index = listbox.getSelectedIndex();
-                int index2 = listbox2.getSelectedIndex();
-                System.out.println(index+" og "+ index2);
-                
-                if(index>=0 && index2>=0){
-                    //print all info
-                    String ShopName=list2.get(index2);
-                    ledetekstSvar1.setText(ShopName); 
-                    System.out.println(ShopName);
-                    
-                }
-                if(index==-1 || index2==-1){
-                    showMessageDialog (null, "Chose Shoping Center and Shop", "Fail", JOptionPane.ERROR_MESSAGE);
-                }             
-            }
-        }
-        //Costumer service
-        class Knappelytter3 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp3 = (JButton) hendelse.getSource();
-                System.out.println("Costumer Service");  
-            }
-        }
-        //Close
-        class Knappelytter4 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp4 = (JButton) hendelse.getSource();
-                System.out.println("Close");
-                System.exit(0);
-                
-            }
-        }
-        //Update
-        class Knappelytter5 extends DatabaseConnection implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-               JButton knapp5 = (JButton) hendelse.getSource();
-                int index = listbox.getSelectedIndex();
-                
-                
-                if(index>=0){
-                    try{
-                        String centerName=list.get(index);
-                        openConnection();
-                        list2 = getStore(centerName);
-                        defaultListModel2.clear();
-                        for(int i = 0; i < list2.size(); i++){
-                            defaultListModel2.addElement(list2.get(i));
-                        }
-                        closeConnection();
-                    }
-                    catch (Exception e){
-                        Database.printMesssage(e, "getCenters");
-                    }
-                }
-                else{
-                    showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-        //automatisk oppdattering
-        class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-            // JButton knapp5 = (JButton) hendelse.getSource();
+            int index = listbox.getSelectedIndex();
+            int index2 = listbox2.getSelectedIndex();
+            System.out.println(index+" og "+ index2);
 
-                int index = listbox.getSelectedIndex();
+            if(index>=0 && index2>=0){
+                //print all info
+                String ShopName=list2.get(index2);
+                ledetekstSvar1.setText(ShopName); 
+                System.out.println(ShopName);
+
+            }
+            if(index==-1 || index2==-1){
+                showMessageDialog (null, "Chose Shoping Center and Shop", "Fail", JOptionPane.ERROR_MESSAGE);
+            }             
+        }
+    }
+    //Costumer service
+    class Knappelytter3 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp3 = (JButton) hendelse.getSource();
+            System.out.println("Costumer Service");  
+        }
+    }
+    //Close
+    class Knappelytter4 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp4 = (JButton) hendelse.getSource();
+            System.out.println("Close");
+            System.exit(0);
+
+        }
+    }
+    //Update
+    class Knappelytter5 extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+           JButton knapp5 = (JButton) hendelse.getSource();
+            int index = listbox.getSelectedIndex();
+
+            if(index>=0){
                 try{
+                    String centerName=list.get(index);
                     openConnection();
-                    list = getCenters("");
-                    defaultListModel.clear();
-                    for(int i = 0; i < list.size(); i++){
-                        defaultListModel.addElement(list.get(i));
+                    list2 = getStore(centerName);
+                    defaultListModel2.clear();
+                    for(int i = 0; i < list2.size(); i++){
+                        defaultListModel2.addElement(list2.get(i));
                     }
                     closeConnection();
                 }
@@ -223,7 +188,28 @@ class Costumer extends JFrame{
                     Database.printMesssage(e, "getCenters");
                 }
             }
+            else{
+                showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
-        
+    }
+    //automatisk oppdattering
+    class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+
+            int index = listbox.getSelectedIndex();
+            try{
+                openConnection();
+                list = getCenters("");
+                defaultListModel.clear();
+                for(int i = 0; i < list.size(); i++){
+                    defaultListModel.addElement(list.get(i));
+                }
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getCenters");
+            }
+        }
+    }    
 }
