@@ -17,7 +17,6 @@ class HovedVindu  extends JFrame{
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
-    //test
 
 
     public HovedVindu() throws IOException {
