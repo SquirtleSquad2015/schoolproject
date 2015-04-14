@@ -182,10 +182,11 @@ class Costumer extends JFrame{
             public void actionPerformed(ActionEvent hendelse) {
                JButton knapp5 = (JButton) hendelse.getSource();
                 int index = listbox.getSelectedIndex();
-                String centerName=list.get(index);
+                
                 
                 if(index>=0){
                     try{
+                        String centerName=list.get(index);
                         openConnection();
                         list2 = getStore(centerName);
                         defaultListModel2.clear();
@@ -197,7 +198,10 @@ class Costumer extends JFrame{
                     catch (Exception e){
                         Database.printMesssage(e, "getCenters");
                     }
-                }              
+                }
+                else{
+                    showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
         //automatisk oppdattering
