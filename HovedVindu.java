@@ -64,14 +64,16 @@ class HovedVindu  extends JFrame{
 
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
+        
+        Knappelytter5 lytteren5 = new Knappelytter5();
+        bildeKnapp.addActionListener(lytteren5);
     }
 
 
 
     class Knappelytter1 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
-            JButton knapp1 = (JButton) hendelse.getSource();
-            setVisible(false);
+            masterPanel.setVisible(false);
             Costumer CostumerVindu = new Costumer();
             CostumerVindu.setLocationRelativeTo(null);
             CostumerVindu.setVisible(true);
@@ -80,14 +82,10 @@ class HovedVindu  extends JFrame{
 
     class Knappelytter2 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
-            JButton knapp2 = (JButton) hendelse.getSource();
-            getContentPane().setVisible(false);
-
+            masterPanel.setVisible(false);
             Login LogInVindu = new Login();
             LogInVindu.setLocationRelativeTo(null);
             LogInVindu.setVisible(true);
-            
-
         }
     }
 
@@ -103,10 +101,18 @@ class HovedVindu  extends JFrame{
     class Knappelytter4 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp4 = (JButton) hendelse.getSource();
-            setVisible(false);
+            masterPanel.setVisible(false);
             InloggedMeny inloggedMeny  = new InloggedMeny();
             inloggedMeny.setLocationRelativeTo(null);
             inloggedMeny.setVisible(true);
+        }
+    }
+        class Knappelytter5 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            masterPanel.setVisible(false);
+            AboutUs About = new AboutUs();
+            About.setLocationRelativeTo(null);
+            About.setVisible(true);
         }
     }
 }
