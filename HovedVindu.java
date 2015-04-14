@@ -24,11 +24,12 @@ class HovedVindu  extends JFrame{
 
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,600);
+        setUndecorated(true);
+        setSize(300,415);
         
-        LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
+        LayoutManager layout1 = new GridLayout(1, 1, 0, 0);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(7, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(4, 1, 0, 0);
         panel2.setLayout(layout2);
         LayoutManager masterLayout = new BorderLayout();
         masterPanel.setLayout(masterLayout);
@@ -38,11 +39,10 @@ class HovedVindu  extends JFrame{
         
         Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
         bildeKnapp.setIcon(new ImageIcon(img));
-        bildeKnapp.setSize(300, 200);
+        bildeKnapp.setSize(300, 300);
         
           
         panel2.add(knapp1);
-        knapp1.setSize(300, 100);
         panel2.add(knapp2);
         panel2.add(knapp3);
         panel2.add(knapp4);
@@ -50,6 +50,7 @@ class HovedVindu  extends JFrame{
         masterPanel.add(panel1, BorderLayout.NORTH);
         masterPanel.add(panel2, BorderLayout.SOUTH);
         add(masterPanel);
+        
         
         
 
