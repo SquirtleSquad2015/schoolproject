@@ -4,29 +4,54 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-class HovedVindu extends JFrame {
+class HovedVindu  extends JFrame{
     private JLabel ledetekst = new JLabel("MENY",JLabel.CENTER);
+    private JButton bildeKnapp = new JButton("");
     private JButton knapp1 = new JButton("Customer");
     private JButton knapp2 = new JButton("Login");
     private JButton knapp3 = new JButton("Close");
     private JButton knapp4 = new JButton("testinloggin meny");
+    private JPanel panel1 = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JPanel masterPanel = new JPanel();
     //test
 
 
-    public HovedVindu() {
+    public HovedVindu() throws IOException {
 
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300,200);
+        setSize(300,600);
+        
+        LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
+        panel1.setLayout(layout1);
+        LayoutManager layout2 = new GridLayout(7, 2, 3, 3);
+        panel2.setLayout(layout2);
+        LayoutManager masterLayout = new BorderLayout();
+        masterPanel.setLayout(masterLayout);
 
-        setLayout(new GridLayout(5, 1,10,10));
 
-        add(ledetekst);
-        add(knapp1);
-        add(knapp2);
-        add(knapp3);
-        add(knapp4);
+        panel1.add(bildeKnapp);
+        
+        Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
+        bildeKnapp.setIcon(new ImageIcon(img));
+        bildeKnapp.setSize(300, 200);
+        
+          
+        panel2.add(knapp1);
+        knapp1.setSize(300, 100);
+        panel2.add(knapp2);
+        panel2.add(knapp3);
+        panel2.add(knapp4);
+        
+        masterPanel.add(panel1, BorderLayout.NORTH);
+        masterPanel.add(panel2, BorderLayout.SOUTH);
+        add(masterPanel);
+        
+        
 
         Knappelytter1 lytteren = new Knappelytter1();
         knapp1.addActionListener(lytteren);  // knytter lytteren til knappen
