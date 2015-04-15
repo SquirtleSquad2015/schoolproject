@@ -93,6 +93,28 @@ public class DatabaseConnection {
         }
         return svar;
     }
+    
+        public String getParking(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT car_park FROM center WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("car_park");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenters");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
  
  
     public boolean checkUsername(String userName) throws Exception{
