@@ -122,10 +122,12 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT address FROM center WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            String sqlStatement = "SELECT DISTINCT address,MUNCIPALITY FROM center WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             retur=resultSet.getString("address");
+            retur+=",   "+resultSet.getString("muncipality");
+            
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
