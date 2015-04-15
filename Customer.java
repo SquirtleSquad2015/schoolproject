@@ -189,7 +189,7 @@ class Customer extends JFrame{
                 //lokasjon (location + floor)
                 try{
                     openConnection();
-                    ledetekstSvar4.setText(getAddress(StoreName));//endre
+                    ledetekstSvar4.setText(getLocation(StoreName));//endre
                     closeConnection();
                 }
                 catch (Exception e){
