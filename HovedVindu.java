@@ -76,7 +76,7 @@ class HovedVindu  extends JFrame{
     class Knappelytter1 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             masterPanel.setVisible(false);
-            Costumer CostumerVindu = new Costumer();
+            Customer CostumerVindu = new Customer();
             CostumerVindu.setLocationRelativeTo(null);
             CostumerVindu.setVisible(true);
         }
