@@ -94,7 +94,7 @@ public class DatabaseConnection {
         return svar;
     }
     
-        public String getParking(String centername){
+    public String getParking(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
         String retur;
@@ -106,7 +106,29 @@ public class DatabaseConnection {
             retur=resultSet.getString("car_park");
         }
         catch (Exception e){
-            Database.printMesssage(e, "getCenters");
+            Database.printMesssage(e, "getParking");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+    
+    public String getAddress(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT address FROM center WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("address");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getAddress");
             retur = "Feil";
         }
         finally {
