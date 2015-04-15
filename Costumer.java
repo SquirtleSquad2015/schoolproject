@@ -16,36 +16,37 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import static javax.swing.JOptionPane.*;
-/*
-import java.util.ArrayList;
-import javax.swing.event.*;
-import static javax.swing.JOptionPane.*;
-import javax.swing.JPasswordField.*;
-*/
 
 class Costumer extends JFrame{
     private ArrayList<String> list;
     private ArrayList<String> list2;
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
-    private JLabel ledetekstSvar1 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
+    private JLabel ledetekst3 = new JLabel("Manager: navn",JLabel.CENTER);
+    private JLabel ledetekst4 = new JLabel("Parkering:",JLabel.CENTER);
+    private JLabel ledetekst5 = new JLabel("Beskrivelse:",JLabel.CENTER);
+    private JLabel ledetekst6 = new JLabel("Beskrivelse:",JLabel.CENTER);
+    private JLabel ledetekstSvar1 = new JLabel("blabal info",JLabel.CENTER);
     private JLabel ledetekstSvar2 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
     private JLabel ledetekstSvar3 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekst4 = new JLabel("Beskrivelse:",JLabel.CENTER);
-    private JLabel blank = new JLabel("",JLabel.CENTER);
+    private JLabel ledetekstSvar4 = new JLabel("blabal info",JLabel.CENTER);
     private JTextArea textArea = new JTextArea(5,5);
+    
+    private JLabel blank = new JLabel("",JLabel.CENTER);
+    
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
     private JButton knapp4 = new JButton("Close");
     private JButton knapp3 = new JButton("Costumer Service");
     private JButton knapp5 = new JButton("Update");
+    
     private JScrollPane scroll = new JScrollPane();
     private JScrollPane scroll2 = new JScrollPane();
     private DefaultListModel defaultListModel = new DefaultListModel();
     private DefaultListModel defaultListModel2 = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
     private JList listbox2 = new JList(defaultListModel2);
+    
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
@@ -58,7 +59,7 @@ class Costumer extends JFrame{
         
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(7, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(8, 2, 3, 3);
         panel2.setLayout(layout2);
         LayoutManager layout3 = new GridLayout(1, 1, 3, 3);
         panel3.setLayout(layout3);
@@ -84,8 +85,10 @@ class Costumer extends JFrame{
         panel2.add(ledetekstSvar2);
         panel2.add(ledetekst3);
         panel2.add(ledetekstSvar3);
-        textArea.setLineWrap(true);
         panel2.add(ledetekst4);
+        panel2.add(ledetekstSvar4);
+        panel2.add(ledetekst5);
+        textArea.setLineWrap(true);
         panel3.add(textArea);
 
         masterPanel.add(panel1, BorderLayout.NORTH);
@@ -113,7 +116,7 @@ class Costumer extends JFrame{
 
     }
     //Info, senter
-    class Knappelytter1 extends JFrame implements ActionListener {
+    class Knappelytter1 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp1 = (JButton) hendelse.getSource();
             int index = listbox.getSelectedIndex();
@@ -123,6 +126,16 @@ class Costumer extends JFrame{
                 String centerName=list.get(index);
                 ledetekstSvar1.setText(centerName);
                 System.out.println(centerName);
+                
+                try{
+                    openConnection();
+                    ledetekstSvar4.setText(getParking(centerName));
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
+                
             }
             if(index==-1){
                 System.out.println("Chose Shoping Center");
