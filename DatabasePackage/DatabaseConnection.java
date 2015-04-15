@@ -139,6 +139,27 @@ public class DatabaseConnection {
         }
         return retur;
     }
+    public String getStoreManager(String Storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT manager FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("manager");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoreManager");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
  
  
     public boolean checkUsername(String userName) throws Exception{
