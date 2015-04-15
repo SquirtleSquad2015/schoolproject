@@ -93,7 +93,6 @@ public class DatabaseConnection {
         }
         return svar;
     }
-    
     public String getParking(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -115,7 +114,6 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    
     public String getAddress(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -182,7 +180,6 @@ public class DatabaseConnection {
         }
         return retur;
     }
- 
     public boolean checkUsername(String userName) throws Exception{
         Statement statement = null;
         ResultSet resultSet = null;
@@ -206,7 +203,6 @@ public class DatabaseConnection {
         }
         return ok;
     }
- 
     public int regNewCenterUser(String userName, String telephone, char[] password,
                                        String centerName, String realName, String email, int userLevel, String title){
         Statement statement = null;
@@ -252,7 +248,6 @@ public class DatabaseConnection {
         }
         return ok;
     }
-
     public int checkLogIn(String username, String password){
         Statement statement = null;
         ResultSet resultSet = null;
