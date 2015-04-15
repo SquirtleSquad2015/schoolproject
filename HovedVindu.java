@@ -18,7 +18,6 @@ class HovedVindu  extends JFrame{
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
 
-
     public HovedVindu() throws IOException {
 
         setTitle("SCHMIDT");
@@ -35,11 +34,14 @@ class HovedVindu  extends JFrame{
 
 
         panel1.add(bildeKnapp);
-        
-        Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
-        bildeKnapp.setIcon(new ImageIcon(img));
-        bildeKnapp.setSize(300, 300);
-        
+        try{
+            Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
+            bildeKnapp.setIcon(new ImageIcon(img));
+            bildeKnapp.setSize(300, 300);
+        }
+        catch(IOException e){
+            System.out.println("Picture missing");
+        }
           
         panel2.add(knapp1);
         panel2.add(knapp2);
