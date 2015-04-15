@@ -160,7 +160,28 @@ public class DatabaseConnection {
         }
         return retur;
     }
- 
+    public String getLocation(String Storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT floor,location FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur="Floor:"+resultSet.getString("floor");
+            retur+=",   Location: "+resultSet.getString("location");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getAddress");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
  
     public boolean checkUsername(String userName) throws Exception{
         Statement statement = null;
