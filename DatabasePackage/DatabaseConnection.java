@@ -21,11 +21,37 @@ public class DatabaseConnection {
             //Test
         }
     }
- 
     public void closeConnection() throws Exception{
         Database.closeConnection(connection);
     }
- 
+    public boolean checkDB() throws Exception{
+        openConnection();
+        
+        Statement statement = null;
+        ResultSet resultSet = null;
+        boolean ok = false;
+        try{
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT center_name from center where LCASE(center_name) LIKE LCASE('CirCus')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            String number = resultSet.getString("center_name");
+            if(number == "Circus"){
+                ok = true;
+            }
+        }
+        catch (SQLException e){
+            Database.printMesssage(e, "CheckDB");
+        }
+        finally {
+            Database.closeResSet(resultSet);
+            Database.closeStatement(statement);
+        }
+        closeConnection();
+        return ok;
+        
+    }
+    
     public ArrayList<String> getCenters(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -47,7 +73,6 @@ public class DatabaseConnection {
         }
         return list;
     }
-    
     public ArrayList<String> getStore(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -69,7 +94,6 @@ public class DatabaseConnection {
         }
         return list;
     }
-
     public Integer getTurnoverStore(String centername, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
