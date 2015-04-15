@@ -14,9 +14,7 @@ import shoolprodject.DatabasePackage.DatabaseConnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import static javax.swing.JOptionPane.*;
 /*
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ import javax.swing.JPasswordField.*;
 */
 
 class AboutUs extends JFrame{
-    private JLabel ledetekst = new JLabel("MENY",JLabel.CENTER);
+    private JTextArea ledetekst = new JTextArea("Om oss......");
     private JButton bildeKnapp = new JButton("");
     private JButton knapp1 = new JButton("Customer");
     private JButton knapp2 = new JButton("Login");
@@ -36,7 +34,7 @@ class AboutUs extends JFrame{
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
     
-    public AboutUs() throws IOException {
+    public AboutUs(){
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -50,12 +48,8 @@ class AboutUs extends JFrame{
         masterPanel.setLayout(masterLayout);
 
 
-        panel1.add(bildeKnapp);
-        
-        Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
-        bildeKnapp.setIcon(new ImageIcon(img));
-        bildeKnapp.setSize(300, 300);
-        
+        panel1.add(ledetekst);
+
           
         panel2.add(knapp1);
         panel2.add(knapp2);
