@@ -5,7 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import shoolprodject.DatabasePackage.Database;
+import shoolprodject.DatabasePackage.DatabaseConnection;
 
 class HovedVindu  extends JFrame{
     private JLabel ledetekst = new JLabel("MENY",JLabel.CENTER);
@@ -18,7 +22,7 @@ class HovedVindu  extends JFrame{
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
 
-    public HovedVindu() throws IOException {
+    public HovedVindu()throws IOException {
 
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,6 +73,14 @@ class HovedVindu  extends JFrame{
         
         Knappelytter5 lytteren5 = new Knappelytter5();
         bildeKnapp.addActionListener(lytteren5);
+        
+        AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, lytteren6);
+        timer.start();
+        timer.setRepeats(false);
+        
+        
     }
 
 
@@ -117,4 +129,16 @@ class HovedVindu  extends JFrame{
             About.setVisible(true);
         }
     }
+    class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            boolean ok;
+            try {
+                ok =checkDB();
+            } catch (Exception e) {
+                System.out.println("feil");
+            }
+            
+            
+        }
+    }    
 }
