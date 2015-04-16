@@ -25,7 +25,6 @@ public class DatabaseConnection {
         Database.closeConnection(connection);
     }
     public boolean checkDB() throws Exception{
-        openConnection();
         
         Statement statement = null;
         ResultSet resultSet = null;
@@ -47,7 +46,6 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
             Database.closeStatement(statement);
         }
-        closeConnection();
         return ok;
         
     }
@@ -117,6 +115,48 @@ public class DatabaseConnection {
         }
         return svar;
     }
+    public String getTradeStore(String Storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT trade FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("trade");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTradeStore");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+    public String getTradeCenter(String Centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT trade FROM trade WHERE LCASE(center_name) LIKE LCASE('" + Centername + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("trade");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTradeCenter");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
     public String getParking(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -161,6 +201,27 @@ public class DatabaseConnection {
         }
         return retur;
     }
+    public String getCenterManager(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT navn FROM administration WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("navn");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterManager");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
     public String getStoreManager(String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -196,6 +257,28 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+    public String getOpenings(String Storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT DISTINCT openinghrs,openinghrs_weekend FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur="Openings:"+resultSet.getString("openinghrs");
+            retur+=",   Weekend: "+resultSet.getString("openinghrs_weekend");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getOpenings");
             retur = "Feil";
         }
         finally {
