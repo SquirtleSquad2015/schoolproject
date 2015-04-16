@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import static javax.swing.JOptionPane.showMessageDialog;
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
 
@@ -133,9 +134,12 @@ class HovedVindu  extends JFrame{
         public void actionPerformed(ActionEvent hendelse) {
             boolean ok;
             try {
+                openConnection();
                 ok =checkDB();
+                closeConnection();
             } catch (Exception e) {
-                System.out.println("feil");
+                showMessageDialog (null, "Can not find Database", "DataBase Fail", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
             }
             
             
