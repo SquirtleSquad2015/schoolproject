@@ -142,7 +142,23 @@ class Customer extends JFrame{
                     Database.printMesssage(e, "getCenters");
                 }
                 //kategori
+                try{
+                    openConnection();
+                    ledetekstSvar2.setText(getTradeCenter(centerName));
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
                 //Manager navn
+                try{
+                    openConnection();
+                    ledetekstSvar3.setText(getCenterManager(centerName));
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
                 //plassering (adresse + komune)
                 try{
                     openConnection();
@@ -185,7 +201,14 @@ class Customer extends JFrame{
                     Database.printMesssage(e, "getCenters");
                 }
                 //kategori
-                
+                try{
+                    openConnection();
+                    ledetekstSvar2.setText(getTradeStore(StoreName));
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
                 //lokasjon (location + floor)
                 try{
                     openConnection();
@@ -198,7 +221,7 @@ class Customer extends JFrame{
                 //openings
                 try{
                     openConnection();
-                    ledetekstSvar5.setText(getLocation(StoreName));
+                    ledetekstSvar5.setText(getOpenings(StoreName));
                     closeConnection();
                 }
                 catch (Exception e){
