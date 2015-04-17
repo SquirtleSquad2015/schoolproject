@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
@@ -100,17 +102,21 @@ public class InloggedMeny extends JFrame {
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
 
+        ListboxListener lytteren5 = new ListboxListener();
+        //scroll.addMouseListener(lytteren5);
+        listbox.addMouseListener(lytteren5);
+
         AutomatiskOppdatering2 lytteren6 = new AutomatiskOppdatering2();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
-        //listbox2.addAc
+
 
     }
 
 
-    class Knappelytter1 extends DatabaseConnection implements ActionListener {
+    class Knappelytter1 extends DatabaseConnection implements ActionListener{
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp1 = (JButton) hendelse.getSource();
             int index = listbox.getSelectedIndex();
@@ -164,6 +170,51 @@ public class InloggedMeny extends JFrame {
                 ledetekstSvar1.setText(svar);
             }
         }
+    }
+
+    class ListboxListener extends JFrame implements MouseListener {
+        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
+        public void actionPerformed(MouseEvent hendelse){
+
+
+            int index = listbox.getSelectedIndex();
+            int index2 = listbox2.getSelectedIndex();
+        }
+
+        @Override //finner ut hvilket center du trykket på, og henter inn stores registrert i det senteret
+        public void mouseClicked (MouseEvent hendelse) {
+            try{
+                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                String selectedCenter = listbox.getSelectedValue().toString();
+                System.out.println(selectedCenter);
+                list2 = DBconnection.getStore(selectedCenter);
+                defaultListModel2.clear();
+
+
+                for(int i = 0; i < list.size(); i++){
+                    defaultListModel2.addElement(list2.get(i));
+                }
+                DBconnection.closeConnection();
+            }
+            catch (Exception c){
+                Database.printMesssage(c, "getStoresInCenter");
+            }
+        }
+
+        //må implementeres
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
     }
 
 
