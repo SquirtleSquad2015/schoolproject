@@ -105,7 +105,7 @@ public class InloggedMeny extends JFrame {
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
-        listbox2.addAc
+        //listbox2.addAc
 
     }
 
