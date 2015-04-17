@@ -123,12 +123,59 @@ class HovedVindu  extends JFrame{
         }
     }
         class Knappelytter5 extends JFrame implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-            masterPanel.setVisible(false);
-            AboutUs About = new AboutUs();
-            About.setLocationRelativeTo(null);
-            About.setVisible(true);
-        }
+		private JTextArea ledetekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
+		private JPanel panel11 = new JPanel();
+		private JPanel masterPanel2 = new JPanel();
+		private JPanel panel22 = new JPanel();
+		private JButton aboutUsKnapp = new JButton("Return to menu");
+		private JFrame temp = new JFrame();
+
+		public void actionPerformed(ActionEvent hendelse) {
+
+			temp.setTitle("SCHMIDT");
+			temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			temp.setSize(300, 250);
+			temp.setLocationRelativeTo(null);
+
+
+
+			LayoutManager layout11 = new GridLayout(1,1,0,0);
+			LayoutManager layout22 = new GridLayout(1,3,0,0);
+			LayoutManager masterLayout2 = new BorderLayout();
+
+			panel11.setLayout(layout11);
+			panel22.setLayout(layout22);
+			masterPanel2.setLayout(masterLayout2);
+			ledetekst.setLineWrap(true);
+			ledetekst.setWrapStyleWord(true);
+			ledetekst.setEditable(false);
+			ledetekst.setOpaque(false);
+			Font font = new Font("Verdana", Font.BOLD, 15);
+			ledetekst.setFont(font);
+			panel11.add(ledetekst);
+
+			panel22.add(aboutUsKnapp);
+
+
+			masterPanel2.add(panel11, BorderLayout.NORTH);
+			masterPanel2.add(panel22, BorderLayout.CENTER);
+
+
+			temp.add(masterPanel2);
+
+			temp.setVisible(true);
+
+			Knappelytter6 lytteren6 = new Knappelytter6();
+			aboutUsKnapp.addActionListener(lytteren6);
+		}
+
+		class Knappelytter6 extends JFrame implements ActionListener {
+			public void actionPerformed(ActionEvent hendelse) {
+				JButton aboutUsKnapp = (JButton) hendelse.getSource();
+				temp.dispose();
+			}
+		}
+	}
     }
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
