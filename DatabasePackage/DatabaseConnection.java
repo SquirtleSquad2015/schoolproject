@@ -310,6 +310,7 @@ public class DatabaseConnection {
         }
         return ok;
     }
+ 
     public int regNewCenterUser(String userName, String telephone, char[] password,
                                        String centerName, String realName, String email, int userLevel, String title){
         Statement statement = null;
@@ -355,6 +356,7 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
     public int checkLogIn(String username, String password){
         Statement statement = null;
         ResultSet resultSet = null;
