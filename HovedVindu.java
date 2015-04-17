@@ -40,7 +40,7 @@ class HovedVindu  extends JFrame{
 
         panel1.add(bildeKnapp);
         try{
-            Image img = ImageIO.read(getClass().getResource("bilde/bilde.png"));
+            Image img = ImageIO.read(getClass().getResource("bilde/SCHMIDT.png"));
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }
@@ -176,6 +176,7 @@ class HovedVindu  extends JFrame{
 			}
 		}
 	}
+    
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             boolean ok;
