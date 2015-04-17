@@ -378,4 +378,254 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public ArrayList<String> customerServiceGetTitle(String title, String center_name, char solved){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlSubject = "SELECT subject from customer_service where LCASE(subject) LIKE LCASE('" + title + "%')" +
+                    "AND center_name='" + center_name +"' AND solved='" + solved +"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            while(resultSet.next()){
+                System.out.println(resultSet.getString("subject"));
+                list.add(resultSet.getString("subject"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "customerServiceGetTitle");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+    public String getCenter(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String center = "";
+        try {
+            String sqlSubject = "SELECT DISTINCT center_name from administration where username='" + username + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            center = resultSet.getString("center_name");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "customerServiceGetCenter");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return center;
+    }
+
+    public ArrayList<Integer> getCustomerCaseID(String title, String center_name, char solved){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        try {
+            String sqlSubject = "SELECT DISTINCT customer_case_ID from customer_service where LCASE(subject) LIKE LCASE('" + title + "%')" +
+                    "AND center_name='" + center_name +"' AND solved='" + solved + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            while(resultSet.next()){
+                list.add(resultSet.getInt("customer_case_ID"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "customerServiceGetTitle");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+    public String getDescription(int caseID){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String question = "";
+        try {
+            String sqlSubject = "SELECT DISTINCT question from customer_service where customer_case_ID="+ caseID;
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            question = resultSet.getString("question");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "customerServiceGetCenter");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return question;
+    }
+    public int setAnswer(String answer, int caseID){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "UPDATE customer_service SET answer='"+answer+"', solved='y' WHERE customer_case_ID="+caseID;
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setAnswer");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deleteCustomerCase(int caseID){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "DELETE FROM customer_service WHERE customer_case_ID="+caseID;
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setAnswer");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public String getEmail(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String email = "";
+        try {
+            String sqlSubject = "SELECT DISTINCT email from administration where username='"+ username+"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            email = resultSet.getString("email");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getEmail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return email;
+    }
+
+    public String getPhoneNumber(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String phoneNumber = "";
+        try {
+            String sqlSubject = "SELECT DISTINCT tlf from administration where username='"+ username+"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            phoneNumber = resultSet.getString("tlf");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTlf");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return phoneNumber;
+    }
+    public int setEmail(String email, String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "UPDATE administration SET email='"+email+"' WHERE username='"+username +"'";
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setEmail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int setPhoneNumber(String phoneNumber, String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sqlcheckPhoneNumber = "SELECT COUNT(tlf) as tlf from administration where tlf='"+phoneNumber + "'";
+            String sqlUpdatePhoneNumber = "UPDATE administration SET tlf='"+phoneNumber+"' WHERE username='"+username +"'";
+            resultSet = statement.executeQuery(sqlcheckPhoneNumber);
+            resultSet.next();
+            ok = resultSet.getInt("tlf");
+            if(ok == 0){
+                statement.executeUpdate(sqlUpdatePhoneNumber);
+                ok = 0;
+            } else {
+                return ok;
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setEmail");
+        }
+        finally {
+            Database.settAutoCommit(connection);
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    
+    public int setCenterMail(String newMail, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdateCenterMail = "UPDATE center SET email='"+newMail+"' WHERE center_name='"+centerName +"'";
+            ok = statement.executeUpdate(sqlUpdateCenterMail);
+            System.out.println(ok);
+            }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int setCenterPhoneNumber(String newPhoneNumber, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdateCenterMail = "UPDATE center SET tlf='"+newPhoneNumber+"' WHERE center_name='"+centerName +"'";
+            ok = statement.executeUpdate(sqlUpdateCenterMail);
+            System.out.println(ok);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterPhoneNumber");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    
 }
