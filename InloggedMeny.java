@@ -191,7 +191,7 @@ public class InloggedMeny extends JFrame {
                 defaultListModel2.clear();
 
 
-                for(int i = 0; i < list.size(); i++){
+                for(int i = 0; i < list2.size(); i++){
                     defaultListModel2.addElement(list2.get(i));
                 }
                 DBconnection.closeConnection();

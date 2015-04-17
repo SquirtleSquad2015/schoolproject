@@ -51,6 +51,8 @@ class Costumer extends JFrame{
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
     private JPanel masterPanel = new JPanel();
+
+
     
     public Costumer() {
         setTitle("Costumer");
@@ -107,6 +109,8 @@ class Costumer extends JFrame{
         knapp4.addActionListener(lytteren4);
         Knappelytter5 lytteren5 = new Knappelytter5();
         knapp5.addActionListener(lytteren5);
+        ListboxListener lytteren7 = new ListboxListener();
+        listbox.addMouseListener(lytteren7);
 
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
@@ -205,6 +209,43 @@ class Costumer extends JFrame{
                 showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    //oppdatering av store  ved trykk i listbox
+    class ListboxListener extends JFrame implements MouseListener {
+        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
+        public void actionPerformed(MouseEvent hendelse){
+        }
+
+        @Override //finner ut hvilket center du trykket på, og henter inn stores registrert i det senteret
+        public void mouseClicked (MouseEvent hendelse) {
+            try{
+                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                String selectedCenter = listbox.getSelectedValue().toString();
+                System.out.println(selectedCenter);
+                list2 = DBconnection.getStore(selectedCenter);
+                defaultListModel2.clear();
+
+                for(int i = 0; i < list2.size(); i++){
+                    defaultListModel2.addElement(list2.get(i));
+                }
+                DBconnection.closeConnection();
+            }
+            catch (Exception c){
+                Database.printMesssage(c, "getStoresInCenter");
+            }
+        }
+
+        //må implementeres
+        @Override
+        public void mousePressed(MouseEvent e){}
+        @Override
+        public void mouseReleased(MouseEvent e){}
+        @Override
+        public void mouseEntered(MouseEvent e){
+            System.out.println(this);
+        }
+        @Override
+        public void mouseExited(MouseEvent e){}
     }
     //automatisk oppdattering
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
