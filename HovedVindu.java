@@ -94,13 +94,13 @@ class HovedVindu  extends JFrame {
             JButton check = (JButton) source.getSource();
             
             if (check == knapp1){
-                masterPanel.setVisible(false);
-                Customer CostumerVindu = new Customer();
+                setVisible(false);
+                Customer CostumerVindu = new Customer();    
                 CostumerVindu.setLocationRelativeTo(null);
                 CostumerVindu.setVisible(true);
                 setVisible(false);
             } else if (check == knapp2){
-                masterPanel.setVisible(false);
+                setVisible(false);
                 Login LogInVindu = new Login();
                 LogInVindu.setLocationRelativeTo(null);
                 LogInVindu.setVisible(true);
@@ -108,7 +108,7 @@ class HovedVindu  extends JFrame {
                 System.out.println("Close");
                 System.exit(0);
             } else if (check == knapp4){
-                masterPanel.setVisible(false);
+                setVisible(false);
                 InloggedMeny inloggedMeny  = new InloggedMeny();
                 inloggedMeny.setLocationRelativeTo(null);
                 inloggedMeny.setVisible(true);
