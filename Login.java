@@ -49,7 +49,6 @@ class Login extends JFrame{
 
     }
     
-
         class Knappelytter1 extends DatabaseConnection implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 int ok = 0;
@@ -75,11 +74,15 @@ class Login extends JFrame{
                     showMessageDialog (null, "Incorrect Password or Username", "Login fail", JOptionPane.ERROR_MESSAGE); 
                 }
                 if(ok > 0){//login
-                    Menu  MenuVindu = new Menu();
+                    /*Menu  MenuVindu = new Menu();
                     MenuVindu.setVisible(true);
-                    System.out.println(ok);
+                    System.out.println(ok);*/
                     if(ok == 1){
-                        System.out.println("Access level 1");
+                        CustomerServiceMenu customerServiceMenu = new CustomerServiceMenu(bruker);
+                        customerServiceMenu.setVisible(true);
+                        customerServiceMenu.setLocationRelativeTo(null);
+                        dispose();
+                        //System.out.println("Access level 1");
                     }
                     else if(ok == 2){
                         System.out.println("Access level 2");
