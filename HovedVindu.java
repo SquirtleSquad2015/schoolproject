@@ -176,7 +176,6 @@ class HovedVindu  extends JFrame{
 			}
 		}
 	}
-    }
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             boolean ok;
@@ -191,5 +190,5 @@ class HovedVindu  extends JFrame{
             
             
         }
-    }    
+    } 
 }
