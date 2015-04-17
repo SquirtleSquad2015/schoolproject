@@ -22,6 +22,12 @@ class HovedVindu  extends JFrame {
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
+    private JTextArea omOssTekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
+    private JPanel panel11 = new JPanel();
+    private JPanel masterPanel2 = new JPanel();
+    private JPanel panel22 = new JPanel();
+    private JButton aboutUsKnapp = new JButton("Return to menu");
+    private JFrame temp = new JFrame();
     
 
     public HovedVindu()throws IOException {
@@ -56,126 +62,103 @@ class HovedVindu  extends JFrame {
         masterPanel.add(panel1, BorderLayout.NORTH);
         masterPanel.add(panel2, BorderLayout.SOUTH);
         add(masterPanel);
-        
-        
-        
-
-        Knappelytter1 lytteren = new Knappelytter1();
-        knapp1.addActionListener(lytteren);  // knytter lytteren til knappen
-
-        Knappelytter2 lytteren2 = new Knappelytter2();
-        knapp2.addActionListener(lytteren2);
-
-        Knappelytter3 lytteren3 = new Knappelytter3();
-        knapp3.addActionListener(lytteren3);
-
-        Knappelytter4 lytteren4 = new Knappelytter4();
-        knapp4.addActionListener(lytteren4);
-        
-        Knappelytter5 lytteren5 = new Knappelytter5();
-        bildeKnapp.addActionListener(lytteren5);
+        Action action = new Action();
+        knapp1.addActionListener(action);
+        knapp2.addActionListener(action);
+        knapp3.addActionListener(action);
+        knapp4.addActionListener(action);
+        bildeKnapp.addActionListener(action);
         
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
-        
-        
-    }
-    class Knappelytter1 implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-            masterPanel.setVisible(false);
-            Customer CostumerVindu = new Customer();
-            CostumerVindu.setLocationRelativeTo(null);
-            CostumerVindu.setVisible(true);
-            setVisible(false);
-        }
-    }
-    class Knappelytter2 implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-            masterPanel.setVisible(false);
-            Login LogInVindu = new Login();
-            LogInVindu.setLocationRelativeTo(null);
-            LogInVindu.setVisible(true);
-        }
-    }
-    class Knappelytter3 implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-            JButton knapp3 = (JButton) hendelse.getSource();
-            System.out.println("Close");
-            System.exit(0);
-
-        }
-    }
-    class Knappelytter4 implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-            JButton knapp4 = (JButton) hendelse.getSource();
-            masterPanel.setVisible(false);
-            InloggedMeny inloggedMeny  = new InloggedMeny();
-            inloggedMeny.setLocationRelativeTo(null);
-            inloggedMeny.setVisible(true);
-        }
-    }
-    class Knappelytter5 implements ActionListener {
-	private JTextArea ledetekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
-	private JPanel panel11 = new JPanel();
-	private JPanel masterPanel2 = new JPanel();
-	private JPanel panel22 = new JPanel();
-	private JButton aboutUsKnapp = new JButton("Return to menu");
-	private JFrame temp = new JFrame();
-	public void actionPerformed(ActionEvent hendelse) {
-            setVisible(false);
-            temp.setTitle("SCHMIDT");
-            temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            temp.setSize(300, 250);
-            temp.setLocationRelativeTo(null);
-                
-
-
-            LayoutManager layout11 = new GridLayout(1,1,0,0);
-            LayoutManager layout22 = new GridLayout(1,3,0,0);
-            LayoutManager masterLayout2 = new BorderLayout();
-            panel11.setLayout(layout11);
-            panel22.setLayout(layout22);
-            masterPanel2.setLayout(masterLayout2);
-            ledetekst.setLineWrap(true);
-            ledetekst.setWrapStyleWord(true);
-            ledetekst.setEditable(false);
-            ledetekst.setOpaque(false);
-            Font font = new Font("Verdana", Font.BOLD, 15);
-            ledetekst.setFont(font);
-            panel11.add(ledetekst);
-            panel22.add(aboutUsKnapp);
-
-
-            masterPanel2.add(panel11, BorderLayout.NORTH);
-            masterPanel2.add(panel22, BorderLayout.CENTER);
-
-            temp.add(masterPanel2);
-            setVisible(false);
-            temp.setVisible(true);
-            Knappelytter6 lytteren6 = new Knappelytter6();
-            aboutUsKnapp.addActionListener(lytteren6);
-	}
-
-	class Knappelytter6 implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-		JButton aboutUsKnapp = (JButton) hendelse.getSource();
-                setVisible(true);
-		temp.dispose();
-                                
-            }
-	}
     }
     
+    
+    private class action2 implements ActionListener {
+     
+        @Override
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton aboutUsKnapp = (JButton) hendelse.getSource();
+            setVisible(true);
+            temp.dispose();
+                                
+        }
+    }  
+    private class Action extends DatabaseConnection implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent source){
+            JButton check = (JButton) source.getSource();
+            
+            if (check == knapp1){
+                setVisible(false);
+                Customer CostumerVindu = new Customer();    
+                CostumerVindu.setLocationRelativeTo(null);
+                CostumerVindu.setVisible(true);
+                setVisible(false);
+            } else if (check == knapp2){
+                setVisible(false);
+                Login LogInVindu = new Login();
+                LogInVindu.setLocationRelativeTo(null);
+                LogInVindu.setVisible(true);
+            } else if (check == knapp3){
+                System.out.println("Close");
+                System.exit(0);
+            } else if (check == knapp4){
+                setVisible(false);
+                InloggedMeny inloggedMeny  = new InloggedMeny();
+                inloggedMeny.setLocationRelativeTo(null);
+                inloggedMeny.setVisible(true);
+            } else if (check == bildeKnapp){
+                setVisible(false);
+                temp.setTitle("SCHMIDT");
+                temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                temp.setSize(300, 250);
+                temp.setLocationRelativeTo(null);
+
+
+
+                LayoutManager layout11 = new GridLayout(1,1,0,0);
+                LayoutManager layout22 = new GridLayout(1,3,0,0);
+                LayoutManager masterLayout2 = new BorderLayout();
+                panel11.setLayout(layout11);
+                panel22.setLayout(layout22);
+                masterPanel2.setLayout(masterLayout2);
+                omOssTekst.setLineWrap(true);
+                omOssTekst.setWrapStyleWord(true);
+                omOssTekst.setEditable(false);
+                omOssTekst.setOpaque(false);
+                Font font = new Font("Verdana", Font.BOLD, 15);
+                omOssTekst.setFont(font);
+                panel11.add(omOssTekst);
+                panel22.add(aboutUsKnapp);
+
+
+                masterPanel2.add(panel11, BorderLayout.NORTH);
+                masterPanel2.add(panel22, BorderLayout.CENTER);
+
+                temp.add(masterPanel2);
+                setVisible(false);
+                temp.setVisible(true);
+                action2 action2 = new action2();
+                aboutUsKnapp.addActionListener(action2);
+            }
+        }
+    }
+
+   
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent hendelse) {
             boolean ok;
             try {
                 openConnection();
                 ok =checkDB();
                 closeConnection();
+                showMessageDialog (null, "You are connected to the DataBase", "DataBase Connected", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 showMessageDialog (null, "Can not find Database", "DataBase Fail", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
