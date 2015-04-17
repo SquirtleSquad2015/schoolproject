@@ -14,8 +14,8 @@ public class DatabaseConnection {
  
     public void openConnection() throws Exception{
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/KjøpesenterTest");
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://mysql.stud.aitel.hist.no:3306/14hing06","14hing06","Aiz3ee");
         } catch (Exception e){
             Database.printMesssage(e, "Konstruktør");
             //Test
@@ -31,11 +31,11 @@ public class DatabaseConnection {
         boolean ok = false;
         try{
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT center_name from center where LCASE(center_name) LIKE LCASE('CirCus')";
+            String sqlStatement = "SELECT DISTINCT Username from Users where LCASE(Username) LIKE LCASE('martpe')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            String number = resultSet.getString("center_name");
-            if(number == "Circus"){
+            String number = resultSet.getString("Username");
+            if(number == "martpe"){
                 ok = true;
             }
         }
