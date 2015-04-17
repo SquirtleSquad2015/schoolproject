@@ -68,6 +68,12 @@ class HovedVindu  extends JFrame {
         knapp3.addActionListener(action);
         knapp4.addActionListener(action);
         bildeKnapp.addActionListener(action);
+        
+        AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, lytteren6);
+        timer.start();
+        timer.setRepeats(false);
     }
     
     
@@ -145,6 +151,7 @@ class HovedVindu  extends JFrame {
 
    
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent hendelse) {
             boolean ok;
             try {
