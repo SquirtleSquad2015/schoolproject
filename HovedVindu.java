@@ -176,6 +176,7 @@ class HovedVindu  extends JFrame {
                 openConnection();
                 ok =checkDB();
                 closeConnection();
+                showMessageDialog (null, "You are connected to the DataBase", "DataBase Connected", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 showMessageDialog (null, "Can not find Database", "DataBase Fail", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
