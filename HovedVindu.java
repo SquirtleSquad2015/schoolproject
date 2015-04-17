@@ -12,7 +12,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
 
-class HovedVindu  extends JFrame{
+class HovedVindu  extends JFrame {
     private JLabel ledetekst = new JLabel("MENY",JLabel.CENTER);
     private JButton bildeKnapp = new JButton("");
     private JButton knapp1 = new JButton("Customer");
@@ -22,6 +22,7 @@ class HovedVindu  extends JFrame{
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
+    
 
     public HovedVindu()throws IOException {
 
@@ -29,7 +30,6 @@ class HovedVindu  extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setSize(300,415);
-        
         LayoutManager layout1 = new GridLayout(1, 1, 0, 0);
         panel1.setLayout(layout1);
         LayoutManager layout2 = new GridLayout(4, 1, 0, 0);
@@ -83,19 +83,16 @@ class HovedVindu  extends JFrame{
         
         
     }
-
-
-
-    class Knappelytter1 extends JFrame implements ActionListener {
+    class Knappelytter1 implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             masterPanel.setVisible(false);
             Customer CostumerVindu = new Customer();
             CostumerVindu.setLocationRelativeTo(null);
             CostumerVindu.setVisible(true);
+            setVisible(false);
         }
     }
-
-    class Knappelytter2 extends JFrame implements ActionListener {
+    class Knappelytter2 implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             masterPanel.setVisible(false);
             Login LogInVindu = new Login();
@@ -103,8 +100,7 @@ class HovedVindu  extends JFrame{
             LogInVindu.setVisible(true);
         }
     }
-
-    class Knappelytter3 extends JFrame implements ActionListener {
+    class Knappelytter3 implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp3 = (JButton) hendelse.getSource();
             System.out.println("Close");
@@ -112,8 +108,7 @@ class HovedVindu  extends JFrame{
 
         }
     }
-
-    class Knappelytter4 extends JFrame implements ActionListener {
+    class Knappelytter4 implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp4 = (JButton) hendelse.getSource();
             masterPanel.setVisible(false);
@@ -122,60 +117,57 @@ class HovedVindu  extends JFrame{
             inloggedMeny.setVisible(true);
         }
     }
-        class Knappelytter5 extends JFrame implements ActionListener {
-		private JTextArea ledetekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
-		private JPanel panel11 = new JPanel();
-		private JPanel masterPanel2 = new JPanel();
-		private JPanel panel22 = new JPanel();
-		private JButton aboutUsKnapp = new JButton("Return to menu");
-		private JFrame temp = new JFrame();
-
-		public void actionPerformed(ActionEvent hendelse) {
-
-			temp.setTitle("SCHMIDT");
-			temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			temp.setSize(300, 250);
-			temp.setLocationRelativeTo(null);
-
-
-
-			LayoutManager layout11 = new GridLayout(1,1,0,0);
-			LayoutManager layout22 = new GridLayout(1,3,0,0);
-			LayoutManager masterLayout2 = new BorderLayout();
-
-			panel11.setLayout(layout11);
-			panel22.setLayout(layout22);
-			masterPanel2.setLayout(masterLayout2);
-			ledetekst.setLineWrap(true);
-			ledetekst.setWrapStyleWord(true);
-			ledetekst.setEditable(false);
-			ledetekst.setOpaque(false);
-			Font font = new Font("Verdana", Font.BOLD, 15);
-			ledetekst.setFont(font);
-			panel11.add(ledetekst);
-
-			panel22.add(aboutUsKnapp);
+    class Knappelytter5 implements ActionListener {
+	private JTextArea ledetekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
+	private JPanel panel11 = new JPanel();
+	private JPanel masterPanel2 = new JPanel();
+	private JPanel panel22 = new JPanel();
+	private JButton aboutUsKnapp = new JButton("Return to menu");
+	private JFrame temp = new JFrame();
+	public void actionPerformed(ActionEvent hendelse) {
+            setVisible(false);
+            temp.setTitle("SCHMIDT");
+            temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            temp.setSize(300, 250);
+            temp.setLocationRelativeTo(null);
+                
 
 
-			masterPanel2.add(panel11, BorderLayout.NORTH);
-			masterPanel2.add(panel22, BorderLayout.CENTER);
+            LayoutManager layout11 = new GridLayout(1,1,0,0);
+            LayoutManager layout22 = new GridLayout(1,3,0,0);
+            LayoutManager masterLayout2 = new BorderLayout();
+            panel11.setLayout(layout11);
+            panel22.setLayout(layout22);
+            masterPanel2.setLayout(masterLayout2);
+            ledetekst.setLineWrap(true);
+            ledetekst.setWrapStyleWord(true);
+            ledetekst.setEditable(false);
+            ledetekst.setOpaque(false);
+            Font font = new Font("Verdana", Font.BOLD, 15);
+            ledetekst.setFont(font);
+            panel11.add(ledetekst);
+            panel22.add(aboutUsKnapp);
 
 
-			temp.add(masterPanel2);
+            masterPanel2.add(panel11, BorderLayout.NORTH);
+            masterPanel2.add(panel22, BorderLayout.CENTER);
 
-			temp.setVisible(true);
-
-			Knappelytter6 lytteren6 = new Knappelytter6();
-			aboutUsKnapp.addActionListener(lytteren6);
-		}
-
-		class Knappelytter6 extends JFrame implements ActionListener {
-			public void actionPerformed(ActionEvent hendelse) {
-				JButton aboutUsKnapp = (JButton) hendelse.getSource();
-				temp.dispose();
-			}
-		}
+            temp.add(masterPanel2);
+            setVisible(false);
+            temp.setVisible(true);
+            Knappelytter6 lytteren6 = new Knappelytter6();
+            aboutUsKnapp.addActionListener(lytteren6);
 	}
+
+	class Knappelytter6 implements ActionListener {
+            public void actionPerformed(ActionEvent hendelse) {
+		JButton aboutUsKnapp = (JButton) hendelse.getSource();
+                setVisible(true);
+		temp.dispose();
+                                
+            }
+	}
+    }
     
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
