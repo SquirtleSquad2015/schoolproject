@@ -46,7 +46,7 @@ class HovedVindu  extends JFrame {
 
         panel1.add(bildeKnapp);
         try{
-            Image img = ImageIO.read(getClass().getResource("/bilde/SCHMIDT.png"));
+            Image img = ImageIO.read(getClass().getResource("bilde/SCHMIDT.png"));
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }
