@@ -22,7 +22,7 @@ class Customer extends JFrame{
     private ArrayList<String> list2;
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
-    private JLabel ledetekst3 = new JLabel("Manager: navn",JLabel.CENTER);
+    private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("..",JLabel.CENTER);
     private JLabel ledetekst5 = new JLabel("..",JLabel.CENTER);
     private JLabel ledetekst6 = new JLabel("Beskrivelse:",JLabel.CENTER);
@@ -112,6 +112,8 @@ class Customer extends JFrame{
         knapp5.addActionListener(lytteren5);
         ListboxListener lytteren7 = new ListboxListener();
         listbox.addMouseListener(lytteren7);
+        ListboxListener2 lytteren8 = new ListboxListener2();
+        listbox2.addMouseListener(lytteren8);
 
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
@@ -184,6 +186,7 @@ class Customer extends JFrame{
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp2 = (JButton) hendelse.getSource();
             int index = listbox2.getSelectedIndex();
+            int index2 = listbox.getSelectedIndex();
             ledetekst4.setText("Location:");
             ledetekst5.setText("Openings:");
             
@@ -191,12 +194,13 @@ class Customer extends JFrame{
             //print all info
                 //navn
                 String StoreName=list2.get(index);
+                String CenterName=list.get(index2);
                 ledetekstSvar1.setText(StoreName);
                 System.out.println(StoreName);
                 //manager navn
                 try{
                     openConnection();
-                    ledetekstSvar3.setText(getStoreManager(StoreName));
+                    ledetekstSvar3.setText(getStoreManager(CenterName,StoreName));
                     closeConnection();
                 }
                 catch (Exception e){
@@ -316,6 +320,50 @@ class Customer extends JFrame{
         @Override
         public void mouseExited(MouseEvent e){}
     }
+
+
+    class ListboxListener2 extends JFrame implements MouseListener {
+        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
+        public void actionPerformed(MouseEvent hendelse){
+        }
+
+        @Override //finner ut hvilken store du trykket på, og henter inn turnover registrert på storen
+        public void mouseClicked (MouseEvent hendelse) {
+            try {
+                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                String selectedCenter = listbox.getSelectedValue().toString();
+                String selectedStore = listbox2.getSelectedValue().toString();
+                //int index = listbox2.getSelectedIndex();
+                ledetekst4.setText("Location:");
+                ledetekst5.setText("Openings:");
+                //String StoreName=list2.get(index);
+                ledetekstSvar1.setText(selectedStore);
+                System.out.println(selectedStore);
+                String Uname = DBconnection.getStoreManager(selectedCenter,selectedStore);
+                ledetekstSvar3.setText(DBconnection.getPersonName(Uname));
+                ledetekstSvar2.setText(DBconnection.getTradeStore(selectedStore));
+                ledetekstSvar4.setText(DBconnection.getLocation(selectedStore));
+                ledetekstSvar5.setText(DBconnection.getOpenings(selectedStore));
+                DBconnection.closeConnection();
+
+            }catch (Exception c){
+                Database.printMesssage(c, "getStoreinCenterInfo");
+            }
+
+        }
+
+        //må være med
+        @Override
+        public void mousePressed(MouseEvent e) {}
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+        @Override
+        public void mouseExited(MouseEvent e) {}
+    }
+
+
     //automatisk oppdattering
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {

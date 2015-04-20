@@ -45,8 +45,7 @@ class Login extends JFrame{
         Knappelytter3 lytteren3 = new Knappelytter3();
         knapp3.addActionListener(lytteren3);
         
-        pack();	 
-
+        pack();
     }
     
         class Knappelytter1 extends DatabaseConnection implements ActionListener {

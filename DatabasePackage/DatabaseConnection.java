@@ -222,16 +222,16 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public String getStoreManager(String Storename){
+    public String getStoreManager(String centername,String storename){
         Statement statement = null;
         ResultSet resultSet = null;
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT manager FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            String sqlStatement = "SELECT username from store where LCASE(store_name) LIKE LCASE('" + storename + "%') AND LCASE(center_name) LIKE LCASE('" + centername + "')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("manager");
+            retur=resultSet.getString("username");
         }
         catch (Exception e){
             Database.printMesssage(e, "getStoreManager");
@@ -243,6 +243,29 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    public String getPersonName(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement= "SELECT navn from person where LCASE(username) LIKE LCASE ('"+ username +"%')";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+            retur=resultSet.getString("Navn");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getPersonName");
+            retur = "Feil";
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+
     public String getLocation(String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
