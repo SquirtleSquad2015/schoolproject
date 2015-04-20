@@ -22,7 +22,7 @@ class Customer extends JFrame{
     private ArrayList<String> list2;
     private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
-    private JLabel ledetekst3 = new JLabel("Manager:",JLabel.CENTER);
+    private JLabel ledetekst3 = new JLabel("Manager: navn",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("..",JLabel.CENTER);
     private JLabel ledetekst5 = new JLabel("..",JLabel.CENTER);
     private JLabel ledetekst6 = new JLabel("Beskrivelse:",JLabel.CENTER);
@@ -200,7 +200,7 @@ class Customer extends JFrame{
                 //manager navn
                 try{
                     openConnection();
-                    ledetekstSvar3.setText(getStoreManager(CenterName,StoreName));
+                    ledetekstSvar3.setText(getStoreManager(StoreName));
                     closeConnection();
                 }
                 catch (Exception e){
