@@ -275,8 +275,8 @@ public class DatabaseConnection {
             String sqlStatement = "SELECT DISTINCT floor,location FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur="Floor:"+resultSet.getString("floor");
-            retur+=",   Location: "+resultSet.getString("location");
+            retur="Floor "+resultSet.getString("floor");
+            retur+=", "+resultSet.getString("location");
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
@@ -288,17 +288,17 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public String getOpenings(String Storename){
+    public String getOpenings(String centerName,String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT openinghrs,openinghrs_weekend FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "')";
+            String sqlStatement = "SELECT DISTINCT openinghrs,openinghrs_weekends FROM store WHERE LCASE(store_name) LIKE LCASE('" + Storename + "') AND LCASE(center_name) LIKE LCASE('" + centerName + "')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur="Openings:"+resultSet.getString("openinghrs");
-            retur+=",   Weekend: "+resultSet.getString("openinghrs_weekend");
+            retur=resultSet.getString("openinghrs");
+            retur+=",   Weekends: "+resultSet.getString("openinghrs_weekends");
         }
         catch (Exception e){
             Database.printMesssage(e, "getOpenings");
@@ -446,6 +446,140 @@ public class DatabaseConnection {
         }
         return center;
     }
+
+    public String getNoOfShops(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String no_of_shops ="";
+
+        try {
+            String sqlSubject = "SELECT nr_shops from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            no_of_shops = resultSet.getString("nr_shops");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getNoOfShops");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return no_of_shops;
+    }
+
+    public String getSQM(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String SQM ="";
+
+        try {
+            String sqlSubject = "SELECT sqm from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            SQM = resultSet.getString("sqm");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getSQM");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return SQM;
+    }
+
+    public String getCenterTelephone(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String tlf ="";
+
+        try {
+            String sqlSubject = "SELECT tlf from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            tlf = resultSet.getString("tlf");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterTelephone");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return tlf;
+    }
+
+    public String getCenterMail(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String email ="";
+
+        try {
+            String sqlSubject = "SELECT mail from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            email = resultSet.getString("mail");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return email;
+    }
+
+    public String getCenterParking(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String parking ="";
+
+        try {
+            String sqlSubject = "SELECT car_park from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            parking = resultSet.getString("car_park");
+
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterParking");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return parking;
+    }
+
+    public String getCenterDescription(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String description ="";
+
+        try {
+            String sqlSubject = "SELECT description from center where center_name='" + centername + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlSubject);
+            resultSet.next();
+            description = resultSet.getString("description");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return description;
+    }
+
 
     public ArrayList<Integer> getCustomerCaseID(String title, String center_name, char solved){
         Statement statement = null;
@@ -792,12 +926,12 @@ public class DatabaseConnection {
         }
         return shopTurnover;
     }
-    public String getShopDescription(String trade){
+    public String getShopDescription(String centerName, String storeName){
         Statement statement = null;
         ResultSet resultSet = null;
         String shopDescription = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT description from trade where trade='"+ trade +"'";
+            String sqlGetShop = "SELECT DISTINCT description FROM store WHERE LCASE(store_name) LIKE LCASE('" + storeName + "') AND LCASE(center_name) LIKE LCASE('" + centerName + "')";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();

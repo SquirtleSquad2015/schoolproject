@@ -11,6 +11,8 @@ package shoolprodject;
  */
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
+import system.Center;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,25 +22,27 @@ import static javax.swing.JOptionPane.*;
 class Customer extends JFrame{
     private ArrayList<String> list;
     private ArrayList<String> list2;
-    private JLabel ledetekst1 = new JLabel("Navn:",JLabel.CENTER);
-    private JLabel ledetekst2 = new JLabel("Kategori:",JLabel.CENTER);
-    private JLabel ledetekst3 = new JLabel("Manager: navn",JLabel.CENTER);
+    private JLabel ledetekst1 = new JLabel("Name",JLabel.CENTER);
+    private JLabel ledetekst2 = new JLabel("Trade",JLabel.CENTER);
+    private JLabel ledetekst3 = new JLabel("Manager name",JLabel.CENTER);
     private JLabel ledetekst4 = new JLabel("..",JLabel.CENTER);
     private JLabel ledetekst5 = new JLabel("..",JLabel.CENTER);
-    private JLabel ledetekst6 = new JLabel("Beskrivelse:",JLabel.CENTER);
-    private JLabel ledetekstSvar1 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekstSvar2 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekstSvar3 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekstSvar4 = new JLabel("blabal info",JLabel.CENTER);
-    private JLabel ledetekstSvar5 = new JLabel("blabal info",JLabel.CENTER);
+    private JLabel ledetekst6 = new JLabel("Description:",JLabel.CENTER);
+    private JLabel ledetekstSvar1 = new JLabel("",JLabel.CENTER);
+    private JLabel ledetekstSvar2 = new JLabel("",JLabel.CENTER);
+    private JLabel ledetekstSvar3 = new JLabel("",JLabel.CENTER);
+    private JLabel ledetekstSvar4 = new JLabel("",JLabel.CENTER);
+    private JLabel ledetekstSvar5 = new JLabel("",JLabel.CENTER);
+    private JLabel filler = new JLabel("",JLabel.CENTER);
+
     private JTextArea textArea = new JTextArea(5,5);
     
     private JLabel blank = new JLabel("",JLabel.CENTER);
     
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
-    private JButton knapp4 = new JButton("Close");
-    private JButton knapp3 = new JButton("Costumer Service");
+    private JButton knapp4 = new JButton("Back");
+    private JButton knapp3 = new JButton("Customer Service");
     private JButton knapp5 = new JButton("Update");
     
     private JScrollPane scroll = new JScrollPane();
@@ -74,11 +78,12 @@ class Customer extends JFrame{
         panel1.add(scroll, BorderLayout.CENTER);
         panel1.add(scroll2, BorderLayout.CENTER);
         
-        panel2.add(knapp1);
-        panel2.add(knapp2);
+        //panel2.add(knapp1);
+        //panel2.add(knapp2);
         panel2.add(knapp3);
         panel2.add(knapp4);
-        panel2.add(knapp5);
+        panel2.add(filler);
+       // panel2.add(knapp5);
         panel2.add(blank);
         panel2.add(ledetekst1);
         panel2.add(ledetekstSvar1);
@@ -91,6 +96,7 @@ class Customer extends JFrame{
         panel2.add(ledetekst5);
         panel2.add(ledetekstSvar5);
         panel2.add(ledetekst6);
+        //panel2.add(ledetekstSvar6);
         textArea.setLineWrap(true);
         panel3.add(textArea);
 
@@ -200,7 +206,7 @@ class Customer extends JFrame{
                 //manager navn
                 try{
                     openConnection();
-                    ledetekstSvar3.setText(getStoreManager(StoreName));
+                    ledetekstSvar3.setText(getStoreManager(CenterName,StoreName));
                     closeConnection();
                 }
                 catch (Exception e){
@@ -227,7 +233,7 @@ class Customer extends JFrame{
                 //openings
                 try{
                     openConnection();
-                    ledetekstSvar5.setText(getOpenings(StoreName));
+                    ledetekstSvar5.setText(getOpenings(CenterName,StoreName));
                     closeConnection();
                 }
                 catch (Exception e){
@@ -286,24 +292,42 @@ class Customer extends JFrame{
     }
 
     //oppdatering av store  ved trykk i listbox
-    class ListboxListener extends JFrame implements MouseListener {
-        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
-        public void actionPerformed(MouseEvent hendelse){
+    class ListboxListener extends DatabaseConnection implements MouseListener {
+       public void actionPerformed(MouseEvent hendelse){
         }
 
         @Override //finner ut hvilket center du trykket på, og henter inn stores registrert i det senteret
         public void mouseClicked (MouseEvent hendelse) {
             try{
-                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                openConnection();//må opprette sin egen, max 1 extends per klasse
                 String selectedCenter = listbox.getSelectedValue().toString();
                 System.out.println(selectedCenter);
-                list2 = DBconnection.getStore(selectedCenter);
+                list2 = getStore(selectedCenter);
                 defaultListModel2.clear();
 
                 for(int i = 0; i < list2.size(); i++){
                     defaultListModel2.addElement(list2.get(i));
                 }
-                DBconnection.closeConnection();
+
+                ledetekst4.setText("Number of shops");
+                ledetekstSvar4.setText(getNoOfShops(selectedCenter));
+                ledetekst5.setText("Store area");
+                ledetekstSvar5.setText(getSQM(selectedCenter) + " sqm");
+                ledetekstSvar1.setText(selectedCenter);
+                System.out.println(selectedCenter);
+
+                ledetekstSvar3.setText(getCenterManager(selectedCenter));
+
+                ledetekst2.setText("Addresse");
+                ledetekstSvar2.setText(getAddress(selectedCenter));
+                String parking_check = getCenterParking(selectedCenter);
+                String parking="";
+                if(parking_check.equalsIgnoreCase("y")){ parking = "\nThe center has its own parking facility.";}
+                if(parking_check.equalsIgnoreCase("n")){ parking = "\nThe center does not have its own parking facility.";}
+                ledetekst6.setText("Contact Information");
+                textArea.setText("Email: " + getCenterMail(selectedCenter) + ", Telephone: " + getCenterTelephone(selectedCenter)+ ". "
+                        + parking+"\nInformation about the center: \n"+ getCenterDescription(selectedCenter));
+                closeConnection();
             }
             catch (Exception c){
                 Database.printMesssage(c, "getStoresInCenter");
@@ -322,29 +346,29 @@ class Customer extends JFrame{
     }
 
 
-    class ListboxListener2 extends JFrame implements MouseListener {
-        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
+    class ListboxListener2 extends DatabaseConnection implements MouseListener {
+
         public void actionPerformed(MouseEvent hendelse){
         }
 
-        @Override //finner ut hvilken store du trykket på, og henter inn turnover registrert på storen
+        @Override //finner ut hvilken store du trykket på
         public void mouseClicked (MouseEvent hendelse) {
             try {
-                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                openConnection();//må opprette sin egen, max 1 extends per klasse
                 String selectedCenter = listbox.getSelectedValue().toString();
                 String selectedStore = listbox2.getSelectedValue().toString();
-                //int index = listbox2.getSelectedIndex();
-                ledetekst4.setText("Location:");
-                ledetekst5.setText("Openings:");
-                //String StoreName=list2.get(index);
+                ledetekst4.setText("Location");
+                ledetekst5.setText("Opening hours");
                 ledetekstSvar1.setText(selectedStore);
                 System.out.println(selectedStore);
-                String Uname = DBconnection.getStoreManager(selectedCenter,selectedStore);
-                ledetekstSvar3.setText(DBconnection.getPersonName(Uname));
-                ledetekstSvar2.setText(DBconnection.getTradeStore(selectedStore));
-                ledetekstSvar4.setText(DBconnection.getLocation(selectedStore));
-                ledetekstSvar5.setText(DBconnection.getOpenings(selectedStore));
-                DBconnection.closeConnection();
+                String Uname = getStoreManager(selectedCenter,selectedStore);
+                ledetekstSvar3.setText(getPersonName(Uname));
+                ledetekstSvar2.setText(getTradeStore(selectedStore));
+                ledetekstSvar4.setText(getLocation(selectedStore));
+                ledetekstSvar5.setText(getOpenings(selectedCenter, selectedStore));
+                ledetekst6.setText("Information about the store");
+                textArea.setText(getShopDescription(selectedCenter, selectedStore));
+                closeConnection();
 
             }catch (Exception c){
                 Database.printMesssage(c, "getStoreinCenterInfo");
