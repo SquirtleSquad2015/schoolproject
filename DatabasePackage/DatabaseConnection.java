@@ -207,7 +207,7 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT navn FROM administration WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            String sqlStatement = "SELECT DISTINCT navn FROM person WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             retur=resultSet.getString("navn");
@@ -293,7 +293,7 @@ public class DatabaseConnection {
         boolean ok = true;
         try{
             statement = connection.createStatement();
-            String sqlStatement = "select count(username) as Number from bruker where username='" + userName + "'";
+            String sqlStatement = "select count(username) as Number from users where username='" + userName + "'";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             int number = resultSet.getInt("Number");
@@ -312,7 +312,7 @@ public class DatabaseConnection {
     }
  
     public int regNewCenterUser(String userName, String telephone, char[] password,
-                                       String centerName, String realName, String email, int userLevel, String title){
+                                       String centerName, String realName, String mail, int userLevel, String title){
         Statement statement = null;
         ResultSet resultSet = null;
         int ok = 0;
@@ -320,22 +320,22 @@ public class DatabaseConnection {
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            String sqlGetInfoAll = "select count(*) as count from administration where username='" + userName + "' OR tlf='" + telephone
+            String sqlGetInfoAll = "select count(*) as count from person where username='" + userName + "' OR tlf='" + telephone
                     + "' AND center_name='" + centerName + "'";
             resultSet = statement.executeQuery(sqlGetInfoAll);
             resultSet.next();
             int count = resultSet.getInt("count");
             if(count == 0){
-                String sqlUpdateUser = "INSERT INTO users(access_lvl, username, password, Activ) VALUES(" + userLevel +
+                String sqlUpdateUser = "INSERT INTO users(access_lv, username, password, Activ) VALUES(" + userLevel +
                         ", '" + userName + "', '" + stringPassword +  "','n')";
-                String sqlUpdateAdministration = "INSERT INTO administration(navn, center_name, title, tlf, " +
-                        "email, username) VALUES('" + realName + "', '" + centerName + "', '" + title + "', '" +
-                        telephone + "', '" + email + "', '" + userName + "')";
+                String sqlUpdate = "INSERT INTO person(navn, center_name, title, tlf, " +
+                        "mail, username) VALUES('" + realName + "', '" + centerName + "', '" + title + "', '" +
+                        telephone + "', '" + mail + "', '" + userName + "')";
                 statement.executeUpdate(sqlUpdateUser);
-                statement.executeUpdate(sqlUpdateAdministration);
+                statement.executeUpdate(sqlUpdate);
                 ok = 1;
             } else{
-                String sqlGetTelephoneInfo = "select count(*) as count from administration where tlf='" + telephone + "'";
+                String sqlGetTelephoneInfo = "select count(*) as count from person where tlf='" + telephone + "'";
                 resultSet = statement.executeQuery(sqlGetTelephoneInfo);
                 resultSet.next();
                 int countTelephone = resultSet.getInt("count");
@@ -408,7 +408,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String center = "";
         try {
-            String sqlSubject = "SELECT DISTINCT center_name from administration where username='" + username + "'";
+            String sqlSubject = "SELECT DISTINCT center_name from person where username='" + username + "'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlSubject);
             resultSet.next();
@@ -505,13 +505,13 @@ public class DatabaseConnection {
     public String getEmail(String username){
         Statement statement = null;
         ResultSet resultSet = null;
-        String email = "";
+        String mail = "";
         try {
-            String sqlSubject = "SELECT DISTINCT email from administration where username='"+ username+"'";
+            String sqlSubject = "SELECT DISTINCT mail from person where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlSubject);
             resultSet.next();
-            email = resultSet.getString("email");
+            mail = resultSet.getString("mail");
         }
         catch (Exception e){
             Database.printMesssage(e, "getEmail");
@@ -520,7 +520,7 @@ public class DatabaseConnection {
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        return email;
+        return mail;
     }
 
     public String getPhoneNumber(String username){
@@ -528,7 +528,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String phoneNumber = "";
         try {
-            String sqlSubject = "SELECT DISTINCT tlf from administration where username='"+ username+"'";
+            String sqlSubject = "SELECT DISTINCT tlf from person where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlSubject);
             resultSet.next();
@@ -548,7 +548,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         int ok = 0;
         try {
-            String sqlSubject = "UPDATE administration SET email='"+email+"' WHERE username='"+username +"'";
+            String sqlSubject = "UPDATE person SET mail='"+email+"' WHERE username='"+username +"'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
         }
@@ -568,8 +568,8 @@ public class DatabaseConnection {
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            String sqlcheckPhoneNumber = "SELECT COUNT(tlf) as tlf from administration where tlf='"+phoneNumber + "'";
-            String sqlUpdatePhoneNumber = "UPDATE administration SET tlf='"+phoneNumber+"' WHERE username='"+username +"'";
+            String sqlcheckPhoneNumber = "SELECT COUNT(tlf) as tlf from person where tlf='"+phoneNumber + "'";
+            String sqlUpdatePhoneNumber = "UPDATE person SET tlf='"+phoneNumber+"' WHERE username='"+username +"'";
             resultSet = statement.executeQuery(sqlcheckPhoneNumber);
             resultSet.next();
             ok = resultSet.getInt("tlf");
@@ -597,7 +597,7 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdateCenterMail = "UPDATE center SET email='"+newMail+"' WHERE center_name='"+centerName +"'";
+            String sqlUpdateCenterMail = "UPDATE center SET mail='"+newMail+"' WHERE center_name='"+centerName +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
             }

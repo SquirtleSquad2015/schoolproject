@@ -1,5 +1,5 @@
-/**
- * Created by jonas on 10.04.15.
- */
+package shoolprodject;
+
 public class ShopManagerMenu {
+    
 }
