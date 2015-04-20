@@ -22,7 +22,7 @@ class HovedVindu  extends JFrame {
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
-    private JTextArea omOssTekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have e teamproject to create this program.");
+    private JTextArea omOssTekst = new JTextArea("We are a team of five students studying computer engineering at Sor-Trondelag university college. This spring we have a teamproject to create this program.");
     private JPanel panel11 = new JPanel();
     private JPanel masterPanel2 = new JPanel();
     private JPanel panel22 = new JPanel();
@@ -46,7 +46,7 @@ class HovedVindu  extends JFrame {
 
         panel1.add(bildeKnapp);
         try{
-            Image img = ImageIO.read(getClass().getResource("bilde/SCHMIDT.png"));
+            Image img = ImageIO.read(getClass().getResource("/bilde/SCHMIDT.png"));
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }

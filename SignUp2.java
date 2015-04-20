@@ -131,7 +131,7 @@ public class SignUp2 extends JFrame{
                             userLevel = 1;
                         }
                         else {
-                            userLevel = 2;
+                            userLevel = 2;//storemanager(?)
                         }
                         int ok = 0;
                         try {

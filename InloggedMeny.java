@@ -103,7 +103,6 @@ public class InloggedMeny extends JFrame {
         knapp4.addActionListener(lytteren4);
 
         ListboxListener lytteren5 = new ListboxListener();
-        //scroll.addMouseListener(lytteren5);
         listbox.addMouseListener(lytteren5);
 
         AutomatiskOppdatering2 lytteren6 = new AutomatiskOppdatering2();
@@ -111,6 +110,9 @@ public class InloggedMeny extends JFrame {
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
+
+        ListboxListener2 lytteren7 = new ListboxListener2();
+        listbox2.addMouseListener(lytteren7);
 
 
     }
@@ -172,6 +174,43 @@ public class InloggedMeny extends JFrame {
         }
     }
 
+    class ListboxListener2 extends JFrame implements MouseListener {
+        private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
+        public void actionPerformed(MouseEvent hendelse){
+    }
+
+        @Override //finner ut hvilken store du trykket på, og henter inn turnover registrert på storen
+        public void mouseClicked (MouseEvent hendelse) {
+            try{
+                DBconnection.openConnection();//må opprette sin egen, max 1 extends per klasse
+                String selectedCenter = listbox.getSelectedValue().toString();
+                String selectedStore = listbox2.getSelectedValue().toString();
+                System.out.println("center: " + selectedCenter + ", store:"+ selectedStore);
+                Integer turnover = DBconnection.getTurnoverStore(selectedCenter, selectedStore);
+                ledetekstSvar1.setText(turnover.toString());
+                //defaultListModel2.clear();
+
+                DBconnection.closeConnection();
+            }
+            catch (Exception c){
+                Database.printMesssage(c, "getStoresInCenter");
+            }
+        }
+
+        //må være med
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
+    }
+
     class ListboxListener extends JFrame implements MouseListener {
         private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
         public void actionPerformed(MouseEvent hendelse){
@@ -201,11 +240,9 @@ public class InloggedMeny extends JFrame {
             }
         }
 
-        //må implementeres
+        //må være med
         @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
+        public void mousePressed(MouseEvent e) {}
 
         @Override
         public void mouseReleased(MouseEvent e) {}
