@@ -363,11 +363,11 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String checkInfo = "select DISTINCT access_lvl from bruker where username='" + username + "'" +
+            String checkInfo = "select DISTINCT access_lv from users where username='" + username + "'" +
                     " and password='" + password + "'";
             resultSet = statement.executeQuery(checkInfo);
             resultSet.next();
-            ok = resultSet.getInt("access_lvl");
+            ok = resultSet.getInt("access_lv");
             System.out.println(ok);
 
         }
