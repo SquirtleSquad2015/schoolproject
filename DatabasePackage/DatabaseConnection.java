@@ -55,7 +55,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            String sqlCenter = "SELECT DISTINCT center_name from center where LCASE(center_name) LIKE LCASE('" + centername + "%')";
+            String sqlCenter = "SELECT DISTINCT center_name from center where LCASE(center_name) LIKE LCASE('%" + centername + "%')";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlCenter);
             while(resultSet.next()){
