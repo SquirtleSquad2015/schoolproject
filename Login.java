@@ -83,13 +83,17 @@ class Login extends JFrame{
                         dispose();
                         //System.out.println("Access level 1");
                     }
-                    else if(ok == 2){
+                    if(ok == 2){
                         ShopManagerMenu shopManagerMenu = new ShopManagerMenu(bruker);
                         shopManagerMenu.setVisible(true);
                         shopManagerMenu.setLocationRelativeTo(null);
                         dispose();
-                    }else {
+                    }
+                    if(ok==3){
                         System.out.println("Access level 3");
+                    }
+                    if(ok==4){
+                        System.out.println("Admin level");
                     }
 
                     
