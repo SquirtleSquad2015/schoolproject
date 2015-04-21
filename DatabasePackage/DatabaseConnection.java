@@ -31,11 +31,11 @@ public class DatabaseConnection {
         boolean ok = false;
         try{
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT Username from users where LCASE(Username) LIKE LCASE('martpe')";
+            String sqlStatement = "SELECT DISTINCT Username from users where LCASE(Username) LIKE LCASE('admin')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            String number = resultSet.getString("Username");
-            if(number == "martpe"){
+            String number = resultSet.getString("username");
+            if(number == "admin"){
                 ok = true;
             }
         }
