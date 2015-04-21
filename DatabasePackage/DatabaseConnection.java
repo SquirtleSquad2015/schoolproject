@@ -55,11 +55,11 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            String sqlCenter = "SELECT DISTINCT center_name from center where LCASE(center_name) LIKE LCASE('%" + centername + "%')";
+            String sqlCenter = "SELECT DISTINCT center_name from center where LCASE(center.center_name) LIKE LCASE('%" + centername + "%')";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlCenter);
             while(resultSet.next()){
-                list.add(resultSet.getString("Center_name"));
+                list.add(resultSet.getString("center_name"));
             }
         }
         catch (Exception e){
@@ -228,7 +228,7 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT navn FROM person WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            String sqlStatement = "SELECT DISTINCT navn FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             retur=resultSet.getString("navn");
@@ -249,10 +249,10 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT username from store where LCASE(store_name) LIKE LCASE('" + storename + "%') AND LCASE(center_name) LIKE LCASE('" + centername + "')";
+            String sqlStatement = "SELECT navn FROM person, store WHERE person.username = store.username AND LCASE( store.store_name ) LIKE LCASE('"+storename+"') AND LCASE( store.center_name ) LIKE LCASE('"+centername+"')" ;
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("username");
+            retur=resultSet.getString("navn");
         }
         catch (Exception e){
             Database.printMesssage(e, "getStoreManager");
@@ -274,7 +274,7 @@ public class DatabaseConnection {
             String sqlStatement= "SELECT navn from person where LCASE(username) LIKE LCASE ('"+ username +"%')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("Navn");
+            retur=resultSet.getString("navn");
         }
         catch (Exception e){
             Database.printMesssage(e, "getPersonName");
