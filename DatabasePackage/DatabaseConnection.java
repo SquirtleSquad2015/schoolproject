@@ -92,6 +92,27 @@ public class DatabaseConnection {
         }
         return list;
     }
+    public ArrayList<String> getMuncipality(String kommun){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlCenter = "SELECT DISTINCT center_name from center where LCASE(muncipality) LIKE LCASE('%" + kommun + "%')";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCenter);
+            while(resultSet.next()){
+                list.add(resultSet.getString("center_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenters");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
     public Integer getTurnoverStore(String centername, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
