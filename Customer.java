@@ -22,7 +22,8 @@ import static javax.swing.JOptionPane.*;
 class Customer extends JFrame{
     private ArrayList<String> list;
     private ArrayList<String> list2;
-    private ArrayList<String> list3;
+
+    
     private JLabel ledetekst1 = new JLabel("Name",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Trade",JLabel.CENTER);
     private JLabel ledetekst3 = new JLabel("Manager name",JLabel.CENTER);
@@ -41,7 +42,10 @@ class Customer extends JFrame{
     private JLabel blank = new JLabel("",JLabel.CENTER);
     
     private JButton search = new JButton("Search for center");
-    private JTextField center = new JTextField(20);
+    private JTextField center = new JTextField(20);    
+    private JButton search2 = new JButton("Search for Muncipality");
+    private JTextField kommune = new JTextField(20);
+
     
     private JButton knapp1 = new JButton("Info, Senter");
     private JButton knapp2 = new JButton("info, butikk");
@@ -68,7 +72,7 @@ class Customer extends JFrame{
         
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(9, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(10, 2, 3, 3);
         panel2.setLayout(layout2);
         LayoutManager layout3 = new GridLayout(1, 1, 3, 3);
         panel3.setLayout(layout3);
@@ -88,6 +92,10 @@ class Customer extends JFrame{
         panel2.add(knapp4);
         panel2.add(search);//search
         panel2.add(center);//search knapp
+        panel2.add(search2);//search
+        panel2.add(kommune);//search knapp
+        
+        
         panel2.add(filler);
        // panel2.add(knapp5);
         panel2.add(blank);
@@ -114,8 +122,8 @@ class Customer extends JFrame{
         
         Knappelytter1 lytteren = new Knappelytter1();
         search.addActionListener(lytteren);
-        //Knappelytter2 lytteren2 = new Knappelytter2();
-        //knapp2.addActionListener(lytteren2);
+        Knappelytter2 lytteren2 = new Knappelytter2();
+        search2.addActionListener(lytteren2);
         Knappelytter3 lytteren3 = new Knappelytter3();
         knapp3.addActionListener(lytteren3);
         Knappelytter4 lytteren4 = new Knappelytter4();
@@ -140,7 +148,6 @@ class Customer extends JFrame{
             JButton button = (JButton) hendelse.getSource();
             String valg = button.getText();
             String centerName = center.getText();
-            int userLevel = 0;
 
             if(hendelse.getSource() == search){
                 try{
@@ -164,61 +171,24 @@ class Customer extends JFrame{
     //Info, shop
     class Knappelytter2 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
-            JButton knapp2 = (JButton) hendelse.getSource();
-            int index = listbox2.getSelectedIndex();
-            int index2 = listbox.getSelectedIndex();
-            ledetekst4.setText("Location:");
-            ledetekst5.setText("Openings:");
+            JButton search2= (JButton) hendelse.getSource();
             
-            if(index>=0){
-            //print all info
-                //navn
-                String StoreName=list2.get(index);
-                String CenterName=list.get(index2);
-                ledetekstSvar1.setText(StoreName);
-                System.out.println(StoreName);
-                //manager navn
+            String kommun = kommune.getText();
+            
+            if(hendelse.getSource() == search2){
                 try{
                     openConnection();
-                    ledetekstSvar3.setText(getStoreManager(CenterName,StoreName));
+                    list = getMuncipality(kommun);
+                    defaultListModel.clear();
+                    System.out.println(kommun);
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel.addElement(list.get(i));
+                    }
                     closeConnection();
                 }
                 catch (Exception e){
                     Database.printMesssage(e, "getCenters");
                 }
-                //kategori
-                try{
-                    openConnection();
-                    ledetekstSvar2.setText(getTradeStore(StoreName));
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
-                //lokasjon (location + floor)
-                try{
-                    openConnection();
-                    ledetekstSvar4.setText(getLocation(StoreName));
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
-                //openings
-                try{
-                    openConnection();
-                    ledetekstSvar5.setText(getOpenings(CenterName,StoreName));
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
-                //beskrivelse
-                
-            }
-            if(index==-1){
-                System.out.println("Chose Shoping Center");
-                showMessageDialog (null, "Chose Shoping Center", "Fail", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -365,8 +335,9 @@ class Customer extends JFrame{
     //automatisk oppdattering
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
-
             int index = listbox.getSelectedIndex();
+            
+            
             try{
                 openConnection();
                 list = getCenters("");
@@ -379,6 +350,7 @@ class Customer extends JFrame{
             catch (Exception e){
                 Database.printMesssage(e, "getCenters");
             }
+            
         }
     }    
 }
