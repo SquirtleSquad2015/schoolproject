@@ -1022,5 +1022,66 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public ArrayList<String> getTrades(){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sql = "SELECT DISTINCT trade from trade";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                list.add(resultSet.getString("trade"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTrade");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+    public String getTradeDescription(String trade){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String description = "";
+        try {
+            String sqlGetShop = "SELECT DISTINCT description from trade where trade='"+ trade+"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGetShop);
+            resultSet.next();
+            description = resultSet.getString("description");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getTradeDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return description;
+    }
+    public int setTrade(String username, String trade){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE store SET trade='"+trade+"' WHERE manager_username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+            System.out.println(ok);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setTrade");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+
 
 }
