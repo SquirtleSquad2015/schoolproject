@@ -306,7 +306,7 @@ class Customer extends JFrame{
                 ledetekstSvar1.setText(selectedStore);
                 System.out.println(selectedStore);
                 String Uname = getStoreManager(selectedCenter,selectedStore);
-                ledetekstSvar3.setText(getPersonName(Uname));
+                ledetekstSvar3.setText(Uname);
                 ledetekstSvar2.setText(getTradeStore(selectedStore));
                 ledetekstSvar4.setText(getLocation(selectedStore));
                 ledetekstSvar5.setText(getOpenings(selectedCenter, selectedStore));
@@ -336,8 +336,6 @@ class Customer extends JFrame{
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             int index = listbox.getSelectedIndex();
-            
-            
             try{
                 openConnection();
                 list = getCenters("");
