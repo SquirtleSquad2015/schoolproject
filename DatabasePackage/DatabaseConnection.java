@@ -791,7 +791,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopName = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT store_name from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT store_name from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -811,7 +811,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopTrade = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT trade from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT trade from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -831,7 +831,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopLocation = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT location from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT location from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -851,7 +851,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopFloor = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT floor from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT floor from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -871,7 +871,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopOpeningHrs = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT openingHrs from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT openingHrs from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -891,14 +891,14 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopOpeningHrsWeekends = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT openinghrs_weekend from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT openinghrs_weekends from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
-            shopOpeningHrsWeekends = resultSet.getString("openinghrs_weekend");
+            shopOpeningHrsWeekends = resultSet.getString("openinghrs_weekends");
         }
         catch (Exception e){
-            Database.printMesssage(e, "getShopOpeningHrs_weekend");
+            Database.printMesssage(e, "getShopOpeningHrs_weekends");
         }
         finally {
             Database.closeStatement(statement);
@@ -911,7 +911,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String shopTurnover = "";
         try {
-            String sqlGetShop = "SELECT DISTINCT turnover from store where manager_username='"+ username+"'";
+            String sqlGetShop = "SELECT DISTINCT turnover from store where username='"+ username+"'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             resultSet.next();
@@ -952,7 +952,7 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdateCenterMail = "UPDATE store SET store_name='"+newStoreName+"' WHERE manager_username='"+username +"'";
+            String sqlUpdateCenterMail = "UPDATE store SET store_name='"+newStoreName+"' WHERE username='"+username +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
         }
@@ -971,7 +971,7 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdateCenterMail = "UPDATE store SET location='"+newStoreLocation+"' WHERE manager_username='"+username +"'";
+            String sqlUpdateCenterMail = "UPDATE store SET location='"+newStoreLocation+"' WHERE username='"+username +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
         }
@@ -990,7 +990,7 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdateCenterMail = "UPDATE store SET floor="+newFloor+" WHERE manager_username='"+username +"'";
+            String sqlUpdateCenterMail = "UPDATE store SET floor="+newFloor+" WHERE username='"+username +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
         }
@@ -1009,12 +1009,31 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdateCenterMail = "UPDATE store SET openinghrs='"+newOpeningHrs+"' WHERE manager_username='"+username +"'";
+            String sqlUpdateCenterMail = "UPDATE store SET openinghrs='"+newOpeningHrs+"' WHERE username='"+username +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
         }
         catch (Exception e){
             Database.printMesssage(e, "setStoreOpeningHrs");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int setStoreOpeningHrsWeekends(String username, String newOpeningHrsWeekends){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE store SET openinghrs_weekends='"+newOpeningHrsWeekends+"' WHERE username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+            System.out.println(ok);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setStoreOpeningHrsWeekends");
         }
         finally {
             Database.closeStatement(statement);
@@ -1069,12 +1088,51 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdate = "UPDATE store SET trade='"+trade+"' WHERE manager_username='"+username +"'";
+            String sqlUpdate = "UPDATE store SET trade='"+trade+"' WHERE username='"+username +"'";
             ok = statement.executeUpdate(sqlUpdate);
             System.out.println(ok);
         }
         catch (Exception e){
             Database.printMesssage(e, "setTrade");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public String getShopDescription(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String shopDescription = "";
+        try {
+            String sqlGet = "SELECT DISTINCT description FROM store WHERE username='" + username + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            shopDescription = resultSet.getString("description");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getShopDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return shopDescription;
+    }
+    public int setStoreDescription(String username, String description){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE store SET description='"+description+"' WHERE username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+            System.out.println(ok);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setStoreDescription");
         }
         finally {
             Database.closeStatement(statement);
