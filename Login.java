@@ -94,6 +94,11 @@ class Login extends JFrame{
                     }
                     if(ok==4){
                         System.out.println("Admin level");
+                        AdminMenu menu = new AdminMenu(bruker);
+                        menu.setVisible(true);
+                        menu.setLocationRelativeTo(null);
+                        dispose();
+                    }
                     }
 
                     
