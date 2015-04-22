@@ -22,8 +22,8 @@ public class AdminCenterView extends JFrame {
     private JPanel panel2 = new JPanel();
     
     private ArrayList<String> list;
-    private JButton newCenter = new JButton("Edit");
-    private JButton Edit = new JButton("New");
+    private JButton newCenter = new JButton("New");
+    private JButton Edit = new JButton("Edit");
     private JButton Shops = new JButton("Shops");
     private JButton Back = new JButton("Back");
     
