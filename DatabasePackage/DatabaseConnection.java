@@ -363,11 +363,11 @@ public class DatabaseConnection {
         int retur = -1;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT MAX(customer_case_ID) FROM customer_service;";
+            String sqlStatement = "SELECT MAX(customer_case_ID) as max FROM customer_service;";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-
-            retur = resultSet.getInt("customer_case_ID");
+            int id = resultSet.getInt("max");
+            retur = id;
 
         }
         catch (Exception e){
@@ -507,7 +507,7 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String answer="";
         try {
-            String sqlAnswer = "SELECT answer from customer_case where customer_case_ID='" + caseID + "'";
+            String sqlAnswer = "SELECT DISTINCT answer from customer_service where customer_case_ID="+ caseID;
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlAnswer);
             resultSet.next();

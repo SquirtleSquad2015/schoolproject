@@ -130,8 +130,13 @@ public class CustomerQuestion extends JFrame{
                     yourCaseID = getHighestCustomerCaseIndex();
                     closeConnection();
                     if (feil) {
-                        JOptionPane.showMessageDialog(null, "Thank you for submitting your question, your case ID is: " + yourCaseID );
-                        dispose();
+                        if(yourCaseID == -1){
+                            JOptionPane.showMessageDialog(null, "Error, please try again");
+                                    dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Thank you for submitting your question, your case ID is: " + yourCaseID);
+                            dispose();
+                        }
                     }
                 } catch (Exception e) {
                     shoolprodject.DatabasePackage.Database.printMesssage(e, "getCenters");
@@ -155,7 +160,8 @@ public class CustomerQuestion extends JFrame{
             String svar = getCustomerAnswer(caseID);
             if(svar.isEmpty()){
                 textArea.setText("Oh no! No answer has been submitted to your question.");
-            }else{
+            }
+            if(!svar.isEmpty()){
                 textArea.setText(svar);
             }
         }
