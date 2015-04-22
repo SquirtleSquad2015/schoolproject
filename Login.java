@@ -98,7 +98,7 @@ class Login extends JFrame{
                         menu.setVisible(true);
                         menu.setLocationRelativeTo(null);
                         dispose();
-                    }
+                    
                     }
 
                     
