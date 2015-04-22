@@ -46,7 +46,7 @@ class HovedVindu  extends JFrame {
 
         panel1.add(bildeKnapp);
         try{
-            Image img = ImageIO.read(getClass().getResource("/bilde/SCHMIDT.png"));
+            Image img = ImageIO.read(getClass().getResource("./bilde/SCHMIDT.png"));
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }
@@ -94,11 +94,11 @@ class HovedVindu  extends JFrame {
             JButton check = (JButton) source.getSource();
             
             if (check == knapp1){
-                setVisible(false);
+                //setVisible(false);
                 Customer CostumerVindu = new Customer();    
                 CostumerVindu.setLocationRelativeTo(null);
                 CostumerVindu.setVisible(true);
-                setVisible(false);
+                //setVisible(false);
             } else if (check == knapp2){
                 setVisible(false);
                 Login LogInVindu = new Login();
