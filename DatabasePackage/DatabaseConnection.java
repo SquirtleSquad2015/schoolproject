@@ -507,11 +507,12 @@ public class DatabaseConnection {
         ResultSet resultSet = null;
         String answer="";
         try {
-            String sqlAnswer = "SELECT DISTINCT answer from customer_service where customer_case_ID="+ caseID;
+            String sqlAnswer = "SELECT DISTINCT answer as test from customer_service where customer_case_ID="+ caseID;
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlAnswer);
             resultSet.next();
-            answer = resultSet.getString("answer");
+            answer = resultSet.getString("test");
+            System.out.println(answer);
         }
         catch (Exception e){
             Database.printMesssage(e, "customerServiceGetAnswer");

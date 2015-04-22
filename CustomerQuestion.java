@@ -157,13 +157,22 @@ public class CustomerQuestion extends JFrame{
                 JOptionPane.showMessageDialog(null, "Please enter a case ID");
                 dispose();
             }
-            String svar = getCustomerAnswer(caseID);
-            if(svar.isEmpty()){
-                textArea.setText("Oh no! No answer has been submitted to your question.");
+            try{
+                openConnection();
+                String svar = getCustomerAnswer(caseID);
+                closeConnection();
+                if(svar.isEmpty()){
+                    textArea.setText("Oh no! No answer has been submitted to your question.");
+                }
+                if(!svar.isEmpty()){
+                    textArea.setText(svar);
+                }
             }
-            if(!svar.isEmpty()){
-                textArea.setText(svar);
+            catch (Exception e){
+
             }
+
+
         }
     }
 
