@@ -331,6 +331,34 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    //registrerer spørsmål sendt fra customer til customer support
+    public boolean RegisterCustomerQuestion(String center, String subject, String question){
+        Statement statement = null;
+        boolean ok;
+        String n = "n";
+        try {
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+            String sqlStatement = "INSERT INTO customer_service(center_name,subject,question,answer,solved)" +
+                    "VALUES('" + center + "', '" + subject + "', '" +  question + "', 'null', '" + n + "')";
+            statement.executeUpdate(sqlStatement);
+            ok = true;
+
+        }
+        catch (Exception e){
+            ok = false;
+            Database.printMesssage(e, "CustomerQuestion");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.settAutoCommit(connection);
+        }
+        return ok;
+
+    }
+
+
     public boolean checkUsername(String userName) throws Exception{
         Statement statement = null;
         ResultSet resultSet = null;

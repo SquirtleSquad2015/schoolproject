@@ -196,7 +196,10 @@ class Customer extends JFrame{
     class Knappelytter3 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp3 = (JButton) hendelse.getSource();
-            System.out.println("Costumer Service");  
+            System.out.println("Costumer Service");
+            CustomerQuestion customerquestion  = new CustomerQuestion();
+            customerquestion.setLocationRelativeTo(null);
+            customerquestion.setVisible(true);
         }
     }
     //Close

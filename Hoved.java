@@ -8,5 +8,3 @@ class Hoved {
         Vindumain.setVisible(true);
     }
 }
-
-//holdor er en hestkuk
