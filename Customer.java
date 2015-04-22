@@ -66,8 +66,8 @@ class Customer extends JFrame{
     private JPanel masterPanel = new JPanel();
     
     public Customer() {
-        setTitle("Costumer");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("CUstomer");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600,600);
         
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
@@ -200,11 +200,11 @@ class Customer extends JFrame{
         }
     }
     //Close
-    class Knappelytter4 extends JFrame implements ActionListener {
+    class Knappelytter4 implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp4 = (JButton) hendelse.getSource();
-            System.out.println("Close");
-            System.exit(0);
+            System.out.println("Back");
+            dispose();
 
         }
     }
