@@ -22,66 +22,116 @@ public class AdminCenterView extends JFrame {
     private JPanel panel2 = new JPanel();
     
     private ArrayList<String> list;
-    private JButton Users = new JButton("Edit");
-    private JButton Centers = new JButton("New");
+    private JButton newCenter = new JButton("Edit");
+    private JButton Edit = new JButton("New");
+    private JButton Shops = new JButton("Shops");
     private JButton Back = new JButton("Back");
-    
-    
     
     private JScrollPane scroll = new JScrollPane();
     private DefaultListModel defaultListModel = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
+    
+    private String centerName;
+    private String storeName;
 
 
     public AdminCenterView(){
-        LayoutManager layout = new GridLayout(4, 1, 3, 3);
+        setTitle("Center View");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(300,300);
+
         masterPanel.setLayout(new BorderLayout());
         panel1.setLayout(new GridLayout(1,1,3,3));
         panel2.setLayout(new GridLayout(1,3,3,3));
-        panel1.setSize(300, 200);
-        //masterPanel.setPre
-        listbox.setSize(300, 200);
+        
         panel1.add(listbox);
-        
-        
-        panel2.add(Users);
-        panel2.add(Centers);
+        panel2.add(newCenter);
+        panel2.add(Edit);
+        panel2.add(Shops);
         panel2.add(Back);
         
         masterPanel.add(panel1, BorderLayout.CENTER);
         masterPanel.add(panel2, BorderLayout.SOUTH);
         add(masterPanel);
-        pack();
         
 
         Action action = new Action();
-        Users.addActionListener(action);
-        Centers.addActionListener(action);
+        newCenter.addActionListener(action);
+        Edit.addActionListener(action);
+        Shops.addActionListener(action);
         Back.addActionListener(action);
+        
+        ListboxListener lytteren7 = new ListboxListener();
+        listbox.addMouseListener(lytteren7);
         
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
-        
-        
-        
+
     }
     private class Action extends DatabaseConnection implements ActionListener{
         public void actionPerformed(ActionEvent source) {
             JButton check = (JButton)source.getSource();
 
-            if (check == Users) {
+            if (check == newCenter) {
+                newCenter center = new newCenter(centerName);
+                center.setLocationRelativeTo(null);
+                center.setVisible(true);
+            }
+            if (check ==Edit){
                 
             }
-            if (check ==Centers){
-                
+            if (check ==Shops){
+                try{
+                    openConnection();
+                    list = getStore(centerName);
+                    defaultListModel.clear();
+                    for(int i = 0; i < list.size(); i++){
+                        defaultListModel.addElement(list.get(i));
+                    }
+                    closeConnection();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
             }
             if (check ==Back){
+                dispose();
+            }
+            
+        }
+    }
+    
+    class ListboxListener extends DatabaseConnection implements MouseListener {
+       public void actionPerformed(MouseEvent hendelse){
+        }
+
+        @Override //finner ut hvilket center du trykket på, og henter inn stores registrert i det senteret
+        public void mouseClicked (MouseEvent hendelse) {
+            try{
+                openConnection();//må opprette sin egen, max 1 extends per klasse
+                centerName = listbox.getSelectedValue().toString();
                 
+                closeConnection();
+                System.out.println(centerName);
+                
+
+            }
+            catch (Exception c){
+                Database.printMesssage(c, "getStoresInCenter");
             }
         }
+        
+        @Override
+        public void mousePressed(MouseEvent e){}
+        @Override
+        public void mouseReleased(MouseEvent e){}
+        @Override
+        public void mouseEntered(MouseEvent e){}
+        @Override
+        public void mouseExited(MouseEvent e){}
     }
     
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
