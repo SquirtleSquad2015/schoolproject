@@ -48,7 +48,7 @@ class Customer extends JFrame{
 
     
     private JButton knapp1 = new JButton("Info, Senter");
-    private JButton knapp2 = new JButton("info, butikk");
+    private JButton knapp2 = new JButton("");
     private JButton knapp4 = new JButton("Back");
     private JButton knapp3 = new JButton("Customer Service");
     private JButton knapp5 = new JButton("Update");
@@ -66,7 +66,7 @@ class Customer extends JFrame{
     private JPanel masterPanel = new JPanel();
     
     public Customer() {
-        setTitle("CUstomer");
+        setTitle("Customer");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600,600);
         

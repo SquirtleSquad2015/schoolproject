@@ -16,35 +16,36 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class CustomerQuestion extends JFrame{
 
-        private JLabel ledetekst1 = new JLabel("Select shopping center  ",JLabel.CENTER);
-        private JLabel ledetekst2 = new JLabel("Subject  ",JLabel.CENTER);
-        private JTextArea textArea = new JTextArea(10,10);
+    private JLabel ledetekst1 = new JLabel("Select shopping center  ",JLabel.CENTER);
+    private JLabel ledetekst2 = new JLabel("Subject  ",JLabel.CENTER);
 
-        private JButton knapp4 = new JButton("Back");
-        private JButton knapp3 = new JButton("Submit");
-
-        private JTextField subject = new JTextField(30);
+    private JTextArea textArea = new JTextArea(10,10);
 
 
-        private JPanel panel1 = new JPanel();
-        private JPanel panel2 = new JPanel();
-        private JPanel panel3 = new JPanel();
-        private JPanel masterPanel = new JPanel();
+    private JButton knapp4 = new JButton("Back");
+    private JButton knapp3 = new JButton("Submit");
+    private JButton knapp2 = new JButton("Find Reply");
+
+    private JTextField subject = new JTextField(30);
+
+    private JPanel panel1 = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JPanel panel3 = new JPanel();
+    private JPanel masterPanel = new JPanel();
 
     private ArrayList<String> list;
     private String[] centerListe = new String[100];
 
     private JComboBox centerValg = new JComboBox();
 
-
         public CustomerQuestion() {
             setTitle("Ask Customer Support");
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            setSize(300,400);
+            setSize(100,200);
 
             LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
             panel1.setLayout(layout1);
-            LayoutManager layout2 = new GridLayout(3, 2, 3, 3);
+            LayoutManager layout2 = new GridLayout(4, 2, 3, 3);
             panel2.setLayout(layout2);
             LayoutManager layout3 = new GridLayout(1, 0, 3, 3);
             panel3.setLayout(layout3);
@@ -58,9 +59,15 @@ public class CustomerQuestion extends JFrame{
             panel2.add(centerValg);
             panel2.add(ledetekst2);
             panel2.add(subject);
+            subject.setText("Enter case Subject");
+
+            panel2.add(knapp2);
+            //panel2.add(case_id );
+            //case_id.setText("Enter your case number");
 
             textArea.setLineWrap(true);
             panel3.add(textArea);
+            textArea.setText("Write your question here...");
 
             masterPanel.add(panel1, BorderLayout.NORTH);
             masterPanel.add(panel2, BorderLayout.CENTER);
@@ -79,6 +86,8 @@ public class CustomerQuestion extends JFrame{
             knapp3.addActionListener(knappelytter10);
             Knappelytter11 knappelytter11 = new Knappelytter11();
             knapp4.addActionListener(knappelytter11);
+            Knappelytter12 knappelytter12 = new Knappelytter12();
+            knapp2.addActionListener(knappelytter12);
 
         }
 
@@ -97,7 +106,8 @@ public class CustomerQuestion extends JFrame{
             String centeret = centerValg.getSelectedItem().toString();
             String subjectInput = subject.getText();
             String question = textArea.getText();
-            boolean ok = false;
+            String ok;
+            int yourCaseID;
             boolean feil = false;
 
             if (subjectInput.isEmpty() && question.isEmpty()) {
@@ -116,11 +126,11 @@ public class CustomerQuestion extends JFrame{
             if (!feil) {
                 try {
                     openConnection();
-                    ok = RegisterCustomerQuestion(centeret, subjectInput, question);
-
+                    feil = RegisterCustomerQuestion(centeret, subjectInput, question);
+                    yourCaseID = getHighestCustomerCaseIndex();
                     closeConnection();
-                    if (ok) {
-                        JOptionPane.showMessageDialog(null, "Thank you for submitting your question");
+                    if (feil) {
+                        JOptionPane.showMessageDialog(null, "Thank you for submitting your question, your case ID is: " + yourCaseID );
                         dispose();
                     }
                 } catch (Exception e) {
@@ -132,7 +142,24 @@ public class CustomerQuestion extends JFrame{
         }
     }
 
-
+    class Knappelytter12 extends shoolprodject.DatabasePackage.DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp2 = (JButton) hendelse.getSource();
+            String valg = JOptionPane.showInputDialog(null, "Please enter your customer case ID");
+            int caseID = Integer.parseInt(valg);
+            System.out.println(caseID);
+            if (valg.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please enter a case ID");
+                dispose();
+            }
+            String svar = getCustomerAnswer(caseID);
+            if(svar.isEmpty()){
+                textArea.setText("Oh no! No answer has been submitted to your question.");
+            }else{
+                textArea.setText(svar);
+            }
+        }
+    }
 
     //automatisk oppdattering
     class AutomatiskOppdatering extends shoolprodject.DatabasePackage.DatabaseConnection implements ActionListener {

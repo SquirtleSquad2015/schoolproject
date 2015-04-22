@@ -4,14 +4,14 @@ import shoolprodject.DatabasePackage.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
- 
+
 /**
  * Created by jonas on 19.03.15.
  */
 public class DatabaseConnection {
- 
+
     private Connection connection;
- 
+
     public void openConnection() throws Exception{
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -25,7 +25,7 @@ public class DatabaseConnection {
         Database.closeConnection(connection);
     }
     public boolean checkDB() throws Exception{
-        
+
         Statement statement = null;
         ResultSet resultSet = null;
         boolean ok = false;
@@ -47,9 +47,9 @@ public class DatabaseConnection {
             Database.closeStatement(statement);
         }
         return ok;
-        
+
     }
-    
+
     public ArrayList<String> getCenters(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -210,7 +210,7 @@ public class DatabaseConnection {
             resultSet.next();
             retur=resultSet.getString("address");
             retur+=",   "+resultSet.getString("muncipality");
-            
+
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
@@ -334,17 +334,17 @@ public class DatabaseConnection {
 
     //registrerer spørsmål sendt fra customer til customer support
     public boolean RegisterCustomerQuestion(String center, String subject, String question){
-        Statement statement = null;
-        boolean ok;
+        Statement statement = null;        ;
+        Statement resultSet = null;
         String n = "n";
+        boolean ok = true;
         try {
             connection.setAutoCommit(false);
             statement = connection.createStatement();
             String sqlStatement = "INSERT INTO customer_service(center_name,subject,question,answer,solved)" +
                     "VALUES('" + center + "', '" + subject + "', '" +  question + "', 'null', '" + n + "')";
-            statement.executeUpdate(sqlStatement);
-            ok = true;
 
+            statement.executeUpdate(sqlStatement);
         }
         catch (Exception e){
             ok = false;
@@ -355,8 +355,34 @@ public class DatabaseConnection {
             Database.settAutoCommit(connection);
         }
         return ok;
-
     }
+
+    public int getHighestCustomerCaseIndex(){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int retur = -1;
+        try {
+            statement = connection.createStatement();
+            String sqlStatement = "SELECT MAX(customer_case_ID) FROM customer_service;";
+            resultSet = statement.executeQuery(sqlStatement);
+            resultSet.next();
+
+            retur = resultSet.getInt("customer_case_ID");
+
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "CustomerIndex");
+        }
+        finally {
+            Database.closeStatement(statement);
+        }
+        return retur;
+    }
+
+
+
+
+
 
 
     public boolean checkUsername(String userName) throws Exception{
@@ -382,7 +408,7 @@ public class DatabaseConnection {
         }
         return ok;
     }
- 
+
     public int regNewCenterUser(String userName, String telephone, char[] password,
                                        String centerName, String realName, String mail, int userLevel, String title){
         Statement statement = null;
@@ -475,6 +501,29 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    public String getCustomerAnswer(int caseID){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String answer="";
+        try {
+            String sqlAnswer = "SELECT answer from customer_case where customer_case_ID='" + caseID + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlAnswer);
+            resultSet.next();
+            answer = resultSet.getString("answer");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "customerServiceGetAnswer");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return answer;
+    }
+
+
     public String getCenter(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -796,7 +845,7 @@ public class DatabaseConnection {
         }
         return ok;
     }
-    
+
     public int setCenterMail(String newMail, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
