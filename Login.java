@@ -104,7 +104,6 @@ class Login extends JFrame{
         class Knappelytter2 extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent hendelse) {
                 JButton knapp2 = (JButton) hendelse.getSource();
-                
                 SignUp Vindu2 = new SignUp();
                 Vindu2.setVisible(true);
                 Vindu2.setLocationRelativeTo(null);
