@@ -1238,6 +1238,26 @@ public class DatabaseConnection {
         }
         return ok;
     }
+        public int newCenter(String na,String mu,String tu,String sh,String sq,String ad,String tl,String ma,String ca,String de){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "INSERT INTO  `14hing06`.`center` (`center_name` ,`username` ,`muncipality` ,`turnover` ,`nr_shops` ,`sqm` ,`address` ,`mail` ,`tlf` ,`car_park` ,`description`)"
+            +" VALUES ('"+na+"', NULL ,  '"+mu+"',  "+tu+",  "+sh+",  "+sq+",  '"+ad+"',  '"+tl+"',  '"+ma+"',  '"+ca+"',  '"+de+"');";
+            ok = statement.executeUpdate(sqlUpdate);
+            
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setStoreDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 
 
 }
