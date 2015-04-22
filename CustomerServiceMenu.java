@@ -62,6 +62,7 @@ public class CustomerServiceMenu extends JFrame {
         changeAccountInfo.addActionListener(action);
         exit.addActionListener(action);
         // JFrame - Change account info -------------------------------
+        /*
         LayoutManager changeInfoLayout = new BorderLayout();
         changeAccountInfoFrame.setTitle("Change account information - " + username);
         JPanel passwordPanel = new JPanel();
@@ -93,7 +94,7 @@ public class CustomerServiceMenu extends JFrame {
         changeEmail.addActionListener(actionChangeAccountInfo);
         changePhoneNumber.addActionListener(actionChangeAccountInfo);
         changePassword.addActionListener(actionChangeAccountInfo);
-        changeAccountInfoBack.addActionListener(actionChangeAccountInfo);
+        changeAccountInfoBack.addActionListener(actionChangeAccountInfo);*/
         // JFrame - change center info ----------------------------------------------
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
@@ -153,22 +154,20 @@ public class CustomerServiceMenu extends JFrame {
                     openConnection();
                     String email = getEmail(username);
                     String tlf = getPhoneNumber(username);
-                    currentEmail.setText(email);
-                    currentPhoneNumber.setText(tlf);
+                    ChangeAccountInfo changeAccountInfo = new ChangeAccountInfo(username, email, tlf);
+                    changeAccountInfo.setVisible(true);
+                    changeAccountInfo.setLocationRelativeTo(null);
                     closeConnection();
                 } catch (Exception e) {
                     Database.printMesssage(e, "changeAccountInfo");
                 }
-                setVisible(false);
-                changeAccountInfoFrame.setVisible(true);
-                changeAccountInfoFrame.setLocationRelativeTo(null);
             } else {
                 System.exit(0);
             }
         }
     }
 
-    public class ActionChangeAccountInfo extends DatabaseConnection implements ActionListener {
+   /* public class ActionChangeAccountInfo extends DatabaseConnection implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getSource() == changeEmail) {
@@ -255,7 +254,7 @@ public class CustomerServiceMenu extends JFrame {
                 setVisible(true);
             }
         }
-    }
+    }*/
     public class ActionChangeCenterInfo extends DatabaseConnection implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
