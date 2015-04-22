@@ -1238,7 +1238,7 @@ public class DatabaseConnection {
         }
         return ok;
     }
-        public int newCenter(String na,String mu,String tu,String sh,String sq,String ad,String tl,String ma,String ca,String de){
+    public int newCenter(String na,String mu,String tu,String sh,String sq,String ad,String tl,String ma,String ca,String de){
         Statement statement = null;
         ResultSet resultSet = null;
         int ok = 0;
@@ -1258,6 +1258,4 @@ public class DatabaseConnection {
         }
         return ok;
     }
-
-
 }
