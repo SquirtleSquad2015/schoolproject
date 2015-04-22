@@ -228,10 +228,10 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT navn FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
+            String sqlStatement = "SELECT DISTINCT name FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("navn");
+            retur=resultSet.getString("name");
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenterManager");
@@ -249,10 +249,10 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT navn FROM person, store WHERE person.username = store.username AND LCASE( store.store_name ) LIKE LCASE('"+storename+"') AND LCASE( store.center_name ) LIKE LCASE('"+centername+"')" ;
+            String sqlStatement = "SELECT name FROM person, store WHERE person.username = store.username AND LCASE( store.store_name ) LIKE LCASE('"+storename+"') AND LCASE( store.center_name ) LIKE LCASE('"+centername+"')" ;
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("navn");
+            retur=resultSet.getString("name");
         }
         catch (Exception e){
             Database.printMesssage(e, "getStoreManager");
@@ -271,10 +271,10 @@ public class DatabaseConnection {
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement= "SELECT navn from person where LCASE(username) LIKE LCASE ('"+ username +"%')";
+            String sqlStatement= "SELECT name from person where LCASE(username) LIKE LCASE ('"+ username +"%')";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
-            retur=resultSet.getString("navn");
+            retur=resultSet.getString("name");
         }
         catch (Exception e){
             Database.printMesssage(e, "getPersonName");
@@ -372,7 +372,7 @@ public class DatabaseConnection {
             if(count == 0){
                 String sqlUpdateUser = "INSERT INTO users(access_lv, username, password, Activ) VALUES(" + userLevel +
                         ", '" + userName + "', '" + stringPassword +  "','n')";
-                String sqlUpdate = "INSERT INTO person(navn, center_name, title, tlf, " +
+                String sqlUpdate = "INSERT INTO person(name, center_name, title, tlf, " +
                         "mail, username) VALUES('" + realName + "', '" + centerName + "', '" + title + "', '" +
                         telephone + "', '" + mail + "', '" + userName + "')";
                 statement.executeUpdate(sqlUpdateUser);
