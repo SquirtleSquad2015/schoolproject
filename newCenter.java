@@ -97,6 +97,8 @@ public class newCenter extends JFrame{
         storeTopPanel.add(tlf);
         storeTopPanel.add(this.LMail);
         storeTopPanel.add(mail);
+        storeTopPanel.add(LCarPark);
+        storeTopPanel.add(carPark);
         storeCenterPanel.add(LDescription);
         storeCenterPanel.add(this.description);
         storeBottomPanel.add(back);
@@ -115,15 +117,27 @@ public class newCenter extends JFrame{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(actionEvent.getSource() == create){
-                newCenterName.getText();
-                centerMunicipality.getText();
-                centerTurnover.getText();
-                nrShops.getText();
-                sqm.getText();
-                address.getText();
-                tlf.getText();
-                mail.getText();
-                description.getText();
+                String na=newCenterName.getText();
+                String mu=centerMunicipality.getText();
+                String tu=centerTurnover.getText();
+                String sh =nrShops.getText();
+                String sq=sqm.getText();
+                String ad=address.getText();
+                String tl=tlf.getText();
+                String ma=mail.getText();
+                String ca=carPark.getText();
+                String de=description.getText();
+                
+                try{
+                    openConnection();
+                    newCenter(na,mu,tu,sh,sq,ad,tl,ma,ca,de);
+                    closeConnection();
+                    JOptionPane.showMessageDialog(null,"Data is updated");
+                    dispose();
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "getCenters");
+                }
             }
             if(actionEvent.getSource() == back){
                 dispose();
