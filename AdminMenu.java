@@ -28,6 +28,8 @@ public class AdminMenu extends JFrame {
     public AdminMenu(String username){
         super("ShopManager - " + username);
         this.username = username;
+        setTitle("Admin");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         LayoutManager layout = new GridLayout(4, 1, 3, 3);
         setLayout(layout);
         add(Users);
