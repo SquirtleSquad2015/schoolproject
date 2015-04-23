@@ -139,71 +139,71 @@ public class SignUp extends JFrame {
             userName = i_username.getText();
             phoneNumber = i_telephone.getText();
             passwordTyped = i_password.getPassword();
-            if (actionEvent.getSource() == exit) {
-                dispose();
-            }
-            char[] password = i_password.getPassword();
-            char[] repeatPassword = i_repeatPassword.getPassword();
-            if (!userName.equals("") && password.length >= 5 && phoneNumber.length() == 8 && (storeManager.isSelected()
-                    || centerManager.isSelected() || customerService.isSelected())) {
-                try {
-                    int telephone = Integer.parseInt(phoneNumber);
-                } catch (NumberFormatException e) {
-                    System.out.print("test");
-                    showMessageDialog(null, "Incorrect telephone number! Please try again");
-                    i_telephone.setText("");
-                }
-                try {
-                    openConnection();
-                    userNameCheck = checkUsername(userName);
-                    closeConnection();
-                    if (userNameCheck) {
-                        showMessageDialog(null, "Sorry, that username is already taken");
-                        i_username.setText("");
+            if (actionEvent.getSource() == next) {
+                char[] password = i_password.getPassword();
+                char[] repeatPassword = i_repeatPassword.getPassword();
+                if (!userName.equals("") && password.length >= 5 && phoneNumber.length() == 8 && (storeManager.isSelected()
+                        || centerManager.isSelected() || customerService.isSelected())) {
+                    try {
+                        int telephone = Integer.parseInt(phoneNumber);
+                    } catch (NumberFormatException e) {
+                        System.out.print("test");
+                        showMessageDialog(null, "Incorrect telephone number! Please try again");
+                        i_telephone.setText("");
                     }
-                } catch (Exception e) {
-                    Database.printMesssage(e, "Check userName");
-                }
-                if (password.length == repeatPassword.length) {
-                    int length = 0;
-                    for (int i = 0; i < password.length; i++) {
-                        char pass = password[i];
-                        char repPass = repeatPassword[i];
-                        if (Character.valueOf(pass).equals(repPass) && length == i) {
-                            length++;
+                    try {
+                        openConnection();
+                        userNameCheck = checkUsername(userName);
+                        closeConnection();
+                        if (userNameCheck) {
+                            showMessageDialog(null, "Sorry, that username is already taken");
+                            i_username.setText("");
                         }
+                    } catch (Exception e) {
+                        Database.printMesssage(e, "Check userName");
                     }
-                    if (length == password.length) {
-                        equalPassword = true;
+                    if (password.length == repeatPassword.length) {
+                        int length = 0;
+                        for (int i = 0; i < password.length; i++) {
+                            char pass = password[i];
+                            char repPass = repeatPassword[i];
+                            if (Character.valueOf(pass).equals(repPass) && length == i) {
+                                length++;
+                            }
+                        }
+                        if (length == password.length) {
+                            equalPassword = true;
+                        }
+                    } else {
+                        i_password.setText("");
+                        i_repeatPassword.setText("");
+                        showMessageDialog(null, "Passwords do not match! Please try again");
                     }
+                    if (storeManager.isSelected() && equalPassword) {
+                        userType = "StoreManager";
+                    } else if (centerManager.isSelected() && equalPassword) {
+                        userType = "CenterManager";
+                    } else {
+                        userType = "CustomerService";
+                    }
+
                 } else {
                     i_password.setText("");
                     i_repeatPassword.setText("");
-                    showMessageDialog(null, "Passwords do not match! Please try again");
-                }
-                if (storeManager.isSelected() && equalPassword) {
-                    userType = "StoreManager";
-                } else if (centerManager.isSelected() && equalPassword) {
-                    userType = "CenterManager";
-                } else {
-                    userType = "CustomerService";
+                    i_telephone.setText("");
+                    showMessageDialog(null, "Incorrect information! Please try again");
                 }
 
-
+                if (equalPassword && userNameCheck == false) {
+                    currentUserName.setText(i_username.getText());
+                    currentPhoneNumber.setText(i_telephone.getText());
+                    currentTitle.setText(userType);
+                    signUp2.setVisible(true);
+                    signUp2.setLocationRelativeTo(null);
+                    setVisible(false);
+                }
             } else {
-                i_password.setText("");
-                i_repeatPassword.setText("");
-                i_telephone.setText("");
-                showMessageDialog(null, "Incorrect information! Please try again");
-            }
-
-            if (equalPassword && userNameCheck == false) {
-                currentUserName.setText(i_username.getText());
-                currentPhoneNumber.setText(i_telephone.getText());
-                currentTitle.setText(userType);
-                signUp2.setVisible(true);
-                signUp2.setLocationRelativeTo(null);
-                setVisible(false);
+                dispose();
             }
         }
     }
