@@ -1366,4 +1366,44 @@ public class DatabaseConnection {
         }
         return list;
     }
+    public int getUserAccess(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int retur=-1;
+        try {
+            String sqlGet = "SELECT Access_lv FROM users WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getInt("Access_lv");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserAccess");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+    public int getUserActiv(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int retur=-1;
+        try {
+            String sqlGet = "SELECT Activ FROM users WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getInt("Activ");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserActiv");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    } 
 }
