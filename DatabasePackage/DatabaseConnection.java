@@ -1259,4 +1259,25 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public ArrayList<String> getUsersNotActiv(){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlGetShop ="SELECT username FROM users WHERE Activ='n' ;";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGetShop);
+            while(resultSet.next()){
+                list.add(resultSet.getString("username"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUsersNotActiv");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
 }
