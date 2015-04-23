@@ -18,6 +18,8 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class AdminMenu extends JFrame {
     private String username;
+    private String email;
+    private String tlf;
     private String centerName;
     private String shopName;
     JButton Users = new JButton("View Users");
@@ -43,13 +45,22 @@ public class AdminMenu extends JFrame {
         Centers.addActionListener(action);
         changeAccountInfo.addActionListener(action);
         exit.addActionListener(action);
+        
+        AutomatiskOppdatering lytteren = new AutomatiskOppdatering();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, lytteren);
+        timer.start();
+        timer.setRepeats(false);
+        
     }
     private class Action extends DatabaseConnection implements ActionListener{
         public void actionPerformed(ActionEvent source) {
             JButton check = (JButton)source.getSource();
 
             if (check == Users) {
-                
+                AdminUserView userView = new AdminUserView();
+                userView.setLocationRelativeTo(null);
+                userView.setVisible(true);
             }
             if (check ==Centers){
                 AdminCenterView centerView = new AdminCenterView();
@@ -57,7 +68,9 @@ public class AdminMenu extends JFrame {
                 centerView.setVisible(true);
             }
             if (check ==changeAccountInfo){
-                
+                ChangeAccountInfo accountInfo = new ChangeAccountInfo(username, email, tlf);
+                accountInfo.setLocationRelativeTo(null);
+                accountInfo.setVisible(true);
             }
             if (check ==exit){
                 System.exit(0);
@@ -65,4 +78,18 @@ public class AdminMenu extends JFrame {
             
         }
     }
+    class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            try{
+                openConnection();
+                email=getEmail(username);
+                tlf=getPhoneNumber(username);
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getCenters");
+            }
+            
+        }
+    } 
 }
