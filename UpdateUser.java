@@ -11,7 +11,7 @@ import shoolprodject.DatabasePackage.DatabaseConnection;
 
 public class UpdateUser extends JFrame{
     private String username;
-    private String username;
+   
 
     JLabel Lcentername = new JLabel("",JLabel.CENTER);
     JLabel Lmunicipality = new JLabel("", JLabel.CENTER);
