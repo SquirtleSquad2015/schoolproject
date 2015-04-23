@@ -1513,4 +1513,24 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public String getStoreUsername(String centerName, String storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String shopDescription = "";
+        try {
+            String sqlGet = "SELECT DISTINCT username FROM store WHERE store_name='" + storename + "' AND center_name='" + centerName + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            shopDescription = resultSet.getString("username");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoreUsername");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return shopDescription;
+    }
 }
