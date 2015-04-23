@@ -619,7 +619,6 @@ public class DatabaseConnection {
         Statement statement = null;
         ResultSet resultSet = null;
         String SQM ="";
-
         try {
             String sqlSubject = "SELECT sqm from center where center_name='" + centername + "'";
             statement = connection.createStatement();
