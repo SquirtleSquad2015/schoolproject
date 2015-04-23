@@ -1345,12 +1345,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
-    public ArrayList<String> getUsersNotActiv(){
+    public ArrayList<String> getUsers(){
         Statement statement = null;
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<String>();
         try {
-            String sqlGetShop ="SELECT username FROM users WHERE Activ='n' ;";
+            String sqlGetShop ="SELECT username FROM users ;";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGetShop);
             while(resultSet.next()){
