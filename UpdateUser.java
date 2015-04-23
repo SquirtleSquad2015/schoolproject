@@ -33,22 +33,9 @@ public class UpdateUser extends JFrame{
     JLabel changeTitle = new JLabel("Change");
     JButton changeMail = new JButton("Change");
     JButton changeTlf = new JButton("Change");
-    JButton knapp = new JButton("Delete");
+    JButton delete = new JButton("Delete");
     JButton backButton = new JButton("Back");
-     //JFrame - change Trade --------------------------------------
-    ArrayList<String> activList;
-    JFrame changeTradeFrame = new JFrame();
-    JLabel titleTrade = new JLabel("Choose (y) for activ and (n) for inactiv", JLabel.CENTER);
-    DefaultListModel defaultListModelTrade = new DefaultListModel();
-    JList tradeList = new JList(defaultListModelTrade);
-    JScrollPane scrollPaneTrade = new JScrollPane(tradeList);
-    JButton changeActivBack = new JButton("Back");
-    JButton selectActiv = new JButton("Select");
-    //JFrame - change description ----------------------------------
-    JFrame changeDescriptionFrame = new JFrame();
-    JTextArea newDescription = new JTextArea();
-    JButton changeDescriptionBack = new JButton("Back");
-    JButton selectDescription = new JButton("Change");
+
     
     
     public UpdateUser(String centerName){
@@ -89,7 +76,7 @@ public class UpdateUser extends JFrame{
         
         
         storeBottomPanel.add(backButton);
-        storeBottomPanel.add(knapp);
+        storeBottomPanel.add(delete);
         add(storeTopPanel, BorderLayout.NORTH);
         add(storeBottomPanel, BorderLayout.SOUTH);
         pack();
@@ -97,7 +84,7 @@ public class UpdateUser extends JFrame{
         changeActiv.addActionListener(actionChangeCenter);
         changeMail.addActionListener(actionChangeCenter);
         changeTlf.addActionListener(actionChangeCenter);
-        knapp.addActionListener(actionChangeCenter);
+        delete.addActionListener(actionChangeCenter);
         backButton.addActionListener(actionChangeCenter);
        
 
@@ -188,9 +175,8 @@ public class UpdateUser extends JFrame{
                     Database.printMesssage(e, "ChangeMail");
                 }
             }
-            else if(actionEvent.getSource() == knapp){
-                changeDescriptionFrame.setVisible(true);
-                changeDescriptionFrame.setLocationRelativeTo(null);
+            else if(actionEvent.getSource() == delete){
+                
             }
             else if(actionEvent.getSource() == backButton){
                 dispose();
