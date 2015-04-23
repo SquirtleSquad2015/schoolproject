@@ -74,17 +74,8 @@ public class UpdateStoreInfo extends JFrame{
     JButton selectDescription = new JButton("Change");
     
     
-    public UpdateStoreInfo(String username, String storeName, String trade, String location, String floor,
-                    String openingHrs, String openingHrsWeekends, String turnover, String description){
+    public UpdateStoreInfo(String username){
         this.username = username;
-        this.storeName.setText("Store name: " + storeName);
-        this.trade.setText("Trade: " + trade);
-        this.location.setText("Location: " + location);
-        this.floor.setText("Floor: " + floor);
-        this.openingHrs.setText("Opening hours: " + openingHrs);
-        this.openingHrsWeekends.setText("Weekends: " + openingHrsWeekends);
-        this.turnover.setText("Turnover: " + turnover);
-        this.description.setText(description);
         JPanel storeTopPanel = new JPanel();
         JPanel storeCenterPanel = new JPanel();
         JPanel storeBottomPanel = new JPanel();
@@ -184,7 +175,6 @@ public class UpdateStoreInfo extends JFrame{
         changeDescriptionFrame.add(topPanel, BorderLayout.NORTH);
         changeDescriptionFrame.add(changeDescriptionButtonPanel, BorderLayout.SOUTH);
         changeDescriptionFrame.pack();
-        
         ChangeDescriptionAction changeDescriptionAction = new ChangeDescriptionAction();
         selectDescription.addActionListener(changeDescriptionAction);
         changeDescriptionBack.addActionListener(changeDescriptionAction);
@@ -336,6 +326,7 @@ public class UpdateStoreInfo extends JFrame{
                 changeTradeFrame.dispose();
             }
         }
+        @Override
         public void mouseClicked(MouseEvent mouseEvent) {
             if(mouseEvent.getClickCount() == 1){
                 int index = tradeList.getSelectedIndex();
@@ -357,6 +348,7 @@ public class UpdateStoreInfo extends JFrame{
     }
     private class ChangeDescriptionAction extends DatabaseConnection implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if(actionEvent.getSource() == selectDescription){
                 System.out.println(newDescription.getText());
@@ -378,4 +370,32 @@ public class UpdateStoreInfo extends JFrame{
         }
         
     }
+    class Update extends DatabaseConnection implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent hendelse) {
+                try {
+                    openConnection();
+                    String currentStoreName = getShopName(username);
+                    String currentTrade = getShopTrade(username);
+                    String currentLocation = getShopLocation(username);
+                    String currentFloor = getShopFloor(username);
+                    String currentOpeningHrs = getShopOpeningHrs(username);
+                    String currentOpeningHrsWeekends = getShopOpeningHrsWeekends(username);
+                    String currentTurnover = getShopTurnover(username);
+                    String currentDescription = getShopDescription(username);
+                    storeName.setText("Store name: " + currentStoreName);
+                    trade.setText("Trade: " + currentTrade);
+                    location.setText("Location: " + currentLocation);
+                    floor.setText("Floor: " + currentFloor);
+                    openingHrs.setText("Opening hours: " + currentOpeningHrs);
+                    openingHrsWeekends.setText("Weekends: " + currentOpeningHrsWeekends);
+                    turnover.setText("Turnover: " + currentTurnover);
+                    description.setText(currentDescription);
+                    closeConnection();
+                } catch (Exception e) {
+                    Database.printMesssage(e, "Update   ");
+                }
+
+            }
+        }
 }
