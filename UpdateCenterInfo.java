@@ -128,7 +128,7 @@ public class UpdateCenterInfo extends JFrame {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getSource() == updateCenterNrOfShopsBtn) {
-                ArrayList<String> trades = new ArrayList<>();
+                ArrayList<String> trades = new ArrayList<String>();
                 String centerName = "";
                 try {
                     openConnection();
@@ -261,9 +261,9 @@ public class UpdateCenterInfo extends JFrame {
                 setTitle("Establish new store - " + centerName);
                 this.centerName = centerName;
                 this.trades = trades;
-                trades.stream().forEach((trade) -> {
-                    defaultListModel.addElement(trade);
-                });
+                for( int i = 0; i < trades.size();i++){
+                    defaultListModel.addElement(trades.get(i));
+                };
                 Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
                 description.setBorder(border);
                 JPanel topPanel = new JPanel();

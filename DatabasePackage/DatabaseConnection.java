@@ -5,6 +5,7 @@ import shoolprodject.DatabasePackage.Database;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 /**
  * Created by jonas on 19.03.15.
  */
@@ -1506,6 +1507,44 @@ public class DatabaseConnection {
             }
         catch (Exception e){
             Database.printMesssage(e, "setCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public String getStoreUsername(String centerName, String storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String shopDescription = "";
+        try {
+            String sqlGet = "SELECT DISTINCT username FROM store WHERE store_name='" + storename + "' AND center_name='" + centerName + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            shopDescription = resultSet.getString("username");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoreUsername");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return shopDescription;
+    }
+     public int setNewPassword(String username, String newPassword){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE users SET password='"+newPassword+"' WHERE username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterDescription");
         }
         finally {
             Database.closeStatement(statement);

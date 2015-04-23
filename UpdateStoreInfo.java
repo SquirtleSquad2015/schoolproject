@@ -23,20 +23,16 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
 
 public class UpdateStoreInfo extends JFrame{
-    private final String username;
-    /*private String currentShopName;
-    private String currentTrade;
-    private String currentLocation;
-    private String currentFloor;
-    private String currentOpeningHrs;
-    private String currentOpeningHrsWeekends;
-    private String currentTurnover;
-    private String currentDescription;*/
+    private String username;
+    private String storename;
+    private String centername;
+    
     
     JLabel storeName = new JLabel("Store name: ", JLabel.CENTER);
     JLabel trade = new JLabel("Trade: ", JLabel.CENTER);
@@ -74,8 +70,9 @@ public class UpdateStoreInfo extends JFrame{
     JButton selectDescription = new JButton("Change");
     
     
-    public UpdateStoreInfo(String username){
-        this.username = username;
+    public UpdateStoreInfo(String storename, String centername){
+        this.storename = storename;
+        this.centername = centername;
         JPanel storeTopPanel = new JPanel();
         JPanel storeCenterPanel = new JPanel();
         JPanel storeBottomPanel = new JPanel();
@@ -178,6 +175,11 @@ public class UpdateStoreInfo extends JFrame{
         ChangeDescriptionAction changeDescriptionAction = new ChangeDescriptionAction();
         selectDescription.addActionListener(changeDescriptionAction);
         changeDescriptionBack.addActionListener(changeDescriptionAction);
+        Update update = new Update();
+        int delay = 100; //milliseconds
+        Timer timer = new Timer(delay, update);
+        timer.start();
+        timer.setRepeats(false);
     }
     private class ActionUpdateStoreInfo extends DatabaseConnection implements ActionListener{
         @Override
@@ -375,6 +377,7 @@ public class UpdateStoreInfo extends JFrame{
             public void actionPerformed(ActionEvent hendelse) {
                 try {
                     openConnection();
+                    username = getStoreUsername(storename, centername);
                     String currentStoreName = getShopName(username);
                     String currentTrade = getShopTrade(username);
                     String currentLocation = getShopLocation(username);

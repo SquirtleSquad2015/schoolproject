@@ -65,7 +65,9 @@ public class ShopManagerMenu extends JFrame {
             else if (check == updateInfo) {
                 try {
                     openConnection();
-                    UpdateStoreInfo updateStoreInfo = new UpdateStoreInfo(username);
+                    String storename = getShopName(username);
+                    String centername = getCenter(username);
+                    UpdateStoreInfo updateStoreInfo = new UpdateStoreInfo(storename, centername);
                     updateStoreInfo.setVisible(true);
                     updateStoreInfo.setLocationRelativeTo(null);
                     closeConnection();

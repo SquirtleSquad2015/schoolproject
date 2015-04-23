@@ -129,7 +129,18 @@ public class ChangeAccountInfo extends JFrame {
                             }
                         }
                         if (length == newPass.length) {
-                            showMessageDialog(null, "Update complete");
+                            String newPassword = new String(newPass);
+                            try{
+                                openConnection();
+                                int ok = setNewPassword(username, newPassword);
+                                if(ok == 1){
+                                    showMessageDialog(null, "Update complete");
+                                }
+                                closeConnection();
+                            }
+                            catch (Exception e){
+                                Database.printMesssage(e, "setPassword");
+                            }
 
                         } else {
                             showMessageDialog(null, "Passwords do not match! Please try again");
