@@ -22,7 +22,6 @@ import static javax.swing.JOptionPane.*;
 class Customer extends JFrame{
     private ArrayList<String> list;
     private ArrayList<String> list2;
-
     
     private JLabel ledetekst1 = new JLabel("Name",JLabel.CENTER);
     private JLabel ledetekst2 = new JLabel("Trade",JLabel.CENTER);
@@ -48,7 +47,7 @@ class Customer extends JFrame{
 
     
     private JButton knapp1 = new JButton("Info, Senter");
-    private JButton knapp2 = new JButton("");
+    private JButton knapp2 = new JButton("Sort by trades");
     private JButton knapp4 = new JButton("Back");
     private JButton knapp3 = new JButton("Customer Service");
     private JButton knapp5 = new JButton("Update");
@@ -72,33 +71,33 @@ class Customer extends JFrame{
         
         LayoutManager layout1 = new GridLayout(1, 2, 3, 3);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(10, 2, 3, 3);
+        LayoutManager layout2 = new GridLayout(11, 2, 3, 3);
         panel2.setLayout(layout2);
         LayoutManager layout3 = new GridLayout(1, 1, 3, 3);
         panel3.setLayout(layout3);
         LayoutManager masterLayout = new BorderLayout();
         masterPanel.setLayout(masterLayout);
 
-	panel1.add( listbox, BorderLayout.CENTER );
+	    panel1.add( listbox, BorderLayout.CENTER );
         panel1.add( listbox2, BorderLayout.CENTER );
-        scroll =new JScrollPane(listbox);
-        scroll2 =new JScrollPane(listbox2);
+        scroll = new JScrollPane(listbox);
+        scroll2 = new JScrollPane(listbox2);
         panel1.add(scroll, BorderLayout.CENTER);
         panel1.add(scroll2, BorderLayout.CENTER);
-        
-        //panel2.add(knapp1);
-        //panel2.add(knapp2);
+
+
         panel2.add(knapp3);
         panel2.add(knapp4);
         panel2.add(search);//search
         panel2.add(center);//search knapp
         panel2.add(search2);//search
         panel2.add(kommune);//search knapp
+        panel2.add(knapp2);
         
         
         panel2.add(filler);
-       // panel2.add(knapp5);
-        panel2.add(blank);
+
+        //panel2.add(blank);
         panel2.add(ledetekst1);
         panel2.add(ledetekstSvar1);
         panel2.add(ledetekst2);
@@ -110,6 +109,7 @@ class Customer extends JFrame{
         panel2.add(ledetekst5);
         panel2.add(ledetekstSvar5);
         panel2.add(ledetekst6);
+
         //panel2.add(ledetekstSvar6);
         textArea.setLineWrap(true);
         panel3.add(textArea);
@@ -128,12 +128,13 @@ class Customer extends JFrame{
         knapp3.addActionListener(lytteren3);
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
-        //Knappelytter5 lytteren5 = new Knappelytter5();
-        //knapp5.addActionListener(lytteren5);
+        Knappelytter5 lytteren5 = new Knappelytter5();
+        knapp2.addActionListener(lytteren5);
         ListboxListener lytteren7 = new ListboxListener();
         listbox.addMouseListener(lytteren7);
         ListboxListener2 lytteren8 = new ListboxListener2();
         listbox2.addMouseListener(lytteren8);
+
 
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
@@ -164,15 +165,12 @@ class Customer extends JFrame{
                     Database.printMesssage(e, "getCenters");
                 }
             }
-            
-
         }
     }
     //Info, shop
     class Knappelytter2 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton search2= (JButton) hendelse.getSource();
-            
             String kommun = kommune.getText();
             
             if(hendelse.getSource() == search2){
@@ -208,10 +206,9 @@ class Customer extends JFrame{
             JButton knapp4 = (JButton) hendelse.getSource();
             System.out.println("Back");
             dispose();
-
         }
     }
-    //Update
+    /*//Update
     class Knappelytter5 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
            JButton knapp5 = (JButton) hendelse.getSource();
@@ -235,6 +232,16 @@ class Customer extends JFrame{
             else{
                 showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }*/
+
+    class Knappelytter5 extends JFrame implements ActionListener {
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp2 = (JButton) hendelse.getSource();
+            System.out.println("Sort by trade");
+            CustomerTradeSort customertradesort = new CustomerTradeSort();
+            customertradesort.setLocationRelativeTo(null);
+            customertradesort.setVisible(true);
         }
     }
 

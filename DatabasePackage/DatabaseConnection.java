@@ -92,6 +92,29 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    public ArrayList<String> getStoreAndTrade(String centerName, String trade){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlCenter = "SELECT DISTINCT store_name from store, center where store.CENTER_NAME=center.CENTER_NAME and center.CENTER_NAME='"+centerName+"' and store.trade='"+trade+"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCenter);
+            while(resultSet.next()){
+                list.add(resultSet.getString("store_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStore");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+
     public ArrayList<String> getMuncipality(String kommun){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -113,6 +136,29 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    public String getCenterMunicipality(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String list = "";
+        try {
+            String sqlCenter = "SELECT DISTINCT muncipality from center where LCASE(center_name) LIKE LCASE('%" + centername + "%')";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlCenter);
+            resultSet.next();
+            list = resultSet.getString("muncipality");
+
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenters");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+
     public Integer getTurnoverStore(String centername, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1154,6 +1200,28 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getTrade");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+
+    public ArrayList<String> getCenterFromTrade(String trade){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sql = "SELECT DISTINCT center_name FROM store WHERE ( store.trade =  '"+trade+"')";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while(resultSet.next()){
+                list.add(resultSet.getString("center_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterFromTrade");
         }
         finally {
             Database.closeStatement(statement);
