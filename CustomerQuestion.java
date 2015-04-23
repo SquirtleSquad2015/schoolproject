@@ -35,7 +35,6 @@ public class CustomerQuestion extends JFrame{
 
     private ArrayList<String> list;
     private String[] centerListe = new String[100];
-
     private JComboBox centerValg = new JComboBox();
 
         public CustomerQuestion() {
@@ -62,8 +61,6 @@ public class CustomerQuestion extends JFrame{
             subject.setText("Enter case Subject");
 
             panel2.add(knapp2);
-            //panel2.add(case_id );
-            //case_id.setText("Enter your case number");
 
             textArea.setLineWrap(true);
             panel3.add(textArea);
