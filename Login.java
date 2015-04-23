@@ -90,7 +90,10 @@ class Login extends JFrame{
                         dispose();
                     }
                     if(ok==3){
-                        System.out.println("Access level 3");
+                        CenterManagerMenu centerManagerMenu = new CenterManagerMenu(bruker);
+                        centerManagerMenu.setVisible(true);
+                        centerManagerMenu.setLocationRelativeTo(null);
+                        dispose();
                     }
                     if(ok==4){
                         System.out.println("Admin level");
