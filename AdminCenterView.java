@@ -23,7 +23,7 @@ public class AdminCenterView extends JFrame {
     
     private ArrayList<String> list;
     private JButton newCenter = new JButton("New");
-    private JButton Edit = new JButton("Edit");
+    private JButton Edit = new JButton("Edit/View");
     private JButton Shops = new JButton("Shops");
     private JButton Back = new JButton("Back");
     
@@ -76,11 +76,14 @@ public class AdminCenterView extends JFrame {
             JButton check = (JButton)source.getSource();
 
             if (check == newCenter) {
-                newCenter center = new newCenter(centerName);
+                newCenter center = new newCenter();
                 center.setLocationRelativeTo(null);
                 center.setVisible(true);
             }
             if (check ==Edit){
+                UpdateCenter update = new UpdateCenter(centerName);
+                update.setLocationRelativeTo(null);
+                update.setVisible(true);
                 
             }
             if (check ==Shops){
