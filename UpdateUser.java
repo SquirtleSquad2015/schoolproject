@@ -360,7 +360,7 @@ public class UpdateUser extends JFrame{
             try{
                 openConnection();
                 Lcentername.setText("Username: "+username);
-                Lmunicipality.setText("Access Level: "+get username);
+                Lmunicipality.setText("Access Level: "+username);
                 Lturnover.setText("Activ: "+username);
                 Lnr_shops.setText("Name: "+username);
                 Lsqm.setText("Center Name: "+username);
