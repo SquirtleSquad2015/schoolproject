@@ -1534,4 +1534,22 @@ public class DatabaseConnection {
         }
         return shopDescription;
     }
+     public int setNewPassword(String username, String newPassword){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE users SET password='"+newPassword+"' WHERE username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }
