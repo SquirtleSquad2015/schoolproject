@@ -1454,16 +1454,16 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public int getUserActiv(String username){
+    public String getUserActiv(String username){
         Statement statement = null;
         ResultSet resultSet = null;
-        int retur=-1;
+        String retur="";
         try {
             String sqlGet = "SELECT Activ FROM users WHERE username ='"+username+"';";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGet);
             resultSet.next();
-            retur = resultSet.getInt("Activ");
+            retur = resultSet.getString("Activ");
         }
         catch (Exception e){
             Database.printMesssage(e, "getUserActiv");
@@ -1474,4 +1474,43 @@ public class DatabaseConnection {
         }
         return retur;
     } 
+    public String getUserTitle(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur="";
+        try {
+            String sqlGet = "SELECT Title FROM person WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getString("Title");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserTitle");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    } 
+    public int setUserActiv(String activ,String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok=0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdateCenterMail = "UPDATE users SET Activ='"+activ+"' WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdateCenterMail);
+            System.out.println(ok);
+            }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }
