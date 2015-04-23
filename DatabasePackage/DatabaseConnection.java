@@ -1259,25 +1259,90 @@ public class DatabaseConnection {
         }
         return ok;
     }
-    public ArrayList<String> getUsersNotActiv(){
+    public int regNewStore(String storeName,String centerName,String trade, String location, String floor, String openingHrs,
+                           String openingHrsWeekends, String description){
         Statement statement = null;
         ResultSet resultSet = null;
-        ArrayList<String> list = new ArrayList<String>();
+        int ok = 0;
+        int check = 0;
         try {
-            String sqlGetShop ="SELECT username FROM users WHERE Activ='n' ;";
+            connection.setAutoCommit(false);
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlGetShop);
-            while(resultSet.next()){
-                list.add(resultSet.getString("username"));
+            String sqlInsert = "INSERT INTO store(store_name, center_name, username, turnover, trade, location," +
+                    "floor, openingHrs, openingHrs_weekends, description) VALUES ('"+storeName+"','"+centerName+"',"+
+                    null+",0,'"+trade+"','"+location+"',"+floor+",'"+openingHrs+"','"+openingHrsWeekends+"','"+description+"')";
+            ok = statement.executeUpdate(sqlInsert);
+            if(ok == 1){
+                String sqlGet = "SELECT DISTINCT nr_shops from center where center_name='"+centerName+"'";
+                resultSet = statement.executeQuery(sqlGet);
+                resultSet.next();
+                int shopNr = resultSet.getInt("nr_shops") + 1;
+                String sqlUpdate = "UPDATE center SET nr_shops='"+shopNr+"' WHERE center_name='"+centerName +"'";
+                check = statement.executeUpdate(sqlUpdate);
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getUsersNotActiv");
+            Database.printMesssage(e, "setStoreDescription");
+        }
+        finally {
+            Database.settAutoCommit(connection);
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return check;
+    }
+    public int setCenterSqm(String newSqm, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE center SET sqm='"+newSqm+"' WHERE center_name='"+centerName +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterSqm");
         }
         finally {
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        return list;
+        return ok;
+    }
+    public int setCenterCarPark(char carPark, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE center SET car_park='"+carPark+"' WHERE center_name='"+centerName +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterCarPark");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int setCenterDescription(String newDescription, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE center SET description='"+newDescription+"' WHERE center_name='"+centerName +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
     }
 }
