@@ -122,7 +122,17 @@ public class CenterManagerMenu extends JFrame {
                 changeAccountInfo.setVisible(true);
                 changeAccountInfo.setLocationRelativeTo(null);
             } else if (actionEvent.getSource() == manageUsersBtn) {
-
+                try {
+                    openConnection();
+                    currentCenterName = getCenter(username);
+                    closeConnection();
+                }
+                catch(Exception e){
+                    Database.printMesssage(e, "ManageUsers");
+                }
+                ManageUsers manageUsers = new ManageUsers(currentCenterName);
+                manageUsers.setVisible(true);
+                manageUsers.setLocationRelativeTo(null);
             }
             else if(actionEvent.getSource() == updateStoreInfoBtn){
                 try {
