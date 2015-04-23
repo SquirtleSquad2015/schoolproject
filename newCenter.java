@@ -62,9 +62,7 @@ public class newCenter extends JFrame{
     JButton selectDescription = new JButton("Change");
     
     
-    public newCenter(String centerName){
-        this.centerName=centerName;
-
+    public newCenter(){
         JPanel storeTopPanel = new JPanel();
         JPanel storeCenterPanel = new JPanel();
         JPanel storeBottomPanel = new JPanel();
