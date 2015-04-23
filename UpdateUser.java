@@ -11,38 +11,38 @@ import shoolprodject.DatabasePackage.DatabaseConnection;
 
 public class UpdateUser extends JFrame{
     private String username;
+    private String activ;
+    private String mail;
    
 
-    JLabel Lcentername = new JLabel("",JLabel.CENTER);
-    JLabel Lmunicipality = new JLabel("", JLabel.CENTER);
-    JLabel Lturnover = new JLabel("", JLabel.CENTER);
-    JLabel Lnr_shops = new JLabel("", JLabel.CENTER);
-    JLabel Lsqm = new JLabel("", JLabel.CENTER);
-    JLabel Laddress = new JLabel("", JLabel.CENTER);
+    JLabel Lusername = new JLabel("",JLabel.CENTER);
+    JLabel Laccess = new JLabel("", JLabel.CENTER);
+    JLabel Lactiv = new JLabel("", JLabel.CENTER);
+    JLabel Lname = new JLabel("", JLabel.CENTER);
+    JLabel Lcetnername = new JLabel("", JLabel.CENTER);
+    JLabel Ltitle = new JLabel("", JLabel.CENTER);
     JLabel Lmail = new JLabel("", JLabel.CENTER);
     JLabel Ltlf = new JLabel("", JLabel.CENTER);
     JTextArea description = new JTextArea();
-    JButton changeCenterName = new JButton("Change");
-    JButton changeMunicipality = new JButton("Change");
-    JButton changeTurnover = new JButton("Change");
-    JButton changeNr_Stores = new JButton("Change");
-    JButton changeSqm = new JButton("Change");
-    JButton changeAddress = new JButton("Change");
+    JLabel changeUsername = new JLabel("",JLabel.CENTER);
+    JLabel changeAccess = new JLabel("",JLabel.CENTER);
+    JButton changeActiv = new JButton("Change");
+    JLabel changeName = new JLabel("");
+    JLabel changeCentername = new JLabel("");
+    JButton changeTitle = new JButton("Change");
     JButton changeMail = new JButton("Change");
     JButton changeTlf = new JButton("Change");
     JButton knapp = new JButton("Change description");
     JButton backButton = new JButton("Back");
      //JFrame - change Trade --------------------------------------
-    ArrayList<String> trades;
+    ArrayList<String> activList;
     JFrame changeTradeFrame = new JFrame();
-    JLabel titleTrade = new JLabel("Trade", JLabel.CENTER);
-    JLabel titleDescription = new JLabel("Description");
+    JLabel titleTrade = new JLabel("Choose (y) for activ and (n) for inactiv", JLabel.CENTER);
     DefaultListModel defaultListModelTrade = new DefaultListModel();
     JList tradeList = new JList(defaultListModelTrade);
     JScrollPane scrollPaneTrade = new JScrollPane(tradeList);
-    JTextArea tradeDescription = new JTextArea("Description");
-    JButton changeTradeBack = new JButton("Back");
-    JButton selectTrade = new JButton("Select");
+    JButton changeActivBack = new JButton("Back");
+    JButton selectActiv = new JButton("Select");
     //JFrame - change description ----------------------------------
     JFrame changeDescriptionFrame = new JFrame();
     JTextArea newDescription = new JTextArea();
@@ -69,18 +69,18 @@ public class UpdateUser extends JFrame{
         setLayout(changeStoreInfoLayout);
         storeTopPanel.setLayout(storeTopLayout);
         storeBottomPanel.setLayout(storeBottomLayout);
-        storeTopPanel.add(Lcentername);
-        storeTopPanel.add(changeCenterName);
-        storeTopPanel.add(Lmunicipality);
-        storeTopPanel.add(changeMunicipality);
-        storeTopPanel.add(Lturnover);
-        storeTopPanel.add(changeTurnover);
-        storeTopPanel.add(Lnr_shops);
-        storeTopPanel.add(changeNr_Stores);
-        storeTopPanel.add(Lsqm);
-        storeTopPanel.add(changeSqm);
-        storeTopPanel.add(Laddress);
-        storeTopPanel.add(changeAddress);
+        storeTopPanel.add(Lusername);
+        storeTopPanel.add(changeUsername);
+        storeTopPanel.add(Laccess);
+        storeTopPanel.add(changeAccess);
+        storeTopPanel.add(Lactiv);
+        storeTopPanel.add(changeActiv);
+        storeTopPanel.add(Lname);
+        storeTopPanel.add(changeName);
+        storeTopPanel.add(Lcetnername);
+        storeTopPanel.add(changeCentername);
+        storeTopPanel.add(Ltitle);
+        storeTopPanel.add(changeTitle);
         storeTopPanel.add(Ltlf);
         storeTopPanel.add(changeTlf);
         storeTopPanel.add(Lmail);
@@ -93,22 +93,15 @@ public class UpdateUser extends JFrame{
         add(storeBottomPanel, BorderLayout.SOUTH);
         pack();
         ActionUpdateStoreInfo actionChangeCenter = new ActionUpdateStoreInfo();
-        changeCenterName.addActionListener(actionChangeCenter);
-        changeMunicipality.addActionListener(actionChangeCenter);
-        changeTurnover.addActionListener(actionChangeCenter);
-        changeNr_Stores.addActionListener(actionChangeCenter);
-        changeSqm.addActionListener(actionChangeCenter);
-        changeAddress.addActionListener(actionChangeCenter);
+        changeActiv.addActionListener(actionChangeCenter);
+        changeTitle.addActionListener(actionChangeCenter);
         changeMail.addActionListener(actionChangeCenter);
         changeTlf.addActionListener(actionChangeCenter);
         knapp.addActionListener(actionChangeCenter);
         backButton.addActionListener(actionChangeCenter);
        
         //JFrame - change Trade -------------------------------------------------------------------------
-        tradeDescription.setLineWrap(true);
-        tradeDescription.setWrapStyleWord(true);
-        tradeDescription.setEditable(false);
-        tradeDescription.setOpaque(false);
+
         JPanel tradeTopPanel = new JPanel();
         JPanel tradeCenterPanel = new JPanel();
         JPanel tradeBottomPanel = new JPanel();
@@ -119,19 +112,16 @@ public class UpdateUser extends JFrame{
         tradeBottomPanel.setLayout(tradePanelLayout);
         changeTradeFrame.setLayout(tradeLayout);
         tradeTopPanel.add(titleTrade);
-        tradeTopPanel.add(titleDescription);
         tradeCenterPanel.add(scrollPaneTrade);
-        tradeCenterPanel.add(tradeDescription);
-        tradeBottomPanel.add(changeTradeBack);
-        tradeBottomPanel.add(selectTrade);
+        tradeBottomPanel.add(changeActivBack);
+        tradeBottomPanel.add(selectActiv);
         changeTradeFrame.add(tradeTopPanel, BorderLayout.NORTH);
         changeTradeFrame.add(tradeCenterPanel, BorderLayout.CENTER);
         changeTradeFrame.add(tradeBottomPanel, BorderLayout.SOUTH);
         changeTradeFrame.pack();
         ChangeTradeAction changeTradeaction = new ChangeTradeAction();
-        changeTradeBack.addActionListener(changeTradeaction);
-        selectTrade.addActionListener(changeTradeaction);
-        tradeList.addMouseListener(changeTradeaction);
+        changeActivBack.addActionListener(changeTradeaction);
+        selectActiv.addActionListener(changeTradeaction);
         
         // JFrame - changeDescription ------------------------------------------------------------------------
         changeDescriptionFrame.setTitle("Change description");
@@ -168,51 +158,52 @@ public class UpdateUser extends JFrame{
     private class ActionUpdateStoreInfo extends DatabaseConnection implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(actionEvent.getSource() == changeCenterName){
-                String newStoreName = showInputDialog(null, "Please insert new store name: ");
+            if(actionEvent.getSource() == changeActiv){
+                int ok=0;
                 try {
                     openConnection();
-                    int ok = setStoreName(username, newStoreName);
-                    if(ok == 1){
-                        showMessageDialog(null, "Update complete");
-                        if(newStoreName.length() < 16){
-                            Lcentername.setText("Store name: " + newStoreName);
-                        } else {
-                            Lcentername.setText(newStoreName);
-                        }
-
-                    }
+                    activ = getUserActiv(username);                    
                     closeConnection();
+                    System.out.println(activ);
                 }
                 catch (Exception e){
-                    Database.printMesssage(e, "ChangeStoreName");
+                    Database.printMesssage(e, "ChangeActiv");
                 }
-
-            }
-            else if(actionEvent.getSource() == changeMunicipality){
-                defaultListModelTrade.clear();
-                try {
-                    openConnection();
-                    trades = getTrades();
-                    for(int i = 0; i < trades.size(); i++){
-                        defaultListModelTrade.addElement(trades.get(i));
+                if(activ.equals("n")){
+                    String ny="y";
+                    try {
+                        openConnection();
+                        ok=setUserActiv(ny,username);                   
+                        closeConnection();
+                        showMessageDialog(null, "Update complete. User is: "+ny);
+                        Lactiv.setText("Activ: "+ny);
                     }
-                    closeConnection();
+                    catch (Exception e){
+                        Database.printMesssage(e, "ChangeActiv");
+                    }
                 }
-                catch (Exception e){
-                    Database.printMesssage(e, "changeTrade");
+                else if(activ.equals("y")){
+                    String ny="n";
+                    try {
+                        openConnection();
+                        ok=setUserActiv(ny,username);                   
+                        closeConnection();
+                        showMessageDialog(null, "Update complete. User is: "+ny);
+                        Lactiv.setText("Activ: "+ny);
+                    }
+                    catch (Exception e){
+                        Database.printMesssage(e, "ChangeActiv");
+                    }
                 }
-                changeTradeFrame.setVisible(true);
-                changeTradeFrame.setLocationRelativeTo(null);
             }
-            else if(actionEvent.getSource() == changeTurnover){
+            else if(actionEvent.getSource() == "nyknapp"){
                 String newStoreLocation = showInputDialog(null, "Please insert new store name: ");
                 try {
                     openConnection();
                     int ok = setStoreLocation(username, newStoreLocation);
                     if(ok == 1){
                         showMessageDialog(null, "Update complete");
-                        Lturnover.setText("Location: " + newStoreLocation);
+                        Lactiv.setText("Location: " + newStoreLocation);
                     }
                     closeConnection();
                 }
@@ -221,41 +212,15 @@ public class UpdateUser extends JFrame{
                 }
 
             }
-            else if(actionEvent.getSource() == changeNr_Stores){
-                String newStoreFloorRead = showInputDialog(null, "Please insert new store name: ");
-                int newStoreFloor = 0;
-                boolean integerCheck = false;
-                try {
-                    newStoreFloor = Integer.parseInt(newStoreFloorRead);
-                    integerCheck = true;
-                }
-                catch (NumberFormatException e){
-                    showMessageDialog(null, "Incorrect floor! Please try again");
-                }
-                if(integerCheck){
-                    try {
-                        openConnection();
-                        int ok = setStoreFloor(username, newStoreFloor);
-                        if(ok == 1){
-                            showMessageDialog(null, "Update complete");
-                            Lnr_shops.setText("Floor: " + newStoreFloor);
-                        }
-                        closeConnection();
-                    }
-                    catch (Exception e){
-                        Database.printMesssage(e, "ChangeStoreFloor");
-                    }
-                }
 
-            }
-            else if(actionEvent.getSource() == changeSqm){
+            else if(actionEvent.getSource() == changeCentername){
                 String newStoreOpeningHrs = showInputDialog(null, "Please insert new opening hours: ");
                 try {
                     openConnection();
                     int ok = setStoreOpeningHrs(username, newStoreOpeningHrs);
                     if(ok == 1){
                         showMessageDialog(null, "Update complete");
-                        Lsqm.setText("Opening hours: " + newStoreOpeningHrs);
+                        Lcetnername.setText("Opening hours: " + newStoreOpeningHrs);
                     }
                     closeConnection();
                 }
@@ -263,14 +228,14 @@ public class UpdateUser extends JFrame{
                     Database.printMesssage(e, "ChangeStoreOpeningHrs");
                 }
             }
-            else if(actionEvent.getSource() == changeAddress){
+            else if(actionEvent.getSource() == changeTitle){
                 String newStoreOpeningHrsWeekends = showInputDialog(null, "Please insert new opening hours: ");
                 try {
                     openConnection();
                     int ok = setStoreOpeningHrsWeekends(username, newStoreOpeningHrsWeekends);
                     if(ok == 1){
                         showMessageDialog(null, "Update complete");
-                        Laddress.setText("Weekends: " + newStoreOpeningHrsWeekends);
+                        Ltitle.setText("Weekends: " + newStoreOpeningHrsWeekends);
                     }
                     closeConnection();
                 }
@@ -279,7 +244,18 @@ public class UpdateUser extends JFrame{
                 }
             }
             else if(actionEvent.getSource() == changeMail){
-
+                int ok=0;
+                String newMail = showInputDialog(null, "Please insert new mail: ");
+                try {
+                    openConnection();
+                    ok=setEmail(newMail,username);                   
+                    closeConnection();
+                    showMessageDialog(null, "Update complete. User mail is: "+newMail);
+                    Lmail.setText("Activ: "+newMail);
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "ChangeMail");
+                }
             }
             else if(actionEvent.getSource() == knapp){
                 changeDescriptionFrame.setVisible(true);
@@ -290,19 +266,22 @@ public class UpdateUser extends JFrame{
             }
         }
     }
-    private class ChangeTradeAction extends DatabaseConnection implements ActionListener, MouseListener {
+    private class ChangeTradeAction extends DatabaseConnection implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(actionEvent.getSource() == changeTradeBack){
+            if(actionEvent.getSource() == changeActivBack){
                 changeTradeFrame.dispose();
-            } else {
+            }
+            else if(actionEvent.getSource()==changeActiv){
                 int index = tradeList.getSelectedIndex();
+                String activ=activList.get(index);
                 try {
+                    
                     openConnection();
-                    int ok = setTrade(username, trades.get(index));
-                    if(ok == 1){
+                    int ok=setUserActiv(activ,username);
+                    if(ok==1){
                         showMessageDialog(null, "Update complete");
-                        Lmunicipality.setText("Trade: " + trades.get(index));
+                        Laccess.setText("Trade: " + activList.get(index));
                     }
                     closeConnection();
                 }
@@ -312,24 +291,6 @@ public class UpdateUser extends JFrame{
                 changeTradeFrame.dispose();
             }
         }
-        public void mouseClicked(MouseEvent mouseEvent) {
-            if(mouseEvent.getClickCount() == 1){
-                int index = tradeList.getSelectedIndex();
-                try {
-                    openConnection();
-                    String getTradeDescription = getTradeDescription(trades.get(index));
-                    tradeDescription.setText(getTradeDescription);
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "MouseClicked - Description");
-                }
-            }
-        }
-        public void mousePressed(MouseEvent mouseEvent) {}
-        public void mouseReleased(MouseEvent mouseEvent) {}
-        public void mouseEntered(MouseEvent mouseEvent) {}
-        public void mouseExited(MouseEvent mouseEvent) {}
     }
     private class ChangeDescriptionAction extends DatabaseConnection implements ActionListener {
 
@@ -359,14 +320,24 @@ public class UpdateUser extends JFrame{
             
             try{
                 openConnection();
-                Lcentername.setText("Username: "+username);
-                Lmunicipality.setText("Access Level: "+username);
-                Lturnover.setText("Activ: "+username);
-                Lnr_shops.setText("Name: "+username);
-                Lsqm.setText("Center Name: "+username);
-                Laddress.setText("Title: "+username);
-                Ltlf.setText("Tlf:"+username);
-                Lmail.setText("Mail:"+username);
+                
+                //getUserAccess(username);
+                activ=getUserActiv(username);
+                //getPersonName(username);
+                //getCenter(username);
+                //getUserTitle(username);
+                //getPhoneNumber(username);
+                //getEmail(username);
+                        
+                        
+                Lusername.setText("Username: "+username);
+                Laccess.setText("Access Level: "+getUserAccess(username));
+                Lactiv.setText("Activ: "+activ);
+                Lname.setText("Name: "+getPersonName(username));
+                Lcetnername.setText("Center Name: "+getCenter(username));
+                Ltitle.setText("Title: "+getUserTitle(username));
+                Ltlf.setText("Tlf:"+getPhoneNumber(username));
+                Lmail.setText("Mail:"+getEmail(username));
                 closeConnection();
             }
             catch (Exception e){
