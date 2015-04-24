@@ -71,7 +71,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testCloseConnection() throws Exception {
         System.out.println("closeConnection");
         DatabaseConnection instance = new DatabaseConnection();
-        instance.closeConnection();
+        closeConnection();
         
     }
 
@@ -81,9 +81,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testCheckDB() throws Exception {
         System.out.println("checkDB");
-        DatabaseConnection instance = new DatabaseConnection();
         boolean expResult = false;
-        boolean result = instance.checkDB();
+        boolean result = checkDB();
         assertEquals(expResult, result);
        
     }
@@ -94,10 +93,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenters() {
         System.out.println("getCenters");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getCenters(centername);
+        ArrayList<String> result = getCenters(centername);
         assertEquals(expResult, result);
         
     }
@@ -108,10 +106,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetStore() {
         System.out.println("getStore");
-        String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centerName = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getStore(centerName);
+        ArrayList<String> result = getStore(centerName);
         assertEquals(expResult, result);
         
     }
@@ -122,11 +119,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetStoreAndTrade() {
         System.out.println("getStoreAndTrade");
-        String centerName = "";
+        String centerName = "DummyCenter";
         String trade = "";
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getStoreAndTrade(centerName, trade);
+        ArrayList<String> result = getStoreAndTrade(centerName, trade);
         assertEquals(expResult, result);
         
     }
@@ -137,10 +133,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetMuncipality() {
         System.out.println("getMuncipality");
-        String kommun = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String kommun = "DummyMunicipality";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getMuncipality(kommun);
+        ArrayList<String> result = getMuncipality(kommun);
         assertEquals(expResult, result);
         
     }
@@ -151,10 +146,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterMunicipality() {
         System.out.println("getCenterMunicipality");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getCenterMunicipality(centername);
+        String result = getCenterMunicipality(centername);
         assertEquals(expResult, result);
         
     }
@@ -165,11 +159,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetTurnoverStore() {
         System.out.println("getTurnoverStore");
-        String centername = "";
-        String storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
+        String storename = "DummyStore";
         Integer expResult = -1;
-        Integer result = instance.getTurnoverStore(centername, storename);
+        Integer result = getTurnoverStore(centername, storename);
         assertEquals(expResult, result);
         
     }
@@ -180,10 +173,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetTradeStore() {
         System.out.println("getTradeStore");
-        String Storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String Storename = "DummyStore";
         String expResult = "No trades found in store";
-        String result = instance.getTradeStore(Storename);
+        String result = getTradeStore(Storename);
         assertEquals(expResult, result);
     }
 
@@ -193,10 +185,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetTradeCenter() {
         System.out.println("getTradeCenter");
-        String Centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String Centername = "DummyCenter";
         String expResult = "No trades found in center";
-        String result = instance.getTradeCenter(Centername);
+        String result = getTradeCenter(Centername);
         assertEquals(expResult, result);
         
     }
@@ -207,10 +198,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetParking() {
         System.out.println("getParking");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "No parking information found";
-        String result = instance.getParking(centername);
+        String result = getParking(centername);
         assertEquals(expResult, result);
         
     }
@@ -221,10 +211,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetAddress() {
         System.out.println("getAddress");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "No address found";
-        String result = instance.getAddress(centername);
+        String result = getAddress(centername);
         assertEquals(expResult, result);
         
     }
@@ -235,10 +224,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterManager() {
         System.out.println("getCenterManager");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "No center manager found";
-        String result = instance.getCenterManager(centername);
+        String result = getCenterManager(centername);
         assertEquals(expResult, result);
         
     }
@@ -249,11 +237,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetStoreManager() {
         System.out.println("getStoreManager");
-        String centername = "";
-        String storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
+        String storename = "DummyStore";
         String expResult = "No store manager found";
-        String result = instance.getStoreManager(centername, storename);
+        String result = getStoreManager(centername, storename);
         assertEquals(expResult, result);
         
     }
@@ -265,9 +252,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetPersonName() {
         System.out.println("getPersonName");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "No name found";
-        String result = instance.getPersonName(username);
+        String result = getPersonName(username);
         assertEquals(expResult, result);
         
     }
@@ -279,9 +265,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetLocation() {
         System.out.println("getLocation");
         String Storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "No location found";
-        String result = instance.getLocation(Storename);
+        String result = getLocation(Storename);
         assertEquals(expResult, result);
         
     }
@@ -294,9 +279,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("getOpenings");
         String centerName = "";
         String Storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "No opening hours found";
-        String result = instance.getOpenings(centerName, Storename);
+        String result = getOpenings(centerName, Storename);
         assertEquals(expResult, result);
        
     }
@@ -307,12 +291,11 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testRegisterCustomerQuestion() {
         System.out.println("RegisterCustomerQuestion");
-        String center = "";
+        String center = "DummyCenter";
         String subject = "";
         String question = "";
-        DatabaseConnection instance = new DatabaseConnection();
         boolean expResult = false;
-        boolean result = instance.RegisterCustomerQuestion(center, subject, question);
+        boolean result = RegisterCustomerQuestion(center, subject, question);
         assertEquals(expResult, result);
         
     }
@@ -323,9 +306,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetHighestCustomerCaseIndex() {
         System.out.println("getHighestCustomerCaseIndex");
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = -1;
-        int result = instance.getHighestCustomerCaseIndex();
+        int result = getHighestCustomerCaseIndex();
         assertEquals(expResult, result);
        
     }
@@ -337,9 +319,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testCheckUsername() throws Exception {
         System.out.println("checkUsername");
         String userName = "";
-        DatabaseConnection instance = new DatabaseConnection();
         boolean expResult = false;
-        boolean result = instance.checkUsername(userName);
+        boolean result = checkUsername(userName);
         assertEquals(expResult, result);
         
     }
@@ -358,9 +339,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         String mail = "";
         int userLevel = 0;
         String title = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.regNewCenterUser(userName, telephone, password, centerName, realName, mail, userLevel, title);
+        int result = regNewCenterUser(userName, telephone, password, centerName, realName, mail, userLevel, title);
         assertEquals(expResult, result);
         
     }
@@ -373,9 +353,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("checkLogIn");
         String username = "";
         String password = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.checkLogIn(username, password);
+        int result = checkLogIn(username, password);
         assertEquals(expResult, result);
         
     }
@@ -389,9 +368,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         String title = "";
         String center_name = "";
         char solved = ' ';
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.customerServiceGetTitle(title, center_name, solved);
+        ArrayList<String> result = customerServiceGetTitle(title, center_name, solved);
         assertEquals(expResult, result);
         
     }
@@ -403,9 +381,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCustomerAnswer() {
         System.out.println("getCustomerAnswer");
         int caseID = 0;
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getCustomerAnswer(caseID);
+        String result = getCustomerAnswer(caseID);
         assertEquals(expResult, result);
        
     }
@@ -417,9 +394,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenter() {
         System.out.println("getCenter");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getCenter(username);
+        String result = getCenter(username);
         assertEquals(expResult, result);
         
     }
@@ -430,10 +406,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetNoOfShops() {
         System.out.println("getNoOfShops");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getNoOfShops(centername);
+        String result = getNoOfShops(centername);
         assertEquals(expResult, result);
         
     }
@@ -444,10 +419,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetSQM() {
         System.out.println("getSQM");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getSQM(centername);
+        String result = getSQM(centername);
         assertEquals(expResult, result);
         
     }
@@ -458,10 +432,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterTelephone() {
         System.out.println("getCenterTelephone");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getCenterTelephone(centername);
+        String result = getCenterTelephone(centername);
         assertEquals(expResult, result);
        
     }
@@ -472,10 +445,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterMail() {
         System.out.println("getCenterMail");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getCenterMail(centername);
+        String result = getCenterMail(centername);
         assertEquals(expResult, result);
         
     }
@@ -486,10 +458,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterParking() {
         System.out.println("getCenterParking");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getCenterParking(centername);
+        String result = getCenterParking(centername);
         assertEquals(expResult, result);
        
     }
@@ -500,10 +471,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenterDescription() {
         System.out.println("getCenterDescription");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         String expResult = "";
-        String result = instance.getCenterDescription(centername);
+        String result = getCenterDescription(centername);
         assertEquals(expResult, result);
         
     }
@@ -515,11 +485,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCustomerCaseID() {
         System.out.println("getCustomerCaseID");
         String title = "";
-        String center_name = "";
+        String center_name = "DummyCenter";
         char solved = ' ';
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<Integer> expResult = null;
-        ArrayList<Integer> result = instance.getCustomerCaseID(title, center_name, solved);
+        ArrayList<Integer> result = getCustomerCaseID(title, center_name, solved);
         assertEquals(expResult, result);
         
     }
@@ -531,9 +500,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetDescription() {
         System.out.println("getDescription");
         int caseID = 0;
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getDescription(caseID);
+        String result = getDescription(caseID);
         assertEquals(expResult, result);
         
     }
@@ -546,9 +514,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setAnswer");
         String answer = "";
         int caseID = 0;
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setAnswer(answer, caseID);
+        int result = setAnswer(answer, caseID);
         assertEquals(expResult, result);
         
     }
@@ -560,9 +527,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testDeleteCustomerCase() {
         System.out.println("deleteCustomerCase");
         int caseID = 0;
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.deleteCustomerCase(caseID);
+        int result = deleteCustomerCase(caseID);
         assertEquals(expResult, result);
         
     }
@@ -574,9 +540,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetEmail() {
         System.out.println("getEmail");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getEmail(username);
+        String result = getEmail(username);
         assertEquals(expResult, result);
         
     }
@@ -588,9 +553,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetPhoneNumber() {
         System.out.println("getPhoneNumber");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getPhoneNumber(username);
+        String result = getPhoneNumber(username);
         assertEquals(expResult, result);
        
     }
@@ -603,9 +567,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setEmail");
         String email = "";
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setEmail(email, username);
+        int result = setEmail(email, username);
         assertEquals(expResult, result);
         
     }
@@ -618,9 +581,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setPhoneNumber");
         String phoneNumber = "";
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setPhoneNumber(phoneNumber, username);
+        int result = setPhoneNumber(phoneNumber, username);
         assertEquals(expResult, result);
         
     }
@@ -633,9 +595,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setCenterMail");
         String newMail = "";
         String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setCenterMail(newMail, centerName);
+        int result = setCenterMail(newMail, centerName);
         assertEquals(expResult, result);
         
     }
@@ -648,9 +609,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setCenterPhoneNumber");
         String newPhoneNumber = "";
         String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setCenterPhoneNumber(newPhoneNumber, centerName);
+        int result = setCenterPhoneNumber(newPhoneNumber, centerName);
         assertEquals(expResult, result);
         
     }
@@ -662,9 +622,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopName() {
         System.out.println("getShopName");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopName(username);
+        String result = getShopName(username);
         assertEquals(expResult, result);
         
     }
@@ -676,9 +635,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopTrade() {
         System.out.println("getShopTrade");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopTrade(username);
+        String result = getShopTrade(username);
         assertEquals(expResult, result);
         
     }
@@ -690,9 +648,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopLocation() {
         System.out.println("getShopLocation");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopLocation(username);
+        String result = getShopLocation(username);
         assertEquals(expResult, result);
         
     }
@@ -704,9 +661,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopFloor() {
         System.out.println("getShopFloor");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopFloor(username);
+        String result = getShopFloor(username);
         assertEquals(expResult, result);
         
        
@@ -719,9 +675,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopOpeningHrs() {
         System.out.println("getShopOpeningHrs");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopOpeningHrs(username);
+        String result = getShopOpeningHrs(username);
         assertEquals(expResult, result);
         
     }
@@ -733,9 +688,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopOpeningHrsWeekends() {
         System.out.println("getShopOpeningHrsWeekends");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopOpeningHrsWeekends(username);
+        String result = getShopOpeningHrsWeekends(username);
         assertEquals(expResult, result);
         
     }
@@ -747,9 +701,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopTurnover() {
         System.out.println("getShopTurnover");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopTurnover(username);
+        String result = getShopTurnover(username);
         assertEquals(expResult, result);
        
     }
@@ -760,11 +713,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetShopDescription_String_String() {
         System.out.println("getShopDescription");
-        String centerName = "";
-        String storeName = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centerName = "DummyCenter";
+        String storeName = "DummyStore";
         String expResult = "";
-        String result = instance.getShopDescription(centerName, storeName);
+        String result = getShopDescription(centerName, storeName);
         assertEquals(expResult, result);
        
     }
@@ -777,9 +729,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreName");
         String username = "";
         String newStoreName = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setStoreName(username, newStoreName);
+        int result = setStoreName(username, newStoreName);
         assertEquals(expResult, result);
         
     }
@@ -792,9 +743,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreLocation");
         String username = "";
         String newStoreLocation = "";
-        DatabaseConnection instance = new DatabaseConnection();
+
         int expResult = 0;
-        int result = instance.setStoreLocation(username, newStoreLocation);
+        int result = setStoreLocation(username, newStoreLocation);
         assertEquals(expResult, result);
        
     }
@@ -807,9 +758,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreFloor");
         String username = "";
         int newFloor = 0;
-        DatabaseConnection instance = new DatabaseConnection();
+
         int expResult = 0;
-        int result = instance.setStoreFloor(username, newFloor);
+        int result = setStoreFloor(username, newFloor);
         assertEquals(expResult, result);
         
     }
@@ -822,9 +773,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreOpeningHrs");
         String username = "";
         String newOpeningHrs = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setStoreOpeningHrs(username, newOpeningHrs);
+        int result = setStoreOpeningHrs(username, newOpeningHrs);
         assertEquals(expResult, result);
        
     }
@@ -837,9 +787,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreOpeningHrsWeekends");
         String username = "";
         String newOpeningHrsWeekends = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setStoreOpeningHrsWeekends(username, newOpeningHrsWeekends);
+        int result = setStoreOpeningHrsWeekends(username, newOpeningHrsWeekends);
         assertEquals(expResult, result);
         
     }
@@ -850,9 +799,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetTrades() {
         System.out.println("getTrades");
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getTrades();
+        ArrayList<String> result = getTrades();
         assertEquals(expResult, result);
         
     }
@@ -864,9 +812,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenterFromTrade() {
         System.out.println("getCenterFromTrade");
         String trade = "";
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getCenterFromTrade(trade);
+        ArrayList<String> result = getCenterFromTrade(trade);
         assertEquals(expResult, result);
        
     }
@@ -878,9 +825,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetTradeDescription() {
         System.out.println("getTradeDescription");
         String trade = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getTradeDescription(trade);
+        String result = getTradeDescription(trade);
         assertEquals(expResult, result);
       
     }
@@ -893,9 +839,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setTrade");
         String username = "";
         String trade = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setTrade(username, trade);
+        int result = setTrade(username, trade);
         assertEquals(expResult, result);
        
     }
@@ -907,9 +852,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetShopDescription_String() {
         System.out.println("getShopDescription");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getShopDescription(username);
+        String result = getShopDescription(username);
         assertEquals(expResult, result);
         
     }
@@ -922,9 +866,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setStoreDescription");
         String username = "";
         String description = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setStoreDescription(username, description);
+        int result = setStoreDescription(username, description);
         assertEquals(expResult, result);
         
     }
@@ -945,9 +888,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         String ma = "";
         String ca = "";
         String de = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.newCenter(na, mu, tu, sh, sq, ad, tl, ma, ca, de);
+        int result = newCenter(na, mu, tu, sh, sq, ad, tl, ma, ca, de);
         assertEquals(expResult, result);
         
     }
@@ -966,9 +908,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         String openingHrs = "";
         String openingHrsWeekends = "";
         String description = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.regNewStore(storeName, centerName, trade, location, floor, openingHrs, openingHrsWeekends, description);
+        int result = regNewStore(storeName, centerName, trade, location, floor, openingHrs, openingHrsWeekends, description);
         assertEquals(expResult, result);
        
     }
@@ -980,10 +921,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testSetCenterSqm() {
         System.out.println("setCenterSqm");
         String newSqm = "";
-        String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centerName = "DummyCenter";
         int expResult = 0;
-        int result = instance.setCenterSqm(newSqm, centerName);
+        int result = setCenterSqm(newSqm, centerName);
         assertEquals(expResult, result);
         
     }
@@ -995,10 +935,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testSetCenterCarPark() {
         System.out.println("setCenterCarPark");
         char carPark = ' ';
-        String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centerName = "DumyCenter";
         int expResult = 0;
-        int result = instance.setCenterCarPark(carPark, centerName);
+        int result = setCenterCarPark(carPark, centerName);
         assertEquals(expResult, result);
         
     }
@@ -1010,10 +949,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testSetCenterDescription() {
         System.out.println("setCenterDescription");
         String newDescription = "";
-        String centerName = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centerName = "DummyCenter";
         int expResult = 0;
-        int result = instance.setCenterDescription(newDescription, centerName);
+        int result = setCenterDescription(newDescription, centerName);
         assertEquals(expResult, result);
        
     }
@@ -1024,9 +962,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUsers() {
         System.out.println("getUsers");
-        DatabaseConnection instance = new DatabaseConnection();
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getUsers();
+        ArrayList<String> result = getUsers();
         assertEquals(expResult, result);
         
     }
@@ -1038,9 +975,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetUserAccess() {
         System.out.println("getUserAccess");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = -1;
-        int result = instance.getUserAccess(username);
+        int result = getUserAccess(username);
         assertEquals(expResult, result);
         
     }
@@ -1052,9 +988,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetUserActiv() {
         System.out.println("getUserActiv");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getUserActiv(username);
+        String result = getUserActiv(username);
         assertEquals(expResult, result);
        
     }
@@ -1066,9 +1001,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetUserTitle() {
         System.out.println("getUserTitle");
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getUserTitle(username);
+        String result = getUserTitle(username);
         assertEquals(expResult, result);
         
     }
@@ -1081,9 +1015,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setUserActiv");
         String activ = "";
         String username = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setUserActiv(activ, username);
+        int result = setUserActiv(activ, username);
         assertEquals(expResult, result);
         
     }
@@ -1096,9 +1029,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("getStoreUsername");
         String centerName = "";
         String storename = "";
-        DatabaseConnection instance = new DatabaseConnection();
         String expResult = "";
-        String result = instance.getStoreUsername(centerName, storename);
+        String result = getStoreUsername(centerName, storename);
         assertEquals(expResult, result);
         
     }
@@ -1111,9 +1043,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         System.out.println("setNewPassword");
         String username = "";
         String newPassword = "";
-        DatabaseConnection instance = new DatabaseConnection();
         int expResult = 0;
-        int result = instance.setNewPassword(username, newPassword);
+        int result = setNewPassword(username, newPassword);
         assertEquals(expResult, result);
        
     }
@@ -1124,10 +1055,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUsersCenterManager() {
         System.out.println("getUsersCenterManager");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getUsersCenterManager(centername);
+        ArrayList<String> result = getUsersCenterManager(centername);
         assertEquals(expResult, result);
        
     }
@@ -1138,10 +1068,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetStoresWithoutUser() {
         System.out.println("getStoresWithoutUser");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getStoresWithoutUser(centername);
+        ArrayList<String> result = getStoresWithoutUser(centername);
         assertEquals(expResult, result);
       
     }
@@ -1152,10 +1081,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUsersWithoutStore() {
         System.out.println("getUsersWithoutStore");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getUsersWithoutStore(centername);
+        ArrayList<String> result = getUsersWithoutStore(centername);
         assertEquals(expResult, result);
         
     }
@@ -1166,10 +1094,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUsersNotActiv() {
         System.out.println("getUsersNotActiv");
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String centername = "DummyCenter";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getUsersNotActiv(centername);
+        ArrayList<String> result = getUsersNotActiv(centername);
         assertEquals(expResult, result);
         
     }
@@ -1181,11 +1108,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testSetStoreUser() {
         System.out.println("setStoreUser");
         String username = "";
-        String storename = "";
-        String centername = "";
-        DatabaseConnection instance = new DatabaseConnection();
+        String storename = "DummyStore";
+        String centername = "DummyCenter";
         int expResult = 0;
-        int result = instance.setStoreUser(username, storename, centername);
+        int result = setStoreUser(username, storename, centername);
         assertEquals(expResult, result);
         
     }
