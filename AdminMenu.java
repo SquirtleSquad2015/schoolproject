@@ -23,7 +23,8 @@ public class AdminMenu extends JFrame {
     private String centerName;
     private String shopName;
     JButton Users = new JButton("View Users");
-    JButton Centers = new JButton("View Centers");
+    JButton newCenter = new JButton("New Center");
+    JButton editCenter = new JButton("Edit Center and Store, new Store");
     JButton changeAccountInfo = new JButton("Change account information");
     JButton exit = new JButton("Exit");
 
@@ -35,14 +36,16 @@ public class AdminMenu extends JFrame {
         LayoutManager layout = new GridLayout(4, 1, 3, 3);
         setLayout(layout);
         add(Users);
-        add(Centers);
+        add(newCenter);
+        add(editCenter);
         add(changeAccountInfo);
         add(exit);
         pack();
 
         Action action = new Action();
         Users.addActionListener(action);
-        Centers.addActionListener(action);
+        newCenter.addActionListener(action);
+        editCenter.addActionListener(action);
         changeAccountInfo.addActionListener(action);
         exit.addActionListener(action);
         
@@ -62,11 +65,17 @@ public class AdminMenu extends JFrame {
                 userView.setLocationRelativeTo(null);
                 userView.setVisible(true);
             }
-            if (check ==Centers){
+            if (check ==newCenter){
+                newCenter center = new newCenter();
+                center.setLocationRelativeTo(null);
+                center.setVisible(true);
+            }
+            if (check ==editCenter){
                 AdminCenterView centerView = new AdminCenterView();
                 centerView.setLocationRelativeTo(null);
                 centerView.setVisible(true);
             }
+            
             if (check ==changeAccountInfo){
                 ChangeAccountInfo accountInfo = new ChangeAccountInfo(username, email, tlf);
                 accountInfo.setLocationRelativeTo(null);
