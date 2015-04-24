@@ -10,14 +10,11 @@ import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by jonas on 23.04.15.
- */
 public class ManageUsers extends JFrame{
-    private String centername;
-    private ArrayList<String> userArray = new ArrayList<String>();
-    private ArrayList<String> storeArray = new ArrayList<String>();
-    private ArrayList<String> unActivArray = new ArrayList<String>();
+    private final String centername;
+    private ArrayList<String> userArray = new ArrayList<>();
+    private ArrayList<String> storeArray = new ArrayList<>();
+    private ArrayList<String> unActivArray = new ArrayList<>();
     Update update = new Update();
     int delay = 100; //milliseconds
     Timer timer = new Timer(delay, update);
@@ -48,7 +45,6 @@ public class ManageUsers extends JFrame{
         JPanel topPanel = new JPanel();
         JPanel centerPanel = new JPanel();
         JPanel buttonPanelCenter = new JPanel();
-        JPanel bottomPanel = new JPanel();
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         LayoutManager topLayout = new GridLayout(1,2,3,3);
         LayoutManager centerLayout = new GridLayout(2,2,3,3);
