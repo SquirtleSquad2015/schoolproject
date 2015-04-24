@@ -1785,4 +1785,25 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public ArrayList<String> getCenterWithoutUser(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            statement = connection.createStatement();
+            String sqlGet ="SELECT center_name FROM center WHERE username is null;";
+            resultSet = statement.executeQuery(sqlGet);
+            while(resultSet.next()){
+                list.add(resultSet.getString("center_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterWithoutUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
 }
