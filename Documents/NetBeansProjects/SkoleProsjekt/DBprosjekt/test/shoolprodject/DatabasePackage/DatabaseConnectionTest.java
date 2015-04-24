@@ -88,6 +88,46 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     }
 
     /**
+     * Test of newCenter method, of class DatabaseConnection.
+     */
+    @Test
+    public void testNewCenter() {
+        System.out.println("newCenter");
+        String na = "DummyCenter";
+        String mu = "DummyMunicipality";
+        String tu = "22";
+        String sh = "1";
+        String sq = "1000";
+        String ad = "DummyAddress";
+        String tl = "48292211";
+        String ma = "dumy@center.no";
+        String ca = "y";
+        String de = "Dumt center";
+        int expResult = 1;
+        int result = newCenter(na, mu, tu, sh, sq, ad, tl, ma, ca, de);
+        assertEquals(expResult, result);
+
+    }
+    /**
+     * Test of regNewStore method, of class DatabaseConnection.
+     */
+    @Test
+    public void testRegNewStore() {
+        System.out.println("regNewStore");
+        String storeName = "DummyStore";
+        String centerName = "DummyCenter";
+        String trade = "Elektronikk";
+        String location = "DummyLocation";
+        String floor = "2";
+        String openingHrs = "dummyOpeninghrs";
+        String openingHrsWeekends = "EvenDumberOpeninghrs";
+        String description = "DummyStore";
+        int expResult = 1;
+        int result = regNewStore(storeName, centerName, trade, location, floor, openingHrs, openingHrsWeekends, description);
+        assertEquals(expResult, result);
+
+    }
+    /**
      * Test of getCenters method, of class DatabaseConnection.
      */
     @Test
@@ -565,9 +605,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testSetEmail() {
         System.out.println("setEmail");
-        String email = "";
-        String username = "";
-        int expResult = 0;
+        String email = "TestMailen";
+        String username = "Admin";
+        int expResult = 1;
         int result = setEmail(email, username);
         assertEquals(expResult, result);
         
@@ -872,47 +912,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
-    /**
-     * Test of newCenter method, of class DatabaseConnection.
-     */
-    @Test
-    public void testNewCenter() {
-        System.out.println("newCenter");
-        String na = "";
-        String mu = "";
-        String tu = "";
-        String sh = "";
-        String sq = "";
-        String ad = "";
-        String tl = "";
-        String ma = "";
-        String ca = "";
-        String de = "";
-        int expResult = 0;
-        int result = newCenter(na, mu, tu, sh, sq, ad, tl, ma, ca, de);
-        assertEquals(expResult, result);
-        
-    }
 
-    /**
-     * Test of regNewStore method, of class DatabaseConnection.
-     */
-    @Test
-    public void testRegNewStore() {
-        System.out.println("regNewStore");
-        String storeName = "";
-        String centerName = "";
-        String trade = "";
-        String location = "";
-        String floor = "";
-        String openingHrs = "";
-        String openingHrsWeekends = "";
-        String description = "";
-        int expResult = 0;
-        int result = regNewStore(storeName, centerName, trade, location, floor, openingHrs, openingHrsWeekends, description);
-        assertEquals(expResult, result);
-       
-    }
+
 
     /**
      * Test of setCenterSqm method, of class DatabaseConnection.
