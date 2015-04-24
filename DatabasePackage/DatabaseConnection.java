@@ -1729,4 +1729,24 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public String getUsernameCenter(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur="";
+        try {
+            String sqlGet = "SELECT DISTINCT username FROM center WHERE center_name='" + centername + "';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getString("username");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUsersNotActiv");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
 }
