@@ -45,8 +45,9 @@ public class AdminUserView extends JFrame {
         panel2.setLayout(new GridLayout(1,2,3,3));
         
         panel1.add(scroll);
-        panel2.add(Edit);
         panel2.add(Back);
+        panel2.add(Edit);
+        
         
         masterPanel.add(panel1, BorderLayout.CENTER);
         masterPanel.add(panel2, BorderLayout.SOUTH);
