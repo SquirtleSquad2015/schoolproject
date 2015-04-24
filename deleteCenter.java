@@ -16,15 +16,14 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class AdminCenterView extends JFrame {
+public class deleteCenter extends JFrame {
     private JPanel masterPanel = new JPanel();
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     
     private ArrayList<String> list;
-    private JButton Edit = new JButton("Edit/View");
-    private JButton Back = new JButton("Back");
-    
+    private JButton delete = new JButton("Delete");
+    private JButton back = new JButton("Back");
     
     private DefaultListModel defaultListModel = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
@@ -34,8 +33,8 @@ public class AdminCenterView extends JFrame {
     private String username;
 
 
-    public AdminCenterView(){
-        setTitle("Center View");
+    public deleteCenter(){
+        setTitle("Delete Center");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400,300);
 
@@ -44,19 +43,16 @@ public class AdminCenterView extends JFrame {
         panel2.setLayout(new GridLayout(1,3,3,3));
         
         panel1.add(scroll);
-        panel2.add(Back);
-        panel2.add(Edit);
-        
+        panel2.add(back);
+        panel2.add(delete);
         
         masterPanel.add(panel1, BorderLayout.CENTER);
         masterPanel.add(panel2, BorderLayout.SOUTH);
         add(masterPanel);
         
-
         Action action = new Action();
-        Back.addActionListener(action);
-        Edit.addActionListener(action);
-        
+        delete.addActionListener(action);
+        back.addActionListener(action);
         
         ListboxListener lytteren7 = new ListboxListener();
         listbox.addMouseListener(lytteren7);
@@ -72,23 +68,19 @@ public class AdminCenterView extends JFrame {
         public void actionPerformed(ActionEvent source) {
             JButton check = (JButton)source.getSource();
             
-            if (check ==Edit){
+            if (check ==delete){
                 try{
                     openConnection();//må opprette sin egen, max 1 extends per klasse
-                    username = getUsernameCenter(centerName);
+                    int i= deleteCenter(centerName);
                     closeConnection();
-                    System.out.println(centerName);
-                    System.out.println(username);
-                    CenterManagerMenu menu =new CenterManagerMenu(username);
-                    menu.setLocationRelativeTo(null);
-                    menu.setVisible(true);
+                    
                     dispose();
                 }
                 catch (Exception c){
-                    Database.printMesssage(c, "getCenters For AdminView");
+                    Database.printMesssage(c, "deleteCenter");
                 }
             }
-            if (check ==Back){
+            if (check ==back){
                 dispose();
             }
             
@@ -104,11 +96,8 @@ public class AdminCenterView extends JFrame {
             try{
                 openConnection();//må opprette sin egen, max 1 extends per klasse
                 centerName = listbox.getSelectedValue().toString();
-                
                 closeConnection();
                 System.out.println(centerName);
-                
-
             }
             catch (Exception c){
                 Database.printMesssage(c, "getCenters For AdminView");

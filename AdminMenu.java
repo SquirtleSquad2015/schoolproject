@@ -25,6 +25,7 @@ public class AdminMenu extends JFrame {
     JButton Users = new JButton("View Users");
     JButton newCenter = new JButton("New Center");
     JButton editCenter = new JButton("Edit Center and Store, new Store");
+    JButton deleteCenter = new JButton("Delete Center");
     JButton changeAccountInfo = new JButton("Change account information");
     JButton exit = new JButton("Exit");
 
@@ -33,10 +34,11 @@ public class AdminMenu extends JFrame {
         this.username = username;
         setTitle("Admin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        LayoutManager layout = new GridLayout(4, 1, 3, 3);
+        LayoutManager layout = new GridLayout(6, 1, 3, 3);
         setLayout(layout);
         add(Users);
         add(newCenter);
+        add(deleteCenter);
         add(editCenter);
         add(changeAccountInfo);
         add(exit);
@@ -46,6 +48,7 @@ public class AdminMenu extends JFrame {
         Users.addActionListener(action);
         newCenter.addActionListener(action);
         editCenter.addActionListener(action);
+        deleteCenter.addActionListener(action);
         changeAccountInfo.addActionListener(action);
         exit.addActionListener(action);
         
@@ -74,6 +77,11 @@ public class AdminMenu extends JFrame {
                 AdminCenterView centerView = new AdminCenterView();
                 centerView.setLocationRelativeTo(null);
                 centerView.setVisible(true);
+            }
+            if(check==deleteCenter){
+                deleteCenter delete = new deleteCenter();
+                delete.setLocationRelativeTo(null);
+                delete.setVisible(true);
             }
             
             if (check ==changeAccountInfo){
