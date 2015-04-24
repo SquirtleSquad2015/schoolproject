@@ -136,21 +136,47 @@ public class UpdateUser extends JFrame{
                     }
                 }
             }
-            else if(actionEvent.getSource() == changeCentername){//jonas
+            if(actionEvent.getSource() == changeCentername){//jonas
+                String title="";
+                String center="";
+                String test="";
                 try {
                     openConnection();
-                    String title=getUserTitle(username);
+                    
+                    title=getUserTitle(username);
+                    center=getCenter(username);
                     closeConnection();
-                    if(title.equals("Center Manager")){
-                        System.out.println("senter opppdatert");
-                    }
-                    else{
-                        showMessageDialog(null, "Ikke gyldig bruker");
-                    }
+                    
+                    
                 }
                 catch (Exception e){
-                    Database.printMesssage(e, "ChangeActiv");
+                    Database.printMesssage(e, "feil feil");
                 }
+                try {
+                    openConnection();
+                    test = getCenterManager(center);
+                    closeConnection();
+                    
+                    
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "riktig feil");
+                }
+                
+                System.out.println("---------");
+                System.out.println(title);
+                System.out.println(center);
+                System.out.println(test);
+                if(title.equals("Center Manager") && test==null){
+                    System.out.println("senter opppdatert");
+                    SetCenterManagers set = new SetCenterManagers(username);
+                    set.setLocationRelativeTo(null);
+                    set.setVisible(true);
+                }
+                else{
+                    showMessageDialog(null, "Ikke gyldig bruker");
+                }
+                
                 
                 
             }
