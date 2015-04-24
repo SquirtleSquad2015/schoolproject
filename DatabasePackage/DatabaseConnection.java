@@ -1764,8 +1764,10 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             statement = connection.createStatement();
-            String sqlUpdate = "DELETE FROM center WHERE center_name='"+centerName+"';";
+            String sqlUpdate = "DELETE FROM store WHERE center_name='"+centerName+"';";
             ok = statement.executeUpdate(sqlUpdate);
+            String sqlUpdate2 = "DELETE FROM center WHERE center_name='"+centerName+"';";
+            ok = statement.executeUpdate(sqlUpdate2);
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteUser");
