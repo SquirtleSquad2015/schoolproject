@@ -12,9 +12,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class ManageUsers extends JFrame{
     private final String centername;
-    private ArrayList<String> userArray = new ArrayList<>();
-    private ArrayList<String> storeArray = new ArrayList<>();
-    private ArrayList<String> unActivArray = new ArrayList<>();
+    private ArrayList<String> userArray = new ArrayList<String>();
+    private ArrayList<String> storeArray = new ArrayList<String>();
+    private ArrayList<String> unActivArray = new ArrayList<String>();
     Update update = new Update();
     int delay = 100; //milliseconds
     Timer timer = new Timer(delay, update);

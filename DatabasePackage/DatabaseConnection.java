@@ -19,7 +19,6 @@ public class DatabaseConnection {
             connection = DriverManager.getConnection("jdbc:mysql://mysql.stud.aitel.hist.no:3306/14hing06","14hing06","Aiz3ee");
         } catch (Exception e){
             Database.printMesssage(e, "Konstruktør");
-            //Test
         }
     }
     public void closeConnection() throws Exception{
@@ -196,7 +195,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getTradeStore");
-            retur = "Feil";
+            retur = "No trades found in store";
         }
         finally {
             Database.closeStatement(statement);
@@ -217,7 +216,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getTradeCenter");
-            retur = "Feil";
+            retur = "No trades found in center";
         }
         finally {
             Database.closeStatement(statement);
@@ -238,7 +237,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getParking");
-            retur = "Feil";
+            retur = "No parking information found";
         }
         finally {
             Database.closeStatement(statement);
@@ -261,7 +260,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
-            retur = "Feil";
+            retur = "No address found";
         }
         finally {
             Database.closeStatement(statement);
@@ -282,7 +281,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenterManager");
-            retur = "Feil";
+            retur = "No center manager found";
         }
         finally {
             Database.closeStatement(statement);
@@ -303,7 +302,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getStoreManager");
-            retur = "Feil";
+            retur = "No store manager found";
         }
         finally {
             Database.closeStatement(statement);
@@ -325,7 +324,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getPersonName");
-            retur = "Feil";
+            retur = "No name found";
         }
         finally {
             Database.closeStatement(statement);
@@ -348,7 +347,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getAddress");
-            retur = "Feil";
+            retur = "No location found";
         }
         finally {
             Database.closeStatement(statement);
@@ -370,7 +369,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getOpenings");
-            retur = "Feil";
+            retur = "No opening hours found";
         }
         finally {
             Database.closeStatement(statement);
@@ -499,6 +498,7 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
             Database.settAutoCommit(connection);
         }
+        System.out.println(ok);
         return ok;
     }
 

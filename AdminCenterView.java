@@ -37,7 +37,7 @@ public class AdminCenterView extends JFrame {
     public AdminCenterView(){
         setTitle("Center View");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(300,300);
+        setSize(400,300);
 
         masterPanel.setLayout(new BorderLayout());
         panel1.setLayout(new GridLayout(1,1,3,3));

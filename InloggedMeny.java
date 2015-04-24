@@ -241,8 +241,6 @@ public class InloggedMeny extends JFrame {
         public void mouseExited(MouseEvent e) {}
     }
 
-
-
     class ListboxListener extends JFrame implements MouseListener {
         private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
         public void actionPerformed(MouseEvent hendelse){

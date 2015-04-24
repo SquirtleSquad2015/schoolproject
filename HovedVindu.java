@@ -45,14 +45,25 @@ class HovedVindu  extends JFrame {
 
 
         panel1.add(bildeKnapp);
+        Image img;
+
         try{
-            Image img = ImageIO.read(getClass().getResource("./bilde/SCHMIDT.png"));
+            img = ImageIO.read(getClass().getResource("./bilde/SCHMIDT.png"));
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }
         catch(IOException e){
             System.out.println("Picture missing");
         }
+        catch(IllegalArgumentException e){
+            img = ImageIO.read(getClass().getResource("/bilde/SCHMIDT.png"));
+            System.out.println("IllegalArgumentException");
+            bildeKnapp.setIcon(new ImageIcon(img));
+            bildeKnapp.setSize(300, 300);
+        }
+
+
+
           
         panel2.add(knapp1);
         panel2.add(knapp2);
