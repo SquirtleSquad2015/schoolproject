@@ -55,7 +55,7 @@ public class CenterManagerMenu extends JFrame {
         manageUsersBtn.addActionListener(action);
         exitBtn.addActionListener(action);
 
-
+        selectStoreFrame.setSize(300, 200);
         LayoutManager borderLayout = new BorderLayout();
         LayoutManager topLayout = new GridLayout(1,1,0,0);
         LayoutManager bottomLayout = new GridLayout(1,2,0,0);
@@ -67,7 +67,6 @@ public class CenterManagerMenu extends JFrame {
         bottomPanel.add(selectStore);
         selectStoreFrame.add(topPanel, BorderLayout.NORTH);
         selectStoreFrame.add(bottomPanel, BorderLayout.SOUTH);
-        selectStoreFrame.pack();
         ActionUpdateShop actionUpdateShop = new ActionUpdateShop();
         selectStore.addActionListener(actionUpdateShop);
         selectStoreBack.addActionListener(actionUpdateShop);
@@ -165,8 +164,6 @@ public class CenterManagerMenu extends JFrame {
                 int index = storeList.getSelectedIndex();
                 try {
                     openConnection();
-                    System.out.println(currentCenterName);
-                    System.out.println(stores.get(index));
                     UpdateStoreInfo updateStoreInfo = new UpdateStoreInfo(currentCenterName, stores.get(index));
                     updateStoreInfo.setVisible(true);
                     updateStoreInfo.setLocationRelativeTo(null);
