@@ -121,8 +121,6 @@ public class CustomerTradeSort extends JFrame{
         }
     }
 
-
-
     //automatisk oppdattering
      private class AutomatiskOppdatering extends shoolprodject.DatabasePackage.DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {

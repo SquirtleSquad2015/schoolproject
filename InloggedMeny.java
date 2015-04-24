@@ -40,13 +40,14 @@ public class InloggedMeny extends JFrame {
     private JPanel panel2 = new JPanel();
     private JPanel panel3 = new JPanel();
     private JPanel masterPanel = new JPanel();
-
+    int antallButikker;
 
 
     public InloggedMeny() {
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 600);
+
 
 
         // Create a new listbox control
@@ -99,6 +100,9 @@ public class InloggedMeny extends JFrame {
         Knappelytter2 lytteren2 = new Knappelytter2();
         knapp2.addActionListener(lytteren2);
 
+        //Knappelytter3 lytteren3 = newKnappelytter3();
+        //knapp3.addActionListener(lytteren3);
+
         Knappelytter4 lytteren4 = new Knappelytter4();
         knapp4.addActionListener(lytteren4);
 
@@ -137,6 +141,26 @@ public class InloggedMeny extends JFrame {
         }
     }
 
+    class Knappelytter3 extends DatabaseConnection implements ActionListener{
+        public void actionPerformed(ActionEvent hendelse) {
+            JButton knapp1 = (JButton) hendelse.getSource();
+            int index = listbox.getSelectedIndex();
+            int index2 = listbox2.getSelectedIndex();
+
+            try{
+                openConnection();
+                Integer svar = getTurnoverStore(listbox.getSelectedValue().toString(),listbox2.getSelectedValue().toString());
+                ledetekstSvar1.setText(svar.toString());
+                closeConnection();
+            }
+            catch (Exception e){
+                Database.printMesssage(e, "getTurnover");
+            }
+
+
+        }
+    }
+
     class Knappelytter2 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp2 = (JButton) hendelse.getSource();
@@ -156,21 +180,27 @@ public class InloggedMeny extends JFrame {
 
 
 
-    class Knappelytter4 extends JFrame implements ActionListener {
+    class Knappelytter4 extends DatabaseConnection implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
             JButton knapp4 = (JButton) hendelse.getSource();
             int index = listbox.getSelectedIndex();
             int index2 = listbox2.getSelectedIndex();
+            int annualTurnover = 0;
 
-
-            if (index > 0) {
-                int sum = 0;
-               // for(int i = 1; i < listData3.length; i++){
-               //     sum += (listData3[index][i]);
-               // }
-                String svar = Integer.toString(sum);
-                ledetekstSvar1.setText(svar);
+            try{
+                openConnection();
+                for(int i = 0; i< antallButikker; i++ ) {
+                    Integer svar = getTurnoverStore(listbox.getSelectedValue().toString(), listbox2.getModel().getElementAt(i).toString());
+                    annualTurnover += svar;
+                }
+                closeConnection();
             }
+            catch (Exception e){
+                Database.printMesssage(e, "getTurnover");
+            }
+            Integer B = annualTurnover;
+            ledetekstSvar1.setText("Total annual turnover for center: " + B.toString());
+
         }
     }
 
@@ -211,6 +241,8 @@ public class InloggedMeny extends JFrame {
         public void mouseExited(MouseEvent e) {}
     }
 
+
+
     class ListboxListener extends JFrame implements MouseListener {
         private DatabaseConnection DBconnection = new DatabaseConnection(); //må opprette sin egen, max 1 extends per klasse
         public void actionPerformed(MouseEvent hendelse){
@@ -228,6 +260,7 @@ public class InloggedMeny extends JFrame {
                 System.out.println(selectedCenter);
                 list2 = DBconnection.getStore(selectedCenter);
                 defaultListModel2.clear();
+                antallButikker = list2.size();
 
 
                 for(int i = 0; i < list2.size(); i++){

@@ -81,9 +81,7 @@ public class AdminCenterView extends JFrame {
                 center.setVisible(true);
             }
             if (check ==Edit){
-                UpdateCenter update = new UpdateCenter(centerName);
-                update.setLocationRelativeTo(null);
-                update.setVisible(true);
+                
                 
             }
             if (check ==Shops){

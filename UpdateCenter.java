@@ -367,6 +367,7 @@ public class UpdateCenter extends JFrame{
         
     }
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent hendelse) {
             
             try{

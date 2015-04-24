@@ -5,6 +5,7 @@ import shoolprodject.DatabasePackage.Database;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 /**
  * Created by jonas on 19.03.15.
  */
@@ -618,7 +619,6 @@ public class DatabaseConnection {
         Statement statement = null;
         ResultSet resultSet = null;
         String SQM ="";
-
         try {
             String sqlSubject = "SELECT sqm from center where center_name='" + centername + "'";
             statement = connection.createStatement();
@@ -1433,5 +1433,300 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
         }
         return list;
+    }
+    public int getUserAccess(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int retur=-1;
+        try {
+            String sqlGet = "SELECT Access_lv FROM users WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getInt("Access_lv");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserAccess");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    }
+    public String getUserActiv(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur="";
+        try {
+            String sqlGet = "SELECT Activ FROM users WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getString("Activ");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserActiv");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    } 
+    public String getUserTitle(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String retur="";
+        try {
+            String sqlGet = "SELECT Title FROM person WHERE username ='"+username+"';";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            retur = resultSet.getString("Title");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUserTitle");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return retur;
+    } 
+    public int setUserActiv(String activ,String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok=0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdateCenterMail = "UPDATE users SET Activ='"+activ+"' WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdateCenterMail);
+            System.out.println(ok);
+            }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public String getStoreUsername(String centerName, String storename){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String shopDescription = "";
+        try {
+            String sqlGet = "SELECT DISTINCT username FROM store WHERE store_name='" + storename + "' AND center_name='" + centerName + "'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            shopDescription = resultSet.getString("username");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoreUsername");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return shopDescription;
+    }
+     public int setNewPassword(String username, String newPassword){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE users SET password='"+newPassword+"' WHERE username='"+username +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterDescription");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+     public ArrayList<String> getUsersCenterManager(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlGetShop ="SELECT username FROM person where center_name='"+centername+"'";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGetShop);
+            while(resultSet.next()){
+                list.add(resultSet.getString("username"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getUsersNotActiv");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+
+    public ArrayList<String> getStoresWithoutUser(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            String sqlGetShop ="SELECT store_name FROM store where center_name='"+centername+"' AND username IS NULL";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGetShop);
+            while(resultSet.next()){
+                list.add(resultSet.getString("store_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoresWithoutUsers");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+    public ArrayList<String> getUsersWithoutStore(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list2 = new ArrayList<String>();
+        try {
+            statement = connection.createStatement();
+            String sqlGet ="SELECT username FROM person where center_name='"+centername+"' AND title='StoreManager'";
+            String sqlGetUsername = "SELECT username from store where center_name='"+centername+"'";
+            resultSet = statement.executeQuery(sqlGet);
+            while(resultSet.next()){
+                list.add(resultSet.getString("username"));
+            }
+            resultSet = statement.executeQuery(sqlGetUsername);
+            while (resultSet.next()){
+                list2.add(resultSet.getString("username"));
+            }
+            list.removeAll(list2);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoresWithoutUsers");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
+    }
+    public ArrayList<String> getUsersNotActiv(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list2 = new ArrayList<String>();
+        ArrayList<String> compareUsers = new ArrayList<String>();
+        try {
+            statement = connection.createStatement();
+            String sqlGet ="SELECT username FROM person where center_name='"+centername+"'";
+            String sqlGetUsername = "SELECT username from users where activ='n'";
+            resultSet = statement.executeQuery(sqlGet);
+            while(resultSet.next()){
+                list.add(resultSet.getString("username"));
+            }
+            resultSet = statement.executeQuery(sqlGetUsername);
+            while (resultSet.next()){
+                list2.add(resultSet.getString("username"));
+            }
+            for(int i = 0; i < list.size(); i++){
+                if(list2.contains(list.get(i))){
+                    compareUsers.add(list.get(i));
+                    System.out.println(list.get(i));
+                }
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getStoresWithoutUsers");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return compareUsers;
+    }
+    public int setStoreUser(String username, String storename, String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "UPDATE store SET username='"+username+"' WHERE center_name='"+centername +"' AND store_name='"+storename
+                    +"'";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setStoreUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deleteStore(String storename, String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteStore");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deletePerson(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "DELETE FROM person WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deletePerson");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deleteUser(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "DELETE FROM users WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
     }
 }
