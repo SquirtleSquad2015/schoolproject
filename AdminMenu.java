@@ -34,12 +34,12 @@ public class AdminMenu extends JFrame {
         this.username = username;
         setTitle("Admin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        LayoutManager layout = new GridLayout(4, 1, 3, 3);
+        LayoutManager layout = new GridLayout(6, 1, 3, 3);
         setLayout(layout);
         add(Users);
         add(newCenter);
-        add(editCenter);
         add(deleteCenter);
+        add(editCenter);
         add(changeAccountInfo);
         add(exit);
         pack();
