@@ -304,7 +304,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetAddress() {
         System.out.println("getAddress");
         String centername = "DummyCenter";
-        String expResult = "No address found";
+        String expResult = "DummyAddress, DummyMunicipality";
         String result = getAddress(centername);
         assertEquals(expResult, result);
         
