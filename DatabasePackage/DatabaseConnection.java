@@ -276,7 +276,7 @@ public class DatabaseConnection {
             statement = connection.createStatement();
             String sqlStatement = "SELECT DISTINCT name FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
             resultSet = statement.executeQuery(sqlStatement);
-            resultSet.next();
+            //resultSet.next();
             retur=resultSet.getString("name");
         }
         catch (Exception e){
@@ -1805,5 +1805,24 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
         }
         return list;
+    }
+    public int setCenterManager(String username, String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdateCenterMail = "UPDATE center SET username='"+username+"' WHERE center_name='"+centerName+"';";
+            ok = statement.executeUpdate(sqlUpdateCenterMail);
+            System.out.println(ok);
+            }
+        catch (Exception e){
+            Database.printMesssage(e, "setCenterMail");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
     }
 }
