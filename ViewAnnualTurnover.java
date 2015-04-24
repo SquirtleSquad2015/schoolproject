@@ -51,7 +51,6 @@ public class ViewAnnualTurnover extends JFrame {
         selectStoreStyle.setParagraphAttributes(0, selectStoreStyle.getLength(), center, false);
         turnoverStyle.setParagraphAttributes(0, turnoverStyle.getLength(), center, false);
 
-
         Update update = new Update();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, update);
