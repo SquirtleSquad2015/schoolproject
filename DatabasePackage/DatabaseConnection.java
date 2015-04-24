@@ -1758,4 +1758,22 @@ public class DatabaseConnection {
         }
         return retur;
     }
+    public int deleteCenter(String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "DELETE FROM center WHERE center_name='"+centerName+"';";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }
