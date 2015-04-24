@@ -198,7 +198,7 @@ public class CustomerTradeSort extends JFrame{
                 String centerInfo = "Center info:\nMunicipality " + b + "\nAddress " + f + "\nTelephone " + g + "\nMail" + h;
 
                 String shopInfo = "Store info:\n " + a +"\nLocation " + c +"\nOpen " + d + "\nDescription " + e;
-                textArea.setText(centerInfo +"\n----------------------\n" + shopInfo);
+                textArea.setText(centerInfo +"\n-----------------------------------------------\n" + shopInfo);
                 closeConnection();
 
             }catch (Exception c){
