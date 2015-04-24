@@ -143,7 +143,14 @@ public class ManageUsers extends JFrame{
                 }
             }
             else if(actionEvent.getSource() == deleteUser){
-                
+                try {
+                    openConnection();
+                    
+                    closeConnection();
+                }
+                catch (Exception e){
+                    
+                }
             } else {
                 dispose();
             }
