@@ -276,7 +276,7 @@ public class DatabaseConnection {
             statement = connection.createStatement();
             String sqlStatement = "SELECT DISTINCT name FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
             resultSet = statement.executeQuery(sqlStatement);
-            //resultSet.next();
+            resultSet.next();
             retur=resultSet.getString("name");
         }
         catch (Exception e){
