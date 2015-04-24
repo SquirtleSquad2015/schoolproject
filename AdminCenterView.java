@@ -22,17 +22,16 @@ public class AdminCenterView extends JFrame {
     private JPanel panel2 = new JPanel();
     
     private ArrayList<String> list;
-    private JButton newCenter = new JButton("New");
     private JButton Edit = new JButton("Edit/View");
-    private JButton Shops = new JButton("Shops");
     private JButton Back = new JButton("Back");
     
-    private JScrollPane scroll = new JScrollPane();
+    
     private DefaultListModel defaultListModel = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
+    private JScrollPane scroll = new JScrollPane(listbox);
     
     private String centerName;
-    private String storeName;
+    private String username;
 
 
     public AdminCenterView(){
@@ -44,10 +43,8 @@ public class AdminCenterView extends JFrame {
         panel1.setLayout(new GridLayout(1,1,3,3));
         panel2.setLayout(new GridLayout(1,3,3,3));
         
-        panel1.add(listbox);
-        panel2.add(newCenter);
+        panel1.add(scroll);
         panel2.add(Edit);
-        panel2.add(Shops);
         panel2.add(Back);
         
         masterPanel.add(panel1, BorderLayout.CENTER);
@@ -56,9 +53,7 @@ public class AdminCenterView extends JFrame {
         
 
         Action action = new Action();
-        newCenter.addActionListener(action);
         Edit.addActionListener(action);
-        Shops.addActionListener(action);
         Back.addActionListener(action);
         
         ListboxListener lytteren7 = new ListboxListener();
@@ -74,28 +69,21 @@ public class AdminCenterView extends JFrame {
     private class Action extends DatabaseConnection implements ActionListener{
         public void actionPerformed(ActionEvent source) {
             JButton check = (JButton)source.getSource();
-
-            if (check == newCenter) {
-                newCenter center = new newCenter();
-                center.setLocationRelativeTo(null);
-                center.setVisible(true);
-            }
+            
             if (check ==Edit){
-                
-                
-            }
-            if (check ==Shops){
                 try{
-                    openConnection();
-                    list = getStore(centerName);
-                    defaultListModel.clear();
-                    for(int i = 0; i < list.size(); i++){
-                        defaultListModel.addElement(list.get(i));
-                    }
+                    openConnection();//må opprette sin egen, max 1 extends per klasse
+                    username = getUsernameCenter(centerName);
                     closeConnection();
+                    System.out.println(centerName);
+                    System.out.println(username);
+                    CenterManagerMenu menu =new CenterManagerMenu(username);
+                    menu.setLocationRelativeTo(null);
+                    menu.setVisible(true);
+                    dispose();
                 }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
+                catch (Exception c){
+                    Database.printMesssage(c, "getCenters For AdminView");
                 }
             }
             if (check ==Back){
@@ -121,7 +109,7 @@ public class AdminCenterView extends JFrame {
 
             }
             catch (Exception c){
-                Database.printMesssage(c, "getStoresInCenter");
+                Database.printMesssage(c, "getCenters For AdminView");
             }
         }
         
