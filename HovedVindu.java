@@ -127,7 +127,7 @@ class HovedVindu  extends JFrame {
                 setVisible(false);
                 temp.setTitle("SCHMIDT");
                 temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                temp.setSize(300, 250);
+                //temp.setSize(300, 250);
                 temp.setLocationRelativeTo(null);
 
 
@@ -142,6 +142,7 @@ class HovedVindu  extends JFrame {
                 omOssTekst.setWrapStyleWord(true);
                 omOssTekst.setEditable(false);
                 omOssTekst.setOpaque(false);
+                omOssTekst.setPreferredSize(new Dimension(200,200));
                 Font font = new Font("Verdana", Font.BOLD, 15);
                 omOssTekst.setFont(font);
                 panel11.add(omOssTekst);
@@ -156,6 +157,7 @@ class HovedVindu  extends JFrame {
                 temp.setVisible(true);
                 action2 action2 = new action2();
                 aboutUsKnapp.addActionListener(action2);
+                temp.pack();
             }
         }
     }
