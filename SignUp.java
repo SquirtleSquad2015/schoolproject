@@ -180,11 +180,11 @@ public class SignUp extends JFrame {
                         showMessageDialog(null, "Passwords do not match! Please try again");
                     }
                     if (storeManager.isSelected() && equalPassword) {
-                        userType = "StoreManager";
+                        userType = "Store Manager";
                     } else if (centerManager.isSelected() && equalPassword) {
-                        userType = "CenterManager";
+                        userType = "Center Manager";
                     } else {
-                        userType = "CustomerService";
+                        userType = "Customer Service";
                     }
 
                 } else {
