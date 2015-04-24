@@ -22,9 +22,8 @@ public class deleteCenter extends JFrame {
     private JPanel panel2 = new JPanel();
     
     private ArrayList<String> list;
-    private JButton Edit = new JButton("Edit/View");
-    private JButton Back = new JButton("Back");
-    
+    private JButton delete = new JButton("Delete");
+    private JButton back = new JButton("Back");
     
     private DefaultListModel defaultListModel = new DefaultListModel();
     private JList listbox = new JList(defaultListModel);
@@ -44,17 +43,16 @@ public class deleteCenter extends JFrame {
         panel2.setLayout(new GridLayout(1,3,3,3));
         
         panel1.add(scroll);
-        panel2.add(Edit);
-        panel2.add(Back);
+        panel2.add(back);
+        panel2.add(delete);
         
         masterPanel.add(panel1, BorderLayout.CENTER);
         masterPanel.add(panel2, BorderLayout.SOUTH);
         add(masterPanel);
         
-
         Action action = new Action();
-        Edit.addActionListener(action);
-        Back.addActionListener(action);
+        delete.addActionListener(action);
+        back.addActionListener(action);
         
         ListboxListener lytteren7 = new ListboxListener();
         listbox.addMouseListener(lytteren7);
@@ -70,7 +68,7 @@ public class deleteCenter extends JFrame {
         public void actionPerformed(ActionEvent source) {
             JButton check = (JButton)source.getSource();
             
-            if (check ==Edit){
+            if (check ==delete){
                 try{
                     openConnection();//må opprette sin egen, max 1 extends per klasse
                     int i= deleteCenter(centerName);
@@ -82,7 +80,7 @@ public class deleteCenter extends JFrame {
                     Database.printMesssage(c, "deleteCenter");
                 }
             }
-            if (check ==Back){
+            if (check ==back){
                 dispose();
             }
             
@@ -98,11 +96,8 @@ public class deleteCenter extends JFrame {
             try{
                 openConnection();//må opprette sin egen, max 1 extends per klasse
                 centerName = listbox.getSelectedValue().toString();
-                
                 closeConnection();
                 System.out.println(centerName);
-                
-
             }
             catch (Exception c){
                 Database.printMesssage(c, "getCenters For AdminView");
