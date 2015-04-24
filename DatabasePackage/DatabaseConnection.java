@@ -1675,5 +1675,22 @@ public class DatabaseConnection {
         }
         return ok;
     }
-
+    public int deleteStore(String storename, String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteStore");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }
