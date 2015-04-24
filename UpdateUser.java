@@ -185,8 +185,8 @@ public class UpdateUser extends JFrame{
                 else if(dialogButton == JOptionPane.YES_OPTION){
                     try {
                         openConnection();
-                        //deletePerson(username);                
-                        //deleteUser(username);
+                        deletePerson(username);                
+                        deleteUser(username);
                         closeConnection();
                         showMessageDialog(null, username +" is deleted");
                         dispose();
