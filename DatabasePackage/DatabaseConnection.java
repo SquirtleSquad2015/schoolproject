@@ -271,7 +271,7 @@ public class DatabaseConnection {
     public String getCenterManager(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
-        String retur;
+        String retur=null;
         try {
             statement = connection.createStatement();
             String sqlStatement = "SELECT DISTINCT name FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
@@ -281,7 +281,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenterManager");
-            retur = "No center manager found";
+            retur=null;
         }
         finally {
             Database.closeStatement(statement);
@@ -1784,5 +1784,26 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
         }
         return ok;
+    }
+    public ArrayList<String> getCenterWithoutUser(String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<String>();
+        try {
+            statement = connection.createStatement();
+            String sqlGet ="SELECT center_name FROM center WHERE username is null;";
+            resultSet = statement.executeQuery(sqlGet);
+            while(resultSet.next()){
+                list.add(resultSet.getString("center_name"));
+            }
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterWithoutUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return list;
     }
 }
