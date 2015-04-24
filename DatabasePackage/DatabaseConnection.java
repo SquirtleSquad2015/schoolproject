@@ -271,7 +271,7 @@ public class DatabaseConnection {
     public String getCenterManager(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
-        String retur;
+        String retur=null;
         try {
             statement = connection.createStatement();
             String sqlStatement = "SELECT DISTINCT name FROM person, center WHERE center.username = person.username AND LCASE( center.center_name ) LIKE LCASE(  '"+centername+"' ) ";
@@ -281,7 +281,6 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenterManager");
-            retur = "No center manager found";
         }
         finally {
             Database.closeStatement(statement);
