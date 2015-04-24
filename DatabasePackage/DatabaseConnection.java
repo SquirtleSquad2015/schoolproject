@@ -1675,5 +1675,58 @@ public class DatabaseConnection {
         }
         return ok;
     }
-
+    public int deleteStore(String storename, String centername){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteStore");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deletePerson(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "DELETE FROM person WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deletePerson");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    public int deleteUser(String username){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "DELETE FROM users WHERE username='"+username+"';";
+            ok = statement.executeUpdate(sqlUpdate);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "deleteUser");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
 }

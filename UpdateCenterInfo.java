@@ -28,7 +28,8 @@ public class UpdateCenterInfo extends JFrame {
     JTextArea description = new JTextArea();
     JLabel descriptionTitle = new JLabel("Description", JLabel.CENTER);
     JButton updateCenterAreaBtn = new JButton("Update square meters");
-    JButton updateCenterNrOfShopsBtn = new JButton("Establish new shop");
+    JButton updateCenterNrOfShopsBtn = new JButton("Establish new store");
+    JButton deleteStore = new JButton("Delete store");
     JButton updateCarParkBtn = new JButton("Update Car park");
     JButton updateMail = new JButton("Update email");
     JButton updatePhoneNumber = new JButton("Update phone number");
@@ -54,16 +55,20 @@ public class UpdateCenterInfo extends JFrame {
         JPanel updateCenterTop = new JPanel();
         JPanel updateCenterCenter = new JPanel();
         JPanel updateCenterBottom = new JPanel();
+        JPanel buttons = new JPanel();
         LayoutManager updateCenterLayout = new BorderLayout();
         LayoutManager updateCenterTopLayout = new GridLayout(5, 2, 3, 3);
         LayoutManager updateCenterCenterLayout = new GridLayout(1, 2, 3, 3);
         LayoutManager updateCenterBottomLayout = new GridLayout(1, 2, 3, 3);
+        buttons.setLayout(updateCenterBottomLayout);
         setLayout(updateCenterLayout);
         updateCenterTop.setLayout(updateCenterTopLayout);
         updateCenterCenter.setLayout(updateCenterCenterLayout);
         updateCenterBottom.setLayout(updateCenterBottomLayout);
+        buttons.add(updateCenterNrOfShopsBtn);
+        buttons.add(deleteStore);
         updateCenterTop.add(nrOfShops);
-        updateCenterTop.add(updateCenterNrOfShopsBtn);
+        updateCenterTop.add(buttons);
         updateCenterTop.add(sqm);
         updateCenterTop.add(updateCenterAreaBtn);
         updateCenterTop.add(mail);
@@ -89,6 +94,7 @@ public class UpdateCenterInfo extends JFrame {
         updateCarParkBtn.addActionListener(action);
         updateDescriptionBtn.addActionListener(action);
         updateCenterBackBtn.addActionListener(action);
+        deleteStore.addActionListener(action);
 
 
         changeDescriptionFrame.setTitle("Change description");
@@ -155,7 +161,17 @@ public class UpdateCenterInfo extends JFrame {
                 } catch (Exception e) {
                     Database.printMesssage(e, "SetSqm");
                 }
-            } else if (actionEvent.getSource() == updateMail) {
+            } else if(actionEvent.getSource() == deleteStore){
+                try {
+                    openConnection();
+                    
+                    closeConnection();
+                }
+                catch (Exception e){
+                    
+                }
+            } 
+            else if (actionEvent.getSource() == updateMail) {
                 int ok;
                 String input = showInputDialog("Enter new center mail: ");
                 try {

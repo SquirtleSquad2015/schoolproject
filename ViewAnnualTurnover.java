@@ -59,8 +59,8 @@ public class ViewAnnualTurnover extends JFrame {
         timer.setRepeats(false);
 
         this.centername = centername;
-        LayoutManager borderLayout = new GridLayout(4, 2, 3, 3);
-        setLayout(borderLayout);
+        LayoutManager gridLayout = new GridLayout(4, 2, 3, 3);
+        setLayout(gridLayout);
         add(selectStore);
         add(turnover);
         add(stores);

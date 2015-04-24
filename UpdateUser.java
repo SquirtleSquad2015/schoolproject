@@ -30,7 +30,7 @@ public class UpdateUser extends JFrame{
     JButton changeActiv = new JButton("Change");
     JLabel changeName = new JLabel("");
     JLabel changeCentername = new JLabel("");
-    JLabel changeTitle = new JLabel("Change");
+    JLabel changeTitle = new JLabel("");
     JButton changeMail = new JButton("Change");
     JButton changeTlf = new JButton("Change");
     JButton delete = new JButton("Delete");
@@ -176,7 +176,25 @@ public class UpdateUser extends JFrame{
                 }
             }
             else if(actionEvent.getSource() == delete){
-                
+                int dialogButton = JOptionPane.YES_NO_OPTION;                
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Delete "+username+"?","Warning",dialogButton);
+                if(dialogResult == JOptionPane.NO_OPTION){
+                    showMessageDialog(null, username +" is NOT deleted");
+                    dispose();
+                }
+                else if(dialogButton == JOptionPane.YES_OPTION){
+                    try {
+                        openConnection();
+                        deletePerson(username);                
+                        deleteUser(username);
+                        closeConnection();
+                        showMessageDialog(null, username +" is deleted");
+                        dispose();
+                    }
+                    catch (Exception e){
+                        Database.printMesssage(e, "ChangeMail");
+                    }
+                }  
             }
             else if(actionEvent.getSource() == backButton){
                 dispose();
