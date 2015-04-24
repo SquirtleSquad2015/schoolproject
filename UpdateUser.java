@@ -38,22 +38,21 @@ public class UpdateUser extends JFrame{
 
     
     
-    public UpdateUser(String centerName){
-        this.username=centerName;
+    public UpdateUser(String username){
+        this.username=username;
+        
+        setTitle("User View");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(300,400);
+        
         JPanel storeTopPanel = new JPanel();
-       
         JPanel storeBottomPanel = new JPanel();
+        
         LayoutManager storeTopLayout = new GridLayout(9,2,3,3);
         LayoutManager storeBottomLayout = new GridLayout(1,2,3,3);
         LayoutManager changeStoreInfoLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
         
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-        this.description.setBorder(border);
-        this.description.setPreferredSize(new Dimension(300, 100));
-        this.description.setLineWrap(true);
-        this.description.setWrapStyleWord(true);
-        this.description.setEditable(false);
-        this.description.setOpaque(false);
         setLayout(changeStoreInfoLayout);
         storeTopPanel.setLayout(storeTopLayout);
         storeBottomPanel.setLayout(storeBottomLayout);
@@ -79,7 +78,6 @@ public class UpdateUser extends JFrame{
         storeBottomPanel.add(delete);
         add(storeTopPanel, BorderLayout.NORTH);
         add(storeBottomPanel, BorderLayout.SOUTH);
-        pack();
         ActionUpdateStoreInfo actionChangeCenter = new ActionUpdateStoreInfo();
         changeActiv.addActionListener(actionChangeCenter);
         changeMail.addActionListener(actionChangeCenter);
