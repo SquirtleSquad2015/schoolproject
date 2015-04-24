@@ -1679,10 +1679,19 @@ public class DatabaseConnection {
         Statement statement = null;
         ResultSet resultSet = null;
         int ok = 0;
+        int check = 0;
         try {
             String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
+            if(ok == 1){
+                String sqlGet = "SELECT DISTINCT nr_shops from center where center_name='"+centername+"'";
+                resultSet = statement.executeQuery(sqlGet);
+                resultSet.next();
+                int shopNr = resultSet.getInt("nr_shops") - 1;
+                String sqlUpdate = "UPDATE center SET nr_shops='"+shopNr+"' WHERE center_name='"+centername +"'";
+                check = statement.executeUpdate(sqlUpdate);
+            }
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteStore");
