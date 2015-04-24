@@ -5,6 +5,9 @@
  */
 package shoolprodject.DatabasePackage;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +23,35 @@ import static org.junit.Assert.*;
  * @author Haldor
  */
 public class DatabaseConnectionTest extends DatabaseConnection{
+    private static Connection connection;
     
     public DatabaseConnectionTest() {
+    }
+
+    public static int newCenterMock(){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            statement = connection.createStatement();
+            String sqlUpdate = "INSERT INTO  `14hing06`.`center` (`center_name` ,`username` ,`muncipality` ,`turnover` ,`nr_shops` ,`sqm` ,`address` ,`mail` ,`tlf` ,`car_park` ,`description`)"
+                    +" VALUES ('"+"DummyCenter"+"', NULL ,  '"+"DummyMunicipality"+"',  "+66+",  "+666+",  "+6666+",  '"+"DummuAddress"+"',  '"+"DummyMail"+"',  '"+"DummyTLF"+"',  '"+"D"+"',  '"+"DummyDescription"+"');";
+            ok = statement.executeUpdate(sqlUpdate);
+
+        }
+        catch (Exception e){
+            shoolprodject.DatabasePackage.Database.printMesssage(e, "setStoreDescription");
+        }
+        finally {
+            shoolprodject.DatabasePackage.Database.closeStatement(statement);
+            shoolprodject.DatabasePackage.Database.closeResSet(resultSet);
+        }
+        return ok;
     }
     
     @BeforeClass
     public static void setUpClass() {
+
 
     }
     
@@ -35,9 +61,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     
     @Before
     public void setUp() {
+        int i = newCenterMock();
         try {
-            
-            openConnection();
+
         } catch (Exception ex) {
             Logger.getLogger(DatabaseConnectionTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -59,8 +85,6 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testOpenConnection() throws Exception {
         System.out.println("openConnection");
-        DatabaseConnection instance = new DatabaseConnection();
-        instance.openConnection();
        
     }
 
@@ -891,7 +915,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         int expResult = 0;
         int result = newCenter(na, mu, tu, sh, sq, ad, tl, ma, ca, de);
         assertEquals(expResult, result);
-        
+
     }
 
     /**
