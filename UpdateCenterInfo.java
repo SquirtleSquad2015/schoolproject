@@ -135,7 +135,7 @@ public class UpdateCenterInfo extends JFrame {
         changeDescriptionBack.addActionListener(changeDescriptionAction);
         
         //JFrame - delete store ----------------
-        selectStoreFrame.setSize(300, 200);
+        selectStoreFrame.setSize(300, 250);
         JPanel selectStoreTop = new JPanel();
         JPanel selectStoreButton = new JPanel();
         LayoutManager selectStoreTopLayout = new GridLayout(1,1,3,3);
