@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import static javax.swing.JOptionPane.showConfirmDialog;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -33,6 +34,16 @@ public class ManageUsers extends JFrame{
     JList unActivList = new JList(defaultListModel3);
     JScrollPane unActivusers = new JScrollPane(unActivList);
     JButton makeActiv = new JButton("Make user active");
+    JButton deleteUser = new JButton("Delete users");
+    
+    JFrame deleteUsersFrame = new JFrame();
+    JPanel deleteUsersTopPanel = new JPanel();
+    JPanel deleteUsersBottomPanel = new JPanel();
+    DefaultListModel defaultListModelDU = new DefaultListModel();
+    JList deleteUserList = new JList(defaultListModelDU);
+    JScrollPane scrollPaneDU = new JScrollPane(deleteUserList);
+    JButton selectStore = new JButton("Next");
+    JButton selectStoreBack = new JButton("Back");
 
 
     public ManageUsers(String centername){
@@ -48,7 +59,7 @@ public class ManageUsers extends JFrame{
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         LayoutManager topLayout = new GridLayout(1,2,3,3);
         LayoutManager centerLayout = new GridLayout(2,2,3,3);
-        LayoutManager buttonLayout = new GridLayout(1,3,3,3);
+        LayoutManager buttonLayout = new GridLayout(1,4,3,3);
         topPanel.setLayout(topLayout);
         centerPanel.setLayout(centerLayout);
         buttonPanelCenter.setLayout(buttonLayout);
@@ -59,6 +70,7 @@ public class ManageUsers extends JFrame{
         centerPanel.add(unActivUser);
         centerPanel.add(unActivusers);
         buttonPanelCenter.add(back);
+        buttonPanelCenter.add(deleteUser);
         buttonPanelCenter.add(setUserToStore);
         buttonPanelCenter.add(makeActiv);
         add(topPanel, BorderLayout.NORTH);
@@ -69,6 +81,22 @@ public class ManageUsers extends JFrame{
         setUserToStore.addActionListener(action);
         makeActiv.addActionListener(action);
         back.addActionListener(action);
+        // JFrame - delete users ----------------------------
+        deleteUsersFrame.setSize(300, 200);
+        LayoutManager borderLayout = new BorderLayout();
+        LayoutManager deleteUsersTopLayout = new GridLayout(1,1,0,0);
+        LayoutManager deleteUsersBottomLayout = new GridLayout(1,2,0,0);
+        deleteUsersFrame.setLayout(borderLayout);
+        deleteUsersTopPanel.setLayout(deleteUsersTopLayout);
+        deleteUsersBottomPanel.setLayout(deleteUsersBottomLayout);
+        deleteUsersTopPanel.add(scrollPaneDU);
+        deleteUsersBottomPanel.add(selectStoreBack);
+        deleteUsersBottomPanel.add(selectStore);
+        deleteUsersFrame.add(deleteUsersTopPanel, BorderLayout.NORTH);
+        deleteUsersFrame.add(deleteUsersBottomPanel, BorderLayout.SOUTH);
+        //selectStore.addActionListener();
+        //selectStoreBack.addActionListener();
+        
     }
     private class Action extends DatabaseConnection implements ActionListener{
 
@@ -79,6 +107,15 @@ public class ManageUsers extends JFrame{
                 String username = userList.getSelectedValue().toString();
                 try {
                     openConnection();
+                    String activ = getUserActiv(username);
+                    if(activ.equals("n")){
+                        String title = "User activation";
+                        String message = "Would you like to set user: " + username + " as activ?";
+                        int reply = showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+                        if(reply == JOptionPane.YES_OPTION){
+                            int setActiv = setUserActiv("y", username);
+                        }   
+                    }
                     int ok = setStoreUser(username, store, centername);
                     if(ok == 1){
                         showMessageDialog(null, "Update complete");
@@ -103,6 +140,16 @@ public class ManageUsers extends JFrame{
                 }
                 catch (Exception e){
                     Database.printMesssage(e, "makeActiv");
+                }
+            }
+            else if(actionEvent.getSource() == deleteUser){
+                try {
+                    openConnection();
+                    
+                    closeConnection();
+                }
+                catch (Exception e){
+                    
                 }
             } else {
                 dispose();

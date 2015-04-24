@@ -180,11 +180,11 @@ public class SignUp extends JFrame {
                         showMessageDialog(null, "Passwords do not match! Please try again");
                     }
                     if (storeManager.isSelected() && equalPassword) {
-                        userType = "StoreManager";
+                        userType = "Store Manager";
                     } else if (centerManager.isSelected() && equalPassword) {
-                        userType = "CenterManager";
+                        userType = "Center Manager";
                     } else {
-                        userType = "CustomerService";
+                        userType = "Customer Service";
                     }
 
                 } else {
@@ -238,10 +238,10 @@ public class SignUp extends JFrame {
                 if(!name12.equals("") && !email.equals("")){
                     if(choice != -1){
                         String centerName1 = list.getSelectedValue().toString();
-                        if(userType.equals("CenterManager")){
+                        if(userType.equals("Center Manager")){
                             userLevel = 3;
                         }
-                        else if(userType.equals("CustomerService")) {
+                        else if(userType.equals("Customer Service")) {
                             userLevel = 1;
                         }
                         else {

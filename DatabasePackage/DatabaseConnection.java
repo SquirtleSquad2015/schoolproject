@@ -1681,6 +1681,7 @@ public class DatabaseConnection {
         int ok = 0;
         int check = 0;
         try {
+            connection.setAutoCommit(false);
             String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
@@ -1691,16 +1692,22 @@ public class DatabaseConnection {
                 int shopNr = resultSet.getInt("nr_shops") - 1;
                 String sqlUpdate = "UPDATE center SET nr_shops='"+shopNr+"' WHERE center_name='"+centername +"'";
                 check = statement.executeUpdate(sqlUpdate);
+                String username = getStoreUsername(storename, centername);
+                int checkPerson = deletePerson(username);
+                if(checkPerson == 1){
+                    check = deleteUser(username);
+                }
             }
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteStore");
         }
         finally {
+            Database.settAutoCommit(connection);
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        return ok;
+        return check;
     }
     public int deletePerson(String username){
         Statement statement = null;

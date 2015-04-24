@@ -29,7 +29,7 @@ public class UpdateUser extends JFrame{
     JLabel changeAccess = new JLabel("",JLabel.CENTER);
     JButton changeActiv = new JButton("Change");
     JLabel changeName = new JLabel("");
-    JLabel changeCentername = new JLabel("");
+    JButton changeCentername = new JButton("Change");
     JLabel changeTitle = new JLabel("");
     JButton changeMail = new JButton("Change");
     JButton changeTlf = new JButton("Change");
@@ -81,6 +81,7 @@ public class UpdateUser extends JFrame{
         ActionUpdateStoreInfo actionChangeCenter = new ActionUpdateStoreInfo();
         changeActiv.addActionListener(actionChangeCenter);
         changeMail.addActionListener(actionChangeCenter);
+        changeCentername.addActionListener(actionChangeCenter);
         changeTlf.addActionListener(actionChangeCenter);
         delete.addActionListener(actionChangeCenter);
         backButton.addActionListener(actionChangeCenter);
@@ -134,6 +135,24 @@ public class UpdateUser extends JFrame{
                         Database.printMesssage(e, "ChangeActiv");
                     }
                 }
+            }
+            else if(actionEvent.getSource() == changeCentername){//jonas
+                try {
+                    openConnection();
+                    String title=getUserTitle(username);
+                    closeConnection();
+                    if(title.equals("Center Manager")){
+                        System.out.println("senter opppdatert");
+                    }
+                    else{
+                        showMessageDialog(null, "Ikke gyldig bruker");
+                    }
+                }
+                catch (Exception e){
+                    Database.printMesssage(e, "ChangeActiv");
+                }
+                
+                
             }
             else if(actionEvent.getSource() == changeTlf){//jonas
                 boolean tlfCheck=false;
