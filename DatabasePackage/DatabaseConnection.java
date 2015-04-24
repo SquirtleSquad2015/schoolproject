@@ -281,6 +281,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenterManager");
+            retur=null;
         }
         finally {
             Database.closeStatement(statement);
