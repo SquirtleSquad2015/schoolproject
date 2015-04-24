@@ -119,7 +119,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         String trade = "Elektronikk";
         String location = "DummyLocation";
         String floor = "2";
-        String openingHrs = "dummyOpeninghrs";
+        String openingHrs = "DumOpeninghrs";
         String openingHrsWeekends = "EvenDumberOpeninghrs";
         String description = "DummyStore";
         int expResult = 1;
@@ -127,6 +127,58 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         assertEquals(expResult, result);
 
     }
+    /**
+     * Test of regNewCenterUser method in databaseConnection.
+     */
+    @Test
+    public void testRegNewStoreManager() {
+        System.out.println("regNewCenterUser");
+        String userName = "DummyStoreManager";
+        String telephone = "12345678";
+        char[] password = {'D','u','m','m','y', 'S'};
+        String centerName = "DummyCenter";
+        String realName = "Dummy Store Manager";
+        String mail = "Dummy@Store.com";
+        int userLevel = 2;
+        String title = "Store Manager";
+        int expResult = 1;
+        int result = regNewCenterUser(userName, telephone, password, centerName, realName, mail, userLevel, title);
+        assertEquals(expResult, result);
+
+    }
+    @Test
+    public void testRegNewCenterManager() {
+        System.out.println("regNewCenterUser");
+        String userName = "DummyCenterManager";
+        String telephone = "12345678";
+        char[] password = {'D','u','m','m','y', 'C'};
+        String centerName = "DummyCenter";
+        String realName = "Dummy Center Manager";
+        String mail = "Dummy@Center.com";
+        int userLevel = 3;
+        String title = "Center Manager";
+        int expResult = 1;
+        int result = regNewCenterUser(userName, telephone, password, centerName, realName, mail, userLevel, title);
+        assertEquals(expResult, result);
+
+    }
+    /**
+     * Test of setStoreUser method, of class DatabaseConnection.
+     */
+    @Test
+    public void testSetStoreUser() {
+        System.out.println("setStoreUser");
+        String username = "DummyStoreManager";
+        String storename = "DummyStore";
+        String centername = "DummyCenter";
+        int expResult = 1;
+        int result = setStoreUser(username, storename, centername);
+        assertEquals(expResult, result);
+
+    }
+
+
+
     /**
      * Test of getCenters method, of class DatabaseConnection.
      */
@@ -252,7 +304,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetAddress() {
         System.out.println("getAddress");
         String centername = "DummyCenter";
-        String expResult = "No address found";
+        String expResult = "DummyAddress, DummyMunicipality";
         String result = getAddress(centername);
         assertEquals(expResult, result);
         
@@ -365,25 +417,6 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
-    /**
-     * Test of regNewCenterUser method, of class DatabaseConnection.
-     */
-    @Test
-    public void testRegNewCenterUser() {
-        System.out.println("regNewCenterUser");
-        String userName = "";
-        String telephone = "";
-        char[] password = null;
-        String centerName = "";
-        String realName = "";
-        String mail = "";
-        int userLevel = 0;
-        String title = "";
-        int expResult = 0;
-        int result = regNewCenterUser(userName, telephone, password, centerName, realName, mail, userLevel, title);
-        assertEquals(expResult, result);
-        
-    }
 
     /**
      * Test of checkLogIn method, of class DatabaseConnection.
@@ -1102,19 +1135,62 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
+    @Test
+    public void testDeleteStore() {
+        System.out.println("deleteStore");
+        String storeName = "DummyStore";
+        String centerName = "DummyCenter";
+        int expResult = 1;
+        int result = deleteStore(storeName, centerName);
+        assertEquals(expResult, result);
+    }
     /**
-     * Test of setStoreUser method, of class DatabaseConnection.
+     * Test of deleteCenter method, of class DatabaseConnection.
      */
     @Test
-    public void testSetStoreUser() {
-        System.out.println("setStoreUser");
-        String username = "";
-        String storename = "DummyStore";
-        String centername = "DummyCenter";
-        int expResult = 0;
-        int result = setStoreUser(username, storename, centername);
+    public void testDeleteCenter() {
+        System.out.println("deleteCenter");
+        String centerName = "DummyCenter";
+        int expResult = 1;
+        int result = deleteCenter(centerName);
         assertEquals(expResult, result);
-        
+    }
+
+    @Test
+    public void testDeleteStorePerson() {
+        System.out.println("deletePerson");
+        String username = "DummyStoreManager";
+        int expResult = 1;
+        int result = deletePerson(username);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testDeleteCenterPerson() {
+        System.out.println("deletePerson");
+        String username = "DummyCenterManager";
+        int expResult = 1;
+        int result = deletePerson(username);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of deleteUser method, of class DatabaseConnection.
+     */
+    @Test
+    public void testDeleteUser() {
+        System.out.println("deleteUser");
+        String username = "DummyStoreManager";
+        int expResult = 1;
+        int result = deleteUser(username);
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testDeleteCenterUser() {
+        System.out.println("deleteUser");
+        String username = "DummyCenterManager";
+        int expResult = 1;
+        int result = deleteUser(username);
+        assertEquals(expResult, result);
     }
     
 }

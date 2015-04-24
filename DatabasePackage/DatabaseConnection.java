@@ -255,7 +255,7 @@ public class DatabaseConnection {
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             retur=resultSet.getString("address");
-            retur+=",   "+resultSet.getString("muncipality");
+            retur+=", "+resultSet.getString("muncipality");
 
         }
         catch (Exception e){
