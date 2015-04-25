@@ -1762,25 +1762,33 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public int deleteCenter(String centerName){
+    public void deleteCenter(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
-        int ok = 0;
+        ArrayList<String> list = getStore(centerName);
+        for(int i=0;i<list.size();i++){
+            String test =list.get(i);
+            System.out.println(test+" slettet");
+            deleteStore(test,centerName);
+        }
+        /*
         try {
             statement = connection.createStatement();
-            String sqlUpdate = "DELETE FROM store WHERE center_name='"+centerName+"';";
-            ok = statement.executeUpdate(sqlUpdate);
-            String sqlUpdate2 = "DELETE FROM center WHERE center_name='"+centerName+"';";
-            ok = statement.executeUpdate(sqlUpdate2);
+            String sqlGet ="SELECT store_name FROM store WHERE center_name='"+centerName+"';";
+            resultSet = statement.executeQuery(sqlGet);
+            while(resultSet.next()){
+                list.add(resultSet.getString("center_name"));
+            }
         }
         catch (Exception e){
-            Database.printMesssage(e, "deleteUser");
+            Database.printMesssage(e, "getCenterWithoutUser");
         }
         finally {
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        return ok;
+                */
+        //return ok;
     }
     public ArrayList<String> getCenterWithoutUser(String centername){
         Statement statement = null;
