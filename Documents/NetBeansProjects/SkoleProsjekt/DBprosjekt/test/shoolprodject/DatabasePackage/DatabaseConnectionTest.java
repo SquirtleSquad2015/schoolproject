@@ -199,7 +199,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetStore() {
         System.out.println("getStore");
         String centerName = "DummyCenter";
-        ArrayList<String> expResult = null;
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummyStore");
         ArrayList<String> result = getStore(centerName);
         assertEquals(expResult, result);
         
@@ -212,8 +213,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetStoreAndTrade() {
         System.out.println("getStoreAndTrade");
         String centerName = "DummyCenter";
-        String trade = "";
-        ArrayList<String> expResult = null;
+        String trade = "Elektronikk";
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummyStore");
         ArrayList<String> result = getStoreAndTrade(centerName, trade);
         assertEquals(expResult, result);
         
@@ -226,7 +228,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetMuncipality() {
         System.out.println("getMuncipality");
         String kommun = "DummyMunicipality";
-        ArrayList<String> expResult = null;
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummyCenter");
         ArrayList<String> result = getMuncipality(kommun);
         assertEquals(expResult, result);
         
@@ -343,8 +346,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetPersonName() {
         System.out.println("getPersonName");
-        String username = "";
-        String expResult = "No name found";
+        String username = "DummyCenterManager";
+        String expResult = "Dummy Center Manager";
         String result = getPersonName(username);
         assertEquals(expResult, result);
         
@@ -384,8 +387,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testRegisterCustomerQuestion() {
         System.out.println("RegisterCustomerQuestion");
         String center = "DummyCenter";
-        String subject = "";
-        String question = "";
+        String subject = "DummySubject";
+        String question = "DummyQuestion";
         boolean expResult = false;
         boolean result = RegisterCustomerQuestion(center, subject, question);
         assertEquals(expResult, result);
@@ -398,7 +401,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetHighestCustomerCaseIndex() {
         System.out.println("getHighestCustomerCaseIndex");
-        int expResult = -1;
+        int expResult = 47;
         int result = getHighestCustomerCaseIndex();
         assertEquals(expResult, result);
        
@@ -410,8 +413,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testCheckUsername() throws Exception {
         System.out.println("checkUsername");
-        String userName = "";
-        boolean expResult = false;
+        String userName = "DummyStoreManager";
+        boolean expResult = true;
         boolean result = checkUsername(userName);
         assertEquals(expResult, result);
         
@@ -424,9 +427,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testCheckLogIn() {
         System.out.println("checkLogIn");
-        String username = "";
-        String password = "";
-        int expResult = 0;
+        String username = "DummyS";
+        String password = "DummyStoreManager";
+        int expResult = 2;
         int result = checkLogIn(username, password);
         assertEquals(expResult, result);
         
@@ -438,10 +441,11 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testCustomerServiceGetTitle() {
         System.out.println("customerServiceGetTitle");
-        String title = "";
-        String center_name = "";
-        char solved = ' ';
-        ArrayList<String> expResult = null;
+        String title = "DummySubject";
+        String center_name = "DummyCenter";
+        char solved = 'n';
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummySubject");
         ArrayList<String> result = customerServiceGetTitle(title, center_name, solved);
         assertEquals(expResult, result);
         
@@ -466,8 +470,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCenter() {
         System.out.println("getCenter");
-        String username = "";
-        String expResult = "";
+        String username = "DummyCenterManager";
+        String expResult = "DummyCenter";
         String result = getCenter(username);
         assertEquals(expResult, result);
         
@@ -480,7 +484,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetNoOfShops() {
         System.out.println("getNoOfShops");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "1";
         String result = getNoOfShops(centername);
         assertEquals(expResult, result);
         
@@ -493,7 +497,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetSQM() {
         System.out.println("getSQM");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "1000";
         String result = getSQM(centername);
         assertEquals(expResult, result);
         
@@ -506,7 +510,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenterTelephone() {
         System.out.println("getCenterTelephone");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "48292211";
         String result = getCenterTelephone(centername);
         assertEquals(expResult, result);
        
@@ -519,7 +523,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenterMail() {
         System.out.println("getCenterMail");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "dumy@center.no";
         String result = getCenterMail(centername);
         assertEquals(expResult, result);
         
@@ -532,7 +536,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenterParking() {
         System.out.println("getCenterParking");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "y";
         String result = getCenterParking(centername);
         assertEquals(expResult, result);
        
@@ -545,7 +549,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenterDescription() {
         System.out.println("getCenterDescription");
         String centername = "DummyCenter";
-        String expResult = "";
+        String expResult = "Dumt center";
         String result = getCenterDescription(centername);
         assertEquals(expResult, result);
         
@@ -557,10 +561,10 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCustomerCaseID() {
         System.out.println("getCustomerCaseID");
-        String title = "";
+        String title = "DummySubject";
         String center_name = "DummyCenter";
-        char solved = ' ';
-        ArrayList<Integer> expResult = null;
+        char solved = 'n';
+        ArrayList<Integer> expResult = new ArrayList<Integer>();
         ArrayList<Integer> result = getCustomerCaseID(title, center_name, solved);
         assertEquals(expResult, result);
         
@@ -612,8 +616,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetEmail() {
         System.out.println("getEmail");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "Dummy@Store.com";
         String result = getEmail(username);
         assertEquals(expResult, result);
         
@@ -872,7 +876,15 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetTrades() {
         System.out.println("getTrades");
-        ArrayList<String> expResult = null;
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("Bokhandel");
+        expResult.add("Dagligvare");
+        expResult.add("Elektronikk");
+        expResult.add("Frisør");
+        expResult.add("Helse");
+        expResult.add("Klær");
+        expResult.add("mat & drikke");
+
         ArrayList<String> result = getTrades();
         assertEquals(expResult, result);
         
@@ -992,15 +1004,17 @@ public class DatabaseConnectionTest extends DatabaseConnection{
 
     /**
      * Test of getUsers method, of class DatabaseConnection.
+     * Returns all users and is working, but if not testing purely on a test DB
+     * Writing expected result everytime a new user is added is not worth the effort.
      */
-    @Test
+    /*@Test
     public void testGetUsers() {
         System.out.println("getUsers");
         ArrayList<String> expResult = null;
         ArrayList<String> result = getUsers();
         assertEquals(expResult, result);
         
-    }
+    }*/
 
     /**
      * Test of getUserAccess method, of class DatabaseConnection.
@@ -1008,8 +1022,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUserAccess() {
         System.out.println("getUserAccess");
-        String username = "";
-        int expResult = -1;
+        String username = "DummyStoreManager";
+        int expResult = 2;
         int result = getUserAccess(username);
         assertEquals(expResult, result);
         
@@ -1021,8 +1035,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetUserActiv() {
         System.out.println("getUserActiv");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "y";
         String result = getUserActiv(username);
         assertEquals(expResult, result);
        
@@ -1047,8 +1061,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testSetUserActiv() {
         System.out.println("setUserActiv");
-        String activ = "";
-        String username = "";
+        String activ = "n";
+        String username = "DummyStoreManager";
         int expResult = 0;
         int result = setUserActiv(activ, username);
         assertEquals(expResult, result);
@@ -1061,9 +1075,9 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetStoreUsername() {
         System.out.println("getStoreUsername");
-        String centerName = "";
-        String storename = "";
-        String expResult = "";
+        String centerName = "DummyCenter";
+        String storename = "DummyStore";
+        String expResult = "DummyStoreManager";
         String result = getStoreUsername(centerName, storename);
         assertEquals(expResult, result);
         
@@ -1075,8 +1089,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testSetNewPassword() {
         System.out.println("setNewPassword");
-        String username = "";
-        String newPassword = "";
+        String username = "DummyStoreManager";
+        String newPassword = "DummySS";
         int expResult = 0;
         int result = setNewPassword(username, newPassword);
         assertEquals(expResult, result);
@@ -1090,7 +1104,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetUsersCenterManager() {
         System.out.println("getUsersCenterManager");
         String centername = "DummyCenter";
-        ArrayList<String> expResult = null;
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummyCenterManager");
         ArrayList<String> result = getUsersCenterManager(centername);
         assertEquals(expResult, result);
        
