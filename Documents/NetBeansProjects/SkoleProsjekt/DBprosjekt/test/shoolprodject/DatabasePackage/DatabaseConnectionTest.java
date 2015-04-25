@@ -8,6 +8,7 @@ package shoolprodject.DatabasePackage;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +20,8 @@ import static org.junit.Assert.*;
  *
  * @author Haldor
  */
-public class DatabaseConnectionTest extends DatabaseConnection{
+public class DatabaseConnectionTest extends DatabaseConnection {
+     int highestCustomerCaseIndex;
     
     public DatabaseConnectionTest() {
     }
@@ -201,7 +203,8 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testGetCenters() {
         System.out.println("getCenters");
         String centername = "DummyCenter";
-        ArrayList<String> expResult = null;
+        ArrayList<String> expResult = new ArrayList<String>();
+        expResult.add("DummyCenter");
         ArrayList<String> result = getCenters(centername);
         assertEquals(expResult, result);
         
@@ -397,13 +400,22 @@ public class DatabaseConnectionTest extends DatabaseConnection{
 
 
 
+    public void testGetHighestCustomerCaseIndexInt() {
+        System.out.println("getHighestCustomerCaseIndex");
+        int highestCustomerCaseIndex = getHighestCustomerCaseIndex();
+        System.out.println(highestCustomerCaseIndex);
+        //return highestCustomerCaseIndex;
+    }
+
+
+
     /**
      * Test of getHighestCustomerCaseIndex method, of class DatabaseConnection.
      */
     @Test
     public void testGetHighestCustomerCaseIndex() {
         System.out.println("getHighestCustomerCaseIndex");
-        int expResult = 47;
+        int expResult = highestCustomerCaseIndex;
         int result = getHighestCustomerCaseIndex();
         assertEquals(expResult, result);
        
@@ -459,7 +471,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testGetCustomerAnswer() {
         System.out.println("getCustomerAnswer");
-        int caseID = 0;
+        int caseID = highestCustomerCaseIndex;
         String expResult = "";
         String result = getCustomerAnswer(caseID);
         assertEquals(expResult, result);
@@ -562,11 +574,14 @@ public class DatabaseConnectionTest extends DatabaseConnection{
      */
     @Test
     public void testGetCustomerCaseID() {
+
         System.out.println("getCustomerCaseID");
         String title = "DummySubject";
         String center_name = "DummyCenter";
         char solved = 'n';
         ArrayList<Integer> expResult = new ArrayList<Integer>();
+        System.out.println(highestCustomerCaseIndex);
+        expResult.add(highestCustomerCaseIndex);
         ArrayList<Integer> result = getCustomerCaseID(title, center_name, solved);
         assertEquals(expResult, result);
         
@@ -1147,7 +1162,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     @Test
     public void testDeleteCustomerCase() {
         System.out.println("deleteCustomerCase");
-        int caseID = 0;
+        int caseID = highestCustomerCaseIndex;
         int expResult = 1;
         int result = deleteCustomerCase(caseID);
         assertEquals(expResult, result);
