@@ -1513,13 +1513,13 @@ public class DatabaseConnection {
     public String getStoreUsername(String centerName, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
-        String shopDescription = "";
+        String storeUserName = "";
         try {
-            String sqlGet = "SELECT DISTINCT username FROM store WHERE store_name='" + storename + "' AND center_name='" + centerName + "'";
+            String sqlGet = "SELECT username FROM store WHERE store_name='" + storename + "' AND center_name='" + centerName + "'";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlGet);
             resultSet.next();
-            shopDescription = resultSet.getString("username");
+            storeUserName = resultSet.getString("username");
         }
         catch (Exception e){
             Database.printMesssage(e, "getStoreUsername");
@@ -1528,7 +1528,7 @@ public class DatabaseConnection {
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        return shopDescription;
+        return storeUserName;
     }
      public int setNewPassword(String username, String newPassword){
         Statement statement = null;
@@ -1678,7 +1678,7 @@ public class DatabaseConnection {
         int ok = 0;
         int check = 0;
         try {
-            String username = getStoreUsername(storename, centername);
+            String username = getStoreUsername(centername, storename);
             connection.setAutoCommit(false);
             String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
             statement = connection.createStatement();
@@ -1691,7 +1691,6 @@ public class DatabaseConnection {
                 String sqlUpdate = "UPDATE center SET nr_shops='"+shopNr+"' WHERE center_name='"+centername +"'";
                 check = statement.executeUpdate(sqlUpdate);
                 int checkPerson = deletePerson(username);
-                System.out.println(checkPerson);
                 if(checkPerson == 1){
                     check = deleteUser(username);
                 }
