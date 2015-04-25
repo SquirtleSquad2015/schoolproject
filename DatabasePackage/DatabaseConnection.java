@@ -61,6 +61,9 @@ public class DatabaseConnection {
             while(resultSet.next()){
                 list.add(resultSet.getString("center_name"));
             }
+            for(int i = 0; i<list.size(); i++){
+                System.out.println(list.get(i));
+        }
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenters");
@@ -424,12 +427,6 @@ public class DatabaseConnection {
         }
         return retur;
     }
-
-
-
-
-
-
 
     public boolean checkUsername(String userName) throws Exception{
         Statement statement = null;
@@ -1319,7 +1316,7 @@ public class DatabaseConnection {
             
         }
         catch (Exception e){
-            Database.printMesssage(e, "setStoreDescription");
+            Database.printMesssage(e, "newCenter");
         }
         finally {
             Database.closeStatement(statement);

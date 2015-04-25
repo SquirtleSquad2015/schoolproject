@@ -395,20 +395,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
        
     }
 
-    /**
-     * Test of RegisterCustomerQuestion method, of class DatabaseConnection.
-     */
-    @Test
-    public void testRegisterCustomerQuestion() {
-        System.out.println("RegisterCustomerQuestion");
-        String center = "DummyCenter";
-        String subject = "";
-        String question = "";
-        boolean expResult = false;
-        boolean result = RegisterCustomerQuestion(center, subject, question);
-        assertEquals(expResult, result);
-        
-    }
+
 
     /**
      * Test of getHighestCustomerCaseIndex method, of class DatabaseConnection.
@@ -1153,15 +1140,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
-    @Test
-    public void testDeleteStore() {
-        System.out.println("deleteStore");
-        String storeName = "DummyStore";
-        String centerName = "DummyCenter";
-        int expResult = 1;
-        int result = deleteStore(storeName, centerName);
-        assertEquals(expResult, result);
-    }
+
     /**
      * Test of deleteCustomerCase method, of class DatabaseConnection.
      */
