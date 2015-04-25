@@ -134,7 +134,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
     public void testRegNewStoreManager() {
         System.out.println("regNewCenterUser");
         String userName = "DummyStoreManager";
-        String telephone = "12345678";
+        String telephone = "87654321";
         char[] password = {'D','u','m','m','y', 'S'};
         String centerName = "DummyCenter";
         String realName = "Dummy Store Manager";
@@ -177,6 +177,21 @@ public class DatabaseConnectionTest extends DatabaseConnection{
 
     }
 
+
+    /**
+     * Test of RegisterCustomerQuestion method, of class DatabaseConnection.
+     */
+    @Test
+    public void testRegisterCustomerQuestion() {
+        System.out.println("RegisterCustomerQuestion");
+        String center = "DummyCenter";
+        String subject = "DummySubject";
+        String question = "DummyQuestion";
+        boolean expResult = true;
+        boolean result = RegisterCustomerQuestion(center, subject, question);
+        assertEquals(expResult, result);
+
+    }
 
 
     /**
@@ -377,20 +392,7 @@ public class DatabaseConnectionTest extends DatabaseConnection{
        
     }
 
-    /**
-     * Test of RegisterCustomerQuestion method, of class DatabaseConnection.
-     */
-    @Test
-    public void testRegisterCustomerQuestion() {
-        System.out.println("RegisterCustomerQuestion");
-        String center = "DummyCenter";
-        String subject = "";
-        String question = "";
-        boolean expResult = false;
-        boolean result = RegisterCustomerQuestion(center, subject, question);
-        assertEquals(expResult, result);
-        
-    }
+
 
     /**
      * Test of getHighestCustomerCaseIndex method, of class DatabaseConnection.
@@ -593,18 +595,6 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
-    /**
-     * Test of deleteCustomerCase method, of class DatabaseConnection.
-     */
-    @Test
-    public void testDeleteCustomerCase() {
-        System.out.println("deleteCustomerCase");
-        int caseID = 0;
-        int expResult = 0;
-        int result = deleteCustomerCase(caseID);
-        assertEquals(expResult, result);
-        
-    }
 
     /**
      * Test of getEmail method, of class DatabaseConnection.
@@ -1135,25 +1125,17 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         
     }
 
-    @Test
-    public void testDeleteStore() {
-        System.out.println("deleteStore");
-        String storeName = "DummyStore";
-        String centerName = "DummyCenter";
-        int expResult = 1;
-        int result = deleteStore(storeName, centerName);
-        assertEquals(expResult, result);
-    }
     /**
-     * Test of deleteCenter method, of class DatabaseConnection.
+     * Test of deleteCustomerCase method, of class DatabaseConnection.
      */
     @Test
-    public void testDeleteCenter() {
-        System.out.println("deleteCenter");
-        String centerName = "DummyCenter";
+    public void testDeleteCustomerCase() {
+        System.out.println("deleteCustomerCase");
+        int caseID = 0;
         int expResult = 1;
-        int result = deleteCenter(centerName);
+        int result = deleteCustomerCase(caseID);
         assertEquals(expResult, result);
+
     }
 
     @Test
@@ -1192,5 +1174,32 @@ public class DatabaseConnectionTest extends DatabaseConnection{
         int result = deleteUser(username);
         assertEquals(expResult, result);
     }
+
+
+    @Test
+    public void testDeleteStore() {
+        System.out.println("deleteStore");
+        String storeName = "DummyStore";
+        String centerName = "DummyCenter";
+        int expResult = 1;
+        int result = deleteStore(storeName, centerName);
+        assertEquals(expResult, result);
+    }
+    /**
+     * Test of deleteCenter method, of class DatabaseConnection.
+     */
+    @Test
+    public void testDeleteCenter() {
+
+        System.out.println("deleteCenter");
+        String centerName = "DummyCenter";
+        int expResult = 1;
+        int result = deleteCenter(centerName);
+        assertEquals(expResult, result);
+    }
+
+
+
+
     
 }
