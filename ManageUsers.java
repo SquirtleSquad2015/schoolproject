@@ -16,6 +16,7 @@ public class ManageUsers extends JFrame{
     private ArrayList<String> userArray = new ArrayList<String>();
     private ArrayList<String> storeArray = new ArrayList<String>();
     private ArrayList<String> unActivArray = new ArrayList<String>();
+    private ArrayList<String> allUsers = new ArrayList<String>();
     Update update = new Update();
     int delay = 100; //milliseconds
     Timer timer = new Timer(delay, update);
@@ -42,8 +43,8 @@ public class ManageUsers extends JFrame{
     DefaultListModel defaultListModelDU = new DefaultListModel();
     JList deleteUserList = new JList(defaultListModelDU);
     JScrollPane scrollPaneDU = new JScrollPane(deleteUserList);
-    JButton selectStore = new JButton("Next");
-    JButton selectStoreBack = new JButton("Back");
+    JButton userDelete = new JButton("Delete user");
+    JButton deleteBack = new JButton("Back");
 
 
     public ManageUsers(String centername){
@@ -81,7 +82,9 @@ public class ManageUsers extends JFrame{
         setUserToStore.addActionListener(action);
         makeActiv.addActionListener(action);
         back.addActionListener(action);
+        deleteUser.addActionListener(action);
         // JFrame - delete users ----------------------------
+        deleteUsersFrame.setTitle("Delete users - " + centername);
         deleteUsersFrame.setSize(300, 200);
         LayoutManager borderLayout = new BorderLayout();
         LayoutManager deleteUsersTopLayout = new GridLayout(1,1,0,0);
@@ -90,12 +93,13 @@ public class ManageUsers extends JFrame{
         deleteUsersTopPanel.setLayout(deleteUsersTopLayout);
         deleteUsersBottomPanel.setLayout(deleteUsersBottomLayout);
         deleteUsersTopPanel.add(scrollPaneDU);
-        deleteUsersBottomPanel.add(selectStoreBack);
-        deleteUsersBottomPanel.add(selectStore);
+        deleteUsersBottomPanel.add(userDelete);
+        deleteUsersBottomPanel.add(deleteBack);
         deleteUsersFrame.add(deleteUsersTopPanel, BorderLayout.NORTH);
         deleteUsersFrame.add(deleteUsersBottomPanel, BorderLayout.SOUTH);
-        //selectStore.addActionListener();
-        //selectStoreBack.addActionListener();
+        ActionDeleteUser actionDeleteUser = new ActionDeleteUser();
+        userDelete.addActionListener(actionDeleteUser);
+        deleteBack.addActionListener(actionDeleteUser);
         
     }
     private class Action extends DatabaseConnection implements ActionListener{
@@ -143,9 +147,17 @@ public class ManageUsers extends JFrame{
                 }
             }
             else if(actionEvent.getSource() == deleteUser){
+                String username = userList.getSelectedValue().toString();
                 try {
                     openConnection();
-                    
+                    int delPerson = deletePerson(username);
+                    if(delPerson == 1){
+                        int ok = deleteUser(username);
+                        if(ok == 1){
+                            showMessageDialog(null, username + " has been deleted");
+                            timer.start();
+                        }
+                    }
                     closeConnection();
                 }
                 catch (Exception e){
@@ -153,6 +165,35 @@ public class ManageUsers extends JFrame{
                 }
             } else {
                 dispose();
+            }
+        }
+    }
+    public class ActionDeleteUser extends DatabaseConnection implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            if(actionEvent.getSource() == userDelete){
+                String username = deleteUserList.getSelectedValue().toString();
+                String message = "Are you sure you want to delete user: " + username;
+                int reply = showConfirmDialog(null, message, "Delete user", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    try {
+                    openConnection();
+                    int delPerson = deletePerson(username);
+                    if(delPerson == 1){
+                        int ok = deleteUser(username);
+                        if(ok == 1){
+                            showMessageDialog(null, username + " has been deleted");
+                            defaultListModelDU.removeElementAt(deleteUserList.getSelectedIndex());
+                        }
+                    }
+                    closeConnection();
+                    }
+                    catch (Exception e){
+                        Database.printMesssage(e, "deleteUser");
+                    }
+                }         
+            } else {
+                deleteUsersFrame.dispose();
             }
         }
     }
