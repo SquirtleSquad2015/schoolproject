@@ -1785,6 +1785,7 @@ public class DatabaseConnection {
     public void deleteCenter(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
+        int check=0;
         ArrayList<String> list = getStore(centerName);
         for(int i=0;i<list.size();i++){
             String test =list.get(i);
@@ -1794,8 +1795,10 @@ public class DatabaseConnection {
         int ok = 0;
         try {
             String username = getCenterUsername(centerName);
-            deletePerson(username);
-            deleteUser(username);
+            int checkPerson = deletePerson(username);
+            if(checkPerson == 1){
+                check = deleteUser(username);
+            }
             System.out.println(username+" slettet");
             String sqlSubject = "DELETE FROM center WHERE center_name='"+centerName+"'";
             statement = connection.createStatement();
