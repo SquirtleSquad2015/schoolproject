@@ -1830,4 +1830,23 @@ public class DatabaseConnection {
         }
         return ok;
     }
+    public int setAnnualTurnover(String username, int turnover){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int ok = 0;
+        try {
+            String sqlSubject = "UPDATE store SET turnover="+turnover+" WHERE username='"+username+"'";
+            statement = connection.createStatement();
+            ok = statement.executeUpdate(sqlSubject);
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "setAnnualTurnover");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return ok;
+    }
+    
 }

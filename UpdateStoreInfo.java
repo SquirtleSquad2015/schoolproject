@@ -175,6 +175,7 @@ public class UpdateStoreInfo extends JFrame{
         ChangeDescriptionAction changeDescriptionAction = new ChangeDescriptionAction();
         selectDescription.addActionListener(changeDescriptionAction);
         changeDescriptionBack.addActionListener(changeDescriptionAction);
+        
         Update update = new Update();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, update);
@@ -295,6 +296,31 @@ public class UpdateStoreInfo extends JFrame{
                 }
             }
             else if(actionEvent.getSource() == addAnnualTurnover){
+                boolean check = false;
+                String turnoverInput = showInputDialog(null, "Enter annual turnover: ");
+                int newTurnover = 0;
+                try {
+                    newTurnover = Integer.parseInt(turnoverInput);
+                    check = true;
+                }
+                catch (NumberFormatException e) {
+                    showMessageDialog(null, "Turnover not valid, Please try again");
+                }
+                if(check){
+                    try {
+                        openConnection();
+                        int ok = setAnnualTurnover(username, newTurnover);
+                        if(ok == 1){
+                            showMessageDialog(null, "Update complete");
+                            turnover.setText("Turnover: " + newTurnover);
+                        }
+                        closeConnection();
+                    }
+                    catch (Exception e){
+                        
+                    }
+                }
+                
 
             }
             else if(actionEvent.getSource() == changeDescription){
