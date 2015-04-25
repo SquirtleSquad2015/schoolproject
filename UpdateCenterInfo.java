@@ -292,6 +292,9 @@ public class UpdateCenterInfo extends JFrame {
                 if (reply == JOptionPane.YES_OPTION) {
                     try {
                     openConnection();
+                    System.out.println(storeName + " - " +  currentCenterName);
+                    
+                    System.out.println(username + " - Dette er en test");
                     int ok = deleteStore(storeName, currentCenterName);
                     if(ok == 1){
                         showMessageDialog(null, "Update complete");
