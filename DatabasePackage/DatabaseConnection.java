@@ -1601,7 +1601,7 @@ public class DatabaseConnection {
         ArrayList<String> list2 = new ArrayList<String>();
         try {
             statement = connection.createStatement();
-            String sqlGet ="SELECT username FROM person where center_name='"+centername+"' AND title='StoreManager'";
+            String sqlGet ="SELECT username FROM person where center_name='"+centername+"' AND title='Store Manager'";
             String sqlGetUsername = "SELECT username from store where center_name='"+centername+"'";
             resultSet = statement.executeQuery(sqlGet);
             while(resultSet.next()){
@@ -1681,6 +1681,7 @@ public class DatabaseConnection {
         int ok = 0;
         int check = 0;
         try {
+            String username = getStoreUsername(storename, centername);
             connection.setAutoCommit(false);
             String sqlSubject = "DELETE FROM store WHERE store_name='"+storename+"' AND center_name='"+centername+"'";
             statement = connection.createStatement();
@@ -1692,8 +1693,8 @@ public class DatabaseConnection {
                 int shopNr = resultSet.getInt("nr_shops") - 1;
                 String sqlUpdate = "UPDATE center SET nr_shops='"+shopNr+"' WHERE center_name='"+centername +"'";
                 check = statement.executeUpdate(sqlUpdate);
-                String username = getStoreUsername(storename, centername);
                 int checkPerson = deletePerson(username);
+                System.out.println(checkPerson);
                 if(checkPerson == 1){
                     check = deleteUser(username);
                 }
