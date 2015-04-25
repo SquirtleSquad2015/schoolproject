@@ -1530,6 +1530,26 @@ public class DatabaseConnection {
         }
         return storeUserName;
     }
+     public String getCenterUsername(String centerName){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        String centerUserName = "";
+        try {
+            String sqlGet = "SELECT username FROM center WHERE center_name='" + centerName + "'; ";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sqlGet);
+            resultSet.next();
+            centerUserName = resultSet.getString("username");
+        }
+        catch (Exception e){
+            Database.printMesssage(e, "getCenterUsername");
+        }
+        finally {
+            Database.closeStatement(statement);
+            Database.closeResSet(resultSet);
+        }
+        return centerUserName;
+    }
      public int setNewPassword(String username, String newPassword){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1771,25 +1791,28 @@ public class DatabaseConnection {
             System.out.println(test+" slettet");
             deleteStore(test,centerName);
         }
-        /*
+        int ok = 0;
         try {
+            String username = getCenterUsername(centerName);
+            deletePerson(username);
+            deleteUser(username);
+            System.out.println(username+" slettet");
+            String sqlSubject = "DELETE FROM center WHERE center_name='"+centerName+"'";
             statement = connection.createStatement();
-            String sqlGet ="SELECT store_name FROM store WHERE center_name='"+centerName+"';";
-            resultSet = statement.executeQuery(sqlGet);
-            while(resultSet.next()){
-                list.add(resultSet.getString("center_name"));
-            }
+            ok = statement.executeUpdate(sqlSubject);
+            
         }
         catch (Exception e){
-            Database.printMesssage(e, "getCenterWithoutUser");
+            Database.printMesssage(e, "deleteCenter");
         }
         finally {
+            Database.settAutoCommit(connection);
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-                */
-        //return ok;
+        //return check;
     }
+
     public ArrayList<String> getCenterWithoutUser(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
