@@ -1787,7 +1787,6 @@ public class DatabaseConnection {
         ArrayList<String> list = getStore(centerName);
         for(int i=0;i<list.size();i++){
             String test =list.get(i);
-            System.out.println(test+" slettet");
             deleteStore(test,centerName);
         }
         int ok = 0;
@@ -1797,12 +1796,9 @@ public class DatabaseConnection {
             if(checkPerson == 1){
                 check = deleteUser(username);
             }
-            System.out.println(username+" slettet");
             String sqlSubject = "DELETE FROM center WHERE center_name='"+centerName+"'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
-            
-            
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteCenter");
@@ -1847,7 +1843,7 @@ public class DatabaseConnection {
             System.out.println(ok);
             }
         catch (Exception e){
-            Database.printMesssage(e, "setCenterMail");
+            Database.printMesssage(e, "setCenterManager");
         }
         finally {
             Database.closeStatement(statement);
