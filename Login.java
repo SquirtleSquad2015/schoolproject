@@ -34,24 +34,22 @@ class Login extends JFrame{
         add(knapp2);
         add(knapp3);
 
-        Knappelytter1 lytteren = new Knappelytter1();
-        knapp1.addActionListener(lytteren);  // knytter lytteren til knappen
+        Action action = new Action();
+        knapp1.addActionListener(action);  // knytter lytteren til knappen
         JRootPane rootPane = SwingUtilities.getRootPane(knapp1); 
         rootPane.setDefaultButton(knapp1);
-
-        Knappelytter2 lytteren2 = new Knappelytter2();
-        knapp2.addActionListener(lytteren2);
-        
-        Knappelytter3 lytteren3 = new Knappelytter3();
-        knapp3.addActionListener(lytteren3);
+        knapp2.addActionListener(action);
+        knapp3.addActionListener(action);
         
         pack();
     }
-    
-        class Knappelytter1 extends DatabaseConnection implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
+   
+    class Action extends DatabaseConnection implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            if(actionEvent.getSource() == knapp1){
                 int ok = 0;
-                JButton knapp1 = (JButton) hendelse.getSource();
+                String activ = "";
                 char [] pas = passwordField.getPassword();
                 String password="";
                 for(int i=0;i<pas.length;i++){
@@ -62,26 +60,24 @@ class Login extends JFrame{
                 try {
                     openConnection();
                     ok = checkLogIn(bruker, password);
-                    System.out.println(ok);
+                    if(ok == 1){
+                        activ = getUserActiv(bruker);
+                    }
                     closeConnection();
                 }
                 catch (Exception e){
-                    System.out.println("Username fail");
+                    Database.printMesssage(e, "login");
                 }
                 boolean loggin=true;
-                if((!loggin || bruker.equals("")||bruker.equals(null)|| password.equals("")) || ok == 0){ //login fail
+                if((!loggin || bruker.equals("")|| password.equals("")) || ok == 0){ //login fail
                     showMessageDialog (null, "Incorrect Password or Username", "Login fail", JOptionPane.ERROR_MESSAGE); 
                 }
-                if(ok > 0){//login
-                    /*Menu  MenuVindu = new Menu();
-                    MenuVindu.setVisible(true);
-                    System.out.println(ok);*/
+                if(ok > 0 && activ.equals("Activ")){
                     if(ok == 1){
                         CustomerServiceMenu customerServiceMenu = new CustomerServiceMenu(bruker);
                         customerServiceMenu.setVisible(true);
                         customerServiceMenu.setLocationRelativeTo(null);
                         dispose();
-                        //System.out.println("Access level 1");
                     }
                     if(ok == 2){
                         ShopManagerMenu shopManagerMenu = new ShopManagerMenu(bruker);
@@ -96,37 +92,23 @@ class Login extends JFrame{
                         dispose();
                     }
                     if(ok==4){
-                        System.out.println("Admin level");
                         AdminMenu menu = new AdminMenu(bruker);
                         menu.setVisible(true);
                         menu.setLocationRelativeTo(null);
                         dispose();
-                    
                     }
-
-                    
+                } else {
+                    showMessageDialog(null, "Your user is not activ. Please contact Admin or center manager");
                 }
             }
-        }
-        
-        class Knappelytter2 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp2 = (JButton) hendelse.getSource();
-                SignUp Vindu2 = new SignUp();
-                Vindu2.setVisible(true);
-                Vindu2.setLocationRelativeTo(null);
-                
-                //visible (false)?
+            else if(actionEvent.getSource() == knapp2){
+                SignUp signup = new SignUp();
+                signup.setVisible(true);
+                signup.setLocationRelativeTo(null);
+
+            } else {
+                dispose();
             }
         }
-        
-        class Knappelytter3 extends JFrame implements ActionListener {
-            public void actionPerformed(ActionEvent hendelse) {
-                JButton knapp3 = (JButton) hendelse.getSource();
-                System.out.println("Close");
-                //Vindu.super.setVisible(false);
-                System.exit(0);
-                
-            }
-        }
+    }
 }
