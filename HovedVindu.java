@@ -18,7 +18,6 @@ class HovedVindu  extends JFrame {
     private JButton knapp1 = new JButton("Customer");
     private JButton knapp2 = new JButton("Login");
     private JButton knapp3 = new JButton("Close");
-    private JButton knapp4 = new JButton("testinloggin meny");
     private JPanel panel1 = new JPanel();
     private JPanel panel2 = new JPanel();
     private JPanel masterPanel = new JPanel();
@@ -35,14 +34,13 @@ class HovedVindu  extends JFrame {
         setTitle("SCHMIDT");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setSize(300,415);
+        setSize(300,390);
         LayoutManager layout1 = new GridLayout(1, 1, 0, 0);
         panel1.setLayout(layout1);
-        LayoutManager layout2 = new GridLayout(4, 1, 0, 0);
+        LayoutManager layout2 = new GridLayout(3, 1, 0, 0);
         panel2.setLayout(layout2);
         LayoutManager masterLayout = new BorderLayout();
         masterPanel.setLayout(masterLayout);
-
 
         panel1.add(bildeKnapp);
         Image img;
@@ -61,14 +59,10 @@ class HovedVindu  extends JFrame {
             bildeKnapp.setIcon(new ImageIcon(img));
             bildeKnapp.setSize(300, 300);
         }
-
-
-
           
         panel2.add(knapp1);
         panel2.add(knapp2);
         panel2.add(knapp3);
-        panel2.add(knapp4);
         
         masterPanel.add(panel1, BorderLayout.NORTH);
         masterPanel.add(panel2, BorderLayout.SOUTH);
@@ -77,14 +71,15 @@ class HovedVindu  extends JFrame {
         knapp1.addActionListener(action);
         knapp2.addActionListener(action);
         knapp3.addActionListener(action);
-        knapp4.addActionListener(action);
         bildeKnapp.addActionListener(action);
+
         
         AutomatiskOppdatering lytteren6 = new AutomatiskOppdatering();
         int delay = 100; //milliseconds
         Timer timer = new Timer(delay, lytteren6);
         timer.start();
         timer.setRepeats(false);
+
     }
     
     
@@ -95,7 +90,6 @@ class HovedVindu  extends JFrame {
             JButton aboutUsKnapp = (JButton) hendelse.getSource();
             setVisible(true);
             temp.dispose();
-                                
         }
     }  
     private class Action extends DatabaseConnection implements ActionListener{
@@ -118,19 +112,12 @@ class HovedVindu  extends JFrame {
             } else if (check == knapp3){
                 System.out.println("Close");
                 System.exit(0);
-            } else if (check == knapp4){
-                setVisible(false);
-                InloggedMeny inloggedMeny  = new InloggedMeny();
-                inloggedMeny.setLocationRelativeTo(null);
-                inloggedMeny.setVisible(true);
             } else if (check == bildeKnapp){
                 setVisible(false);
                 temp.setTitle("SCHMIDT");
                 temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                //temp.setSize(300, 250);
+                temp.setSize(300, 250);
                 temp.setLocationRelativeTo(null);
-
-
 
                 LayoutManager layout11 = new GridLayout(1,1,0,0);
                 LayoutManager layout22 = new GridLayout(1,3,0,0);
@@ -148,7 +135,6 @@ class HovedVindu  extends JFrame {
                 panel11.add(omOssTekst);
                 panel22.add(aboutUsKnapp);
 
-
                 masterPanel2.add(panel11, BorderLayout.NORTH);
                 masterPanel2.add(panel22, BorderLayout.CENTER);
 
@@ -161,7 +147,6 @@ class HovedVindu  extends JFrame {
             }
         }
     }
-
    
     class AutomatiskOppdatering extends DatabaseConnection implements ActionListener {
         @Override
@@ -176,8 +161,6 @@ class HovedVindu  extends JFrame {
                 showMessageDialog (null, "Can not find Database", "DataBase Fail", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
-            
-            
         }
     } 
 }
