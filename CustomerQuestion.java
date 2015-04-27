@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by Andreas on 22.04.2015.
- */
+
 public class CustomerQuestion extends JFrame{
 
     private JLabel ledetekst1 = new JLabel("Select shopping center  ",JLabel.CENTER);

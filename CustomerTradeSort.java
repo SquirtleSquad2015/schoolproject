@@ -11,9 +11,7 @@ import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by Andreas on 23.04.2015.
- */
+
 public class CustomerTradeSort extends JFrame{
 
     private ArrayList<String> list;

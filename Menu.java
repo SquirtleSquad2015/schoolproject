@@ -6,10 +6,6 @@ package shoolprodject;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Martin
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

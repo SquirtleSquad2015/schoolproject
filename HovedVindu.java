@@ -111,7 +111,7 @@ class HovedVindu  extends JFrame {
                 CostumerVindu.setVisible(true);
                 //setVisible(false);
             } else if (check == knapp2){
-                setVisible(false);
+                dispose();
                 Login LogInVindu = new Login();
                 LogInVindu.setLocationRelativeTo(null);
                 LogInVindu.setVisible(true);

@@ -12,9 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by jonas on 23.04.15.
- */
 public class ViewAnnualTurnover extends JFrame {
     private String centername;
     private ArrayList<String> storesArray = new ArrayList<String>();

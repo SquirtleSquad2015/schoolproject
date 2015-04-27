@@ -6,9 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-/**
- * Created by jonas on 19.03.15.
- */
+
 public class DatabaseConnection {
 
     private Connection connection;
@@ -35,7 +33,7 @@ public class DatabaseConnection {
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             String number = resultSet.getString("username");
-            if(number == "admin"){
+            if(number.equals("admin")){
                 ok = true;
             }
         }
@@ -109,7 +107,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getStore");
+            Database.printMesssage(e, "getStoreAndTrade");
         }
         finally {
             Database.closeStatement(statement);
@@ -131,7 +129,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getCenters");
+            Database.printMesssage(e, "getMunicipality");
         }
         finally {
             Database.closeStatement(statement);
@@ -153,7 +151,7 @@ public class DatabaseConnection {
 
         }
         catch (Exception e){
-            Database.printMesssage(e, "getCenters");
+            Database.printMesssage(e, "getCenterMunicipality");
         }
         finally {
             Database.closeStatement(statement);
@@ -177,7 +175,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getTurnover");
+            Database.printMesssage(e, "getTurnoverStore");
         }
         finally {
             Database.closeStatement(statement);
@@ -349,7 +347,7 @@ public class DatabaseConnection {
             retur+=", "+resultSet.getString("location");
         }
         catch (Exception e){
-            Database.printMesssage(e, "getAddress");
+            Database.printMesssage(e, "getLocation");
             retur = "No location found";
         }
         finally {
@@ -397,7 +395,7 @@ public class DatabaseConnection {
         }
         catch (Exception e){
             ok = false;
-            Database.printMesssage(e, "CustomerQuestion");
+            Database.printMesssage(e, "RegCustomerQuestion");
         }
         finally {
             Database.closeStatement(statement);
@@ -488,7 +486,7 @@ public class DatabaseConnection {
             }
         }
         catch (SQLException e){
-            Database.printMesssage(e, "Register new centerManager");
+            Database.printMesssage(e, "RegNewCenterManager");
         }
         finally {
             Database.closeStatement(statement);
@@ -581,7 +579,7 @@ public class DatabaseConnection {
             center = resultSet.getString("center_name");
         }
         catch (Exception e){
-            Database.printMesssage(e, "customerServiceGetCenter");
+            Database.printMesssage(e, "getCenter");
         }
         finally {
             Database.closeStatement(statement);
@@ -793,7 +791,7 @@ public class DatabaseConnection {
             ok = statement.executeUpdate(sqlSubject);
         }
         catch (Exception e){
-            Database.printMesssage(e, "setAnswer");
+            Database.printMesssage(e, "deleteCustomerCase");
         }
         finally {
             Database.closeStatement(statement);
@@ -880,7 +878,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "setEmail");
+            Database.printMesssage(e, "setPhoneNumber");
         }
         finally {
             Database.settAutoCommit(connection);
@@ -1347,7 +1345,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "setStoreDescription");
+            Database.printMesssage(e, "regNewStore");
         }
         finally {
             Database.settAutoCommit(connection);
@@ -1423,7 +1421,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getUsersNotActiv");
+            Database.printMesssage(e, "getUsers");
         }
         finally {
             Database.closeStatement(statement);
@@ -1665,7 +1663,7 @@ public class DatabaseConnection {
             }
         }
         catch (Exception e){
-            Database.printMesssage(e, "getStoresWithoutUsers");
+            Database.printMesssage(e, "getUsersNotActiv");
         }
         finally {
             Database.closeStatement(statement);
@@ -1789,7 +1787,6 @@ public class DatabaseConnection {
         ArrayList<String> list = getStore(centerName);
         for(int i=0;i<list.size();i++){
             String test =list.get(i);
-            System.out.println(test+" slettet");
             deleteStore(test,centerName);
         }
         int ok = 0;
@@ -1799,12 +1796,9 @@ public class DatabaseConnection {
             if(checkPerson == 1){
                 check = deleteUser(username);
             }
-            System.out.println(username+" slettet");
             String sqlSubject = "DELETE FROM center WHERE center_name='"+centerName+"'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
-            
-            
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteCenter");
@@ -1849,7 +1843,7 @@ public class DatabaseConnection {
             System.out.println(ok);
             }
         catch (Exception e){
-            Database.printMesssage(e, "setCenterMail");
+            Database.printMesssage(e, "setCenterManager");
         }
         finally {
             Database.closeStatement(statement);
