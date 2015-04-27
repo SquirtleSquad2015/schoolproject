@@ -81,7 +81,7 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testCheckDB() throws Exception {
         System.out.println("checkDB");
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = checkDB();
         assertEquals(expResult, result);
        
@@ -303,18 +303,6 @@ public class DatabaseConnectionTest extends DatabaseConnection {
         assertEquals(expResult, result);
     }
 
-    /**
-     * Test of getTradeCenter method, of class DatabaseConnection.
-     */
-    @Test
-    public void testGetTradeCenter() {
-        System.out.println("getTradeCenter");
-        String Centername = "DummyCenter";
-        String expResult = "No trades found in center";
-        String result = getTradeCenter(Centername);
-        assertEquals(expResult, result);
-        
-    }
 
     /**
      * Test of getParking method, of class DatabaseConnection.
@@ -388,8 +376,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetLocation() {
         System.out.println("getLocation");
-        String Storename = "";
-        String expResult = "No location found";
+        String Storename = "DummyStore";
+        String expResult = "Floor 2, DummyLocation";
         String result = getLocation(Storename);
         assertEquals(expResult, result);
         
@@ -401,9 +389,9 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetOpenings() {
         System.out.println("getOpenings");
-        String centerName = "";
-        String Storename = "";
-        String expResult = "No opening hours found";
+        String centerName = "DummyCenter";
+        String Storename = "DummyStore";
+        String expResult = "DumOpeninghrs,   Weekends: EvenDumberOpeninghrs";
         String result = getOpenings(centerName, Storename);
         assertEquals(expResult, result);
        
@@ -655,8 +643,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetPhoneNumber() {
         System.out.println("getPhoneNumber");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "87654321";
         String result = getPhoneNumber(username);
         assertEquals(expResult, result);
        
@@ -724,8 +712,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopName() {
         System.out.println("getShopName");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "DummyStore";
         String result = getShopName(username);
         assertEquals(expResult, result);
         
@@ -737,8 +725,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopTrade() {
         System.out.println("getShopTrade");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "Elektronikk";
         String result = getShopTrade(username);
         assertEquals(expResult, result);
         
@@ -750,8 +738,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopLocation() {
         System.out.println("getShopLocation");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "DummyLocation";
         String result = getShopLocation(username);
         assertEquals(expResult, result);
         
@@ -763,11 +751,10 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopFloor() {
         System.out.println("getShopFloor");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "2";
         String result = getShopFloor(username);
         assertEquals(expResult, result);
-        
        
     }
 
@@ -777,8 +764,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopOpeningHrs() {
         System.out.println("getShopOpeningHrs");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "DumOpeninghrs";
         String result = getShopOpeningHrs(username);
         assertEquals(expResult, result);
         
@@ -790,8 +777,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopOpeningHrsWeekends() {
         System.out.println("getShopOpeningHrsWeekends");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "EvenDumberOpeninghrs";
         String result = getShopOpeningHrsWeekends(username);
         assertEquals(expResult, result);
         
@@ -803,8 +790,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetShopTurnover() {
         System.out.println("getShopTurnover");
-        String username = "";
-        String expResult = "";
+        String username = "DummyStoreManager";
+        String expResult = "3";
         String result = getShopTurnover(username);
         assertEquals(expResult, result);
        
@@ -935,8 +922,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetTradeDescription() {
         System.out.println("getTradeDescription");
-        String trade = "";
-        String expResult = "";
+        String trade = "Elektronikk";
+        String expResult = "Salg av elektronikk og annet";
         String result = getTradeDescription(trade);
         assertEquals(expResult, result);
       
@@ -1074,8 +1061,8 @@ public class DatabaseConnectionTest extends DatabaseConnection {
     @Test
     public void testGetUserTitle() {
         System.out.println("getUserTitle");
-        String username = "";
-        String expResult = "";
+        String username = "DummyCenterManager";
+        String expResult = "Center Manager";
         String result = getUserTitle(username);
         assertEquals(expResult, result);
     }

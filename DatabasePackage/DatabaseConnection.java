@@ -204,27 +204,7 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public String getTradeCenter(String Centername){
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String retur;
-        try {
-            statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT trade FROM trade WHERE LCASE(center_name) LIKE LCASE('" + Centername + "')";
-            resultSet = statement.executeQuery(sqlStatement);
-            resultSet.next();
-            retur=resultSet.getString("trade");
-        }
-        catch (Exception e){
-            Database.printMesssage(e, "getTradeCenter");
-            retur = "No trades found in center";
-        }
-        finally {
-            Database.closeStatement(statement);
-            Database.closeResSet(resultSet);
-        }
-        return retur;
-    }
+
     public String getParking(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
