@@ -60,7 +60,7 @@ class Login extends JFrame{
                 try {
                     openConnection();
                     ok = checkLogIn(bruker, password);
-                    if(ok == 1){
+                    if(ok > 0){
                         activ = getUserActiv(bruker);
                     }
                     closeConnection();
@@ -72,7 +72,7 @@ class Login extends JFrame{
                 if((!loggin || bruker.equals("")|| password.equals("")) || ok == 0){ //login fail
                     showMessageDialog (null, "Incorrect Password or Username", "Login fail", JOptionPane.ERROR_MESSAGE); 
                 }
-                if(ok > 0 && activ.equals("Activ")){
+                if(ok > 0 && activ.equals("y")){
                     if(ok == 1){
                         CustomerServiceMenu customerServiceMenu = new CustomerServiceMenu(bruker);
                         customerServiceMenu.setVisible(true);
@@ -107,7 +107,7 @@ class Login extends JFrame{
                 signup.setLocationRelativeTo(null);
 
             } else {
-                dispose();
+               System.exit(0);
             }
         }
     }
