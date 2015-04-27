@@ -1782,7 +1782,7 @@ public class DatabaseConnection {
         }
         return retur;
     }
-    public void deleteCenter(String centerName){
+    public int deleteCenter(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
         int check=0;
@@ -1804,6 +1804,7 @@ public class DatabaseConnection {
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
             
+            
         }
         catch (Exception e){
             Database.printMesssage(e, "deleteCenter");
@@ -1813,7 +1814,7 @@ public class DatabaseConnection {
             Database.closeStatement(statement);
             Database.closeResSet(resultSet);
         }
-        //return check;
+        return ok;
     }
 
     public ArrayList<String> getCenterWithoutUser(String centername){
