@@ -394,7 +394,7 @@ public class UpdateCenterInfo extends JFrame {
                     String openingHrsWeekendsTyped = openingHrsWeekends.getText();
                     String descriptionTyped = description.getText();
                     boolean sjekk = false;
-                    if(storeNameTyped.equals("") || list.getSelectedIndex() < 0 || locationTyped.equals("") || floorTyped.equals("") ||
+                    if(storeNameTyped.equals("")  || locationTyped.equals("") || floorTyped.equals("") ||
                             openingHrsTyped.equals("") || openingHrsWeekendsTyped.equals("") || descriptionTyped.equals("")){
                         sjekk = true;}
                     if(sjekk == false){
