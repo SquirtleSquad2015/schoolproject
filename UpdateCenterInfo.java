@@ -387,12 +387,17 @@ public class UpdateCenterInfo extends JFrame {
                 if (actionEvent.getSource() == done) {
                     String storeNameTyped = storeName.getText();
                     String tradeSelected = trades.get(list.getSelectedIndex());
+
                     String locationTyped = location.getText();
                     String floorTyped = floor.getText();
                     String openingHrsTyped = openingHrs.getText();
                     String openingHrsWeekendsTyped = openingHrsWeekends.getText();
                     String descriptionTyped = description.getText();
-                    
+                    boolean sjekk = false;
+                    if(storeNameTyped.equals("") || list.getSelectedIndex() < 0 || locationTyped.equals("") || floorTyped.equals("") ||
+                            openingHrsTyped.equals("") || openingHrsWeekendsTyped.equals("") || descriptionTyped.equals("")){
+                        sjekk = true;}
+                    if(sjekk == false){
                     try {
                         openConnection();
                         int ok = regNewStore(storeNameTyped, centerName, tradeSelected, locationTyped, floorTyped,
@@ -407,6 +412,9 @@ public class UpdateCenterInfo extends JFrame {
                     } catch (Exception e) {
                         Database.printMesssage(e, "EstablishStore");
                     }
+                    }else{
+                        showMessageDialog(null, "Please provide store information");
+                        }
                 } else {
                     dispose();
                 }
