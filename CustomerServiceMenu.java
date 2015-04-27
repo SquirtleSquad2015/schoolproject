@@ -10,9 +10,7 @@ import java.awt.event.ActionListener;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by jonas on 10.04.15.
- */
+
 public class CustomerServiceMenu extends JFrame {
     private final String username;
     private String centerName;

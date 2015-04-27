@@ -5,10 +5,7 @@ package shoolprodject;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Martin
- */
+
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
 import system.Center;

@@ -15,9 +15,7 @@ import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by jonas on 22.04.15.
- */
+
 public class UpdateCenterInfo extends JFrame {
     private final String username;
     private final String currentCenterName;

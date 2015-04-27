@@ -11,9 +11,7 @@ import shoolprodject.DatabasePackage.DatabaseConnection;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- * Created by Andreas on 10.04.2015.
- */
+
 public class InloggedMeny extends JFrame {
 
     private JLabel ledetekst1 = new JLabel("Turnover: ", JLabel.CENTER);

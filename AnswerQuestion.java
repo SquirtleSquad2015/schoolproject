@@ -18,10 +18,6 @@ import java.util.ArrayList;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-
-/**
- * Created by jonas on 15.04.15.
- */
 public class AnswerQuestion extends JFrame {
     private String username;
     private String centerName;
