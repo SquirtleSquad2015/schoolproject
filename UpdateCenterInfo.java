@@ -392,6 +392,7 @@ public class UpdateCenterInfo extends JFrame {
                     String openingHrsTyped = openingHrs.getText();
                     String openingHrsWeekendsTyped = openingHrsWeekends.getText();
                     String descriptionTyped = description.getText();
+                    
                     try {
                         openConnection();
                         int ok = regNewStore(storeNameTyped, centerName, tradeSelected, locationTyped, floorTyped,
