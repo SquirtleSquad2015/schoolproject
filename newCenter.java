@@ -85,8 +85,6 @@ public class newCenter extends JFrame{
         storeTopPanel.add(centerMunicipality);
         storeTopPanel.add(this.Lcenter_turnover);
         storeTopPanel.add(centerTurnover);
-        storeTopPanel.add(this.Lnr_Shops);
-        storeTopPanel.add(nrShops);
         storeTopPanel.add(this.Lsqm);
         storeTopPanel.add(sqm);
         storeTopPanel.add(this.LAddress);
@@ -116,26 +114,97 @@ public class newCenter extends JFrame{
         public void actionPerformed(ActionEvent actionEvent) {
             if(actionEvent.getSource() == create){
                 String na=newCenterName.getText();
+                boolean check1=true;
+                if(na==null || na.equals("") || na.equals(" ")){
+                    check1=false;
+                    JOptionPane.showMessageDialog(null,"Must type inn Center Name");
+                }
                 String mu=centerMunicipality.getText();
+                boolean check2=true;
+                if(mu==null || mu.equals("") || mu.equals(" ")){
+                    check2=false;
+                    JOptionPane.showMessageDialog(null,"Must type inn Municipality");
+                }
                 String tu=centerTurnover.getText();
-                String sh =nrShops.getText();
-                String sq=sqm.getText();
-                String ad=address.getText();
-                String tl=tlf.getText();
-                String ma=mail.getText();
-                String ca=carPark.getText();
-                String de=description.getText();
-                
+                boolean check3=false;
+                int i;
                 try{
-                    openConnection();
-                    newCenter(na,mu,tu,sh,sq,ad,tl,ma,ca,de);
-                    closeConnection();
-                    JOptionPane.showMessageDialog(null,"Data is updated");
-                    dispose();
+                     i=Integer.parseInt(tu);
+                     check3=true;
+                    }
+                catch (NumberFormatException e){
+                    Database.printMesssage(e, "integer ikke gyldig");
+                    JOptionPane.showMessageDialog(null,"Must type inn Center Turnover, must be a Number");
                 }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
+                String sq=sqm.getText();
+                boolean check4=false;
+                int i2;
+                try{
+                     i2=Integer.parseInt(tu);
+                     check4=true;
+                    }
+                catch (NumberFormatException e){
+                    Database.printMesssage(e, "integer ikke gyldig");
+                    JOptionPane.showMessageDialog(null,"Must type inn SQM, must be a Number");
                 }
+                String ad=address.getText();
+                boolean check5=true;
+                if(ad==null || ad.equals("") || ad.equals(" ")){
+                    check5=false;
+                    JOptionPane.showMessageDialog(null,"Must type inn Address");
+                }
+                String tl=tlf.getText();
+                boolean check6=false;
+                int i3;
+                try{
+                     i3=Integer.parseInt(tu);
+                     check6=true;
+                    }
+                catch (NumberFormatException e){
+                    Database.printMesssage(e, "integer ikke gyldig");
+                    JOptionPane.showMessageDialog(null,"Must type inn tlf, must be a Number");
+                }
+                String ma=mail.getText();
+                boolean check7=true;
+                if(ma==null || ma.equals("") || ma.equals(" ")){
+                    check7=false;
+                    JOptionPane.showMessageDialog(null,"Must type inn Mail");
+                }
+                String ca=carPark.getText();
+                boolean check8=false;
+                if(ca.equals("n") || ca.equals("y")){
+                    check8=true;
+                }
+                else{
+                    if (JOptionPane.showConfirmDialog(null, "Is it Car Parking?", "WARNING", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        ca="y";
+                    } 
+                    else {
+                        ca="n";
+                    }
+                    check8=true;
+                }
+                String de=description.getText();
+                boolean check9=true;
+                if(de==null || de.equals("") || de.equals(" ")){
+                    check9=false;
+                    JOptionPane.showMessageDialog(null,"Must type inn Description");
+                }
+                
+                
+                if(check1 && check2 && check3 && check4 && check5 && check6 && check7 && check8 && check9){
+                    try{
+                        openConnection();
+                        newCenter(na,mu,tu,"0",sq,ad,tl,ma,ca,de);
+                        closeConnection();
+                        JOptionPane.showMessageDialog(null,"Data is updated");
+                        dispose();
+                    }
+                    catch (Exception e){
+                        Database.printMesssage(e, "getCenters");
+                    }
+                }
+                
             }
             if(actionEvent.getSource() == back){
                 dispose();
