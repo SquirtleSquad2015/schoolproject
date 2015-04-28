@@ -75,7 +75,7 @@ public class AdminCenterView extends JFrame {
             if (check ==Edit){
                 try{
                     openConnection();//må opprette sin egen, max 1 extends per klasse
-                    username = getUsernameCenter(centerName);
+                    username = getCenterUsername(centerName);
                     closeConnection();
                     System.out.println(centerName);
                     System.out.println(username);

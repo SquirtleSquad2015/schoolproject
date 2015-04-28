@@ -945,9 +945,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param answer
-     * @param caseID
-     * @return
+     * Returns an int that tells wether or not the update was successful.
+     *
+     * @param answer    Answer
+     * @param caseID    Case ID
+     * @return          An int, 1 if the question was updated 0 if the answer was not updated
      */
     public int setAnswer(String answer, int caseID){
         Statement statement = null;
@@ -969,9 +971,9 @@ public class DatabaseConnection {
     }
 
     /**
-     * Returns a int
-     * @param caseID
-     * @return
+     * Returns a int that tells wether or not the customer case was deleted from the db.
+     * @param caseID    case ID
+     * @return          An int, 0 if the customer case is still in the database 1 if the case was deleted successfully.
      */
     public int deleteCustomerCase(int caseID){
         Statement statement = null;
@@ -994,8 +996,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a string with the email address of the user.
+     *
+     * @param username  username
+     * @return          a string that returns the email of the user in the methods parameter.
      */
     public String getEmail(String username){
         Statement statement = null;
@@ -1020,8 +1024,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the phone number of the user.
+     *
+     * @param username  username
+     * @return          A string that returns the email of the user in the methods parameter.
      */
     public String getPhoneNumber(String username){
         Statement statement = null;
@@ -1046,9 +1052,12 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param email
-     * @param username
-     * @return
+     *
+     * Returns an int based on whether or not the users email was successfully updated.
+     *
+     * @param email     email
+     * @param username  username
+     * @return          returns an int that is 1 if the email was updated and 0 if it encountered a problem.
      */
     public int setEmail(String email, String username){
         Statement statement = null;
@@ -1071,9 +1080,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param phoneNumber
-     * @param username
-     * @return
+     *Returns an int based on  whether or not the users phonenumber was updated successfully.
+     *
+     * @param phoneNumber   Phone Number
+     * @param username      Username
+     * @return              An int that is 1 if the phone number was successfully changed and 0 if the phone number was not updated.
      */
     public int setPhoneNumber(String phoneNumber, String username){
         Statement statement = null;
@@ -1107,9 +1118,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param newMail
-     * @param centerName
-     * @return
+     * Returns an int based on whether or not the centers mail was updated successfully.
+     *
+     * @param newMail       New mail
+     * @param centerName    Center name
+     * @return              An int that is 1 if the mail was updated, 0 if the update was not completed.
      */
     public int setCenterMail(String newMail, String centerName){
         Statement statement = null;
@@ -1133,9 +1146,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param newPhoneNumber
-     * @param centerName
-     * @return
+     * Returns an int based on  whether or not the users phonenumber was updated successfully.
+     *
+     * @param newPhoneNumber    New phonenumber
+     * @param centerName        Center name
+     * @return                  An int that is 1 if the phone number was successfully changed and 0 if the phone number was not updated.
      */
     public int setCenterPhoneNumber(String newPhoneNumber, String centerName){
         Statement statement = null;
@@ -1159,8 +1174,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with a the name of a store.
+     *
+     * @param username  Username
+     * @return          A String with the name of the store the user in the methods parameter belongs to.
      */
     public String getShopName(String username){
         Statement statement = null;
@@ -1185,8 +1202,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the name of the trade of a shop.
+     *
+     * @param username  Username
+     * @return          Returns a String with the name of the trade the Store the username given in the methods parameter belongs to.
      */
     public String getShopTrade(String username){
         Statement statement = null;
@@ -1211,8 +1230,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the location of a store.
+     *
+     * @param username  Username
+     * @return          returns a String with the location of the store the username given in the methods parameter belongs to.
      */
     public String getShopLocation(String username){
         Statement statement = null;
@@ -1237,8 +1258,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the location of a store.
+     *
+     * @param username  Username
+     * @return          Returns a string saying what floor the store the username given in the methods parameter belongs to.
      */
     public String getShopFloor(String username){
         Statement statement = null;
@@ -1263,8 +1286,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with a shops opening hours.
+     *
+     * @param username  Username
+     * @return          returns a String with the openinghours of the store the username given in the methods parameter belongs to.
      */
     public String getShopOpeningHrs(String username){
         Statement statement = null;
@@ -1289,8 +1314,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with a shops weekendOpeninghours.
+     *
+     * @param username  Username
+     * @return          Returns a String with the weekend openinghours of the store the username given in the methods parameter belongs to.
      */
     public String getShopOpeningHrsWeekends(String username){
         Statement statement = null;
@@ -1315,8 +1342,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the turnover of a store.
+     *
+     * @param username   Username
+     * @return           Returns a String with the turnover of the store the username given in the methods parameter belongs to.
      */
     public String getShopTurnover(String username){
         Statement statement = null;
@@ -1341,9 +1370,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centerName
-     * @param storeName
-     * @return
+     * Returns a string with the description of a store.
+     *
+     * @param centerName Centername
+     * @param storeName  Storename
+     * @return           Returns A String with the description of the store asked for in the parameters.
      */
     public String getShopDescription(String centerName, String storeName){
         Statement statement = null;
@@ -1368,9 +1399,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newStoreName
-     * @return
+     * Returns a int based on whether or not a stores name was updated.
+     *
+     * @param username      Username
+     * @param newStoreName  New Storename
+     * @return              Returns a int that is 1 if the name of the store in the parameter was updated and 0 if it was not.
      */
     public int setStoreName(String username, String newStoreName){
         Statement statement = null;
@@ -1394,9 +1427,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newStoreLocation
-     * @return
+     * Returns a String based on whether or not a stores location was updated.
+     *
+     * @param username          Username
+     * @param newStoreLocation  New Store location
+     * @return                  Returns a String that is 1 if the stores location was succesfully updated, 0 if it was not.
      */
     public int setStoreLocation(String username, String newStoreLocation){
         Statement statement = null;
@@ -1420,9 +1455,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newFloor
-     * @return
+     *Returns a int based on whether or not a stors floor was updated.
+     *
+     * @param username  Username
+     * @param newFloor  New floor
+     * @return          Returns an int that is 1 if the store associated with the username given in the methods parameter is updated, 0 if it was not updated.
      */
     public int setStoreFloor(String username, int newFloor){
         Statement statement = null;
@@ -1446,9 +1483,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newOpeningHrs
-     * @return
+     * Returns an int based on whether or not a stores opening hours is updated.
+     *
+     * @param username          Username
+     * @param newOpeningHrs     New Openinghours
+     * @return                  Returns a int that is 1 if the store associated with the username given in the methods parameter is succesfully updated, 0 if it was not.
      */
     public int setStoreOpeningHrs(String username, String newOpeningHrs){
         Statement statement = null;
@@ -1472,9 +1511,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newOpeningHrsWeekends
-     * @return
+     * Returns an int based on whether or not a stores weekend openinghours was updated.
+     *
+     * @param username              Username
+     * @param newOpeningHrsWeekends New Weekend openinghours
+     * @return                      returns an int that is 1 if the store associated with the username given in the methods parameter is succesfully updated, 0 if it was not.
      */
     public int setStoreOpeningHrsWeekends(String username, String newOpeningHrsWeekends){
         Statement statement = null;
@@ -1498,7 +1539,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @return
+     *
+     * Returns an arrayList of the trades in the database.
+     *
+     * @return Returns an arraylist of the trades in the database.
      */
     public ArrayList<String> getTrades(){
         Statement statement = null;
@@ -1551,8 +1595,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param trade
-     * @return
+     * Returns a String with the description of a trade.
+     *
+     * @param trade  Trade
+     * @return       Returns a String with the description of the trade in the methods parameter.
      */
     public String getTradeDescription(String trade){
         Statement statement = null;
@@ -1577,9 +1623,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param trade
-     * @return
+     * Returns an int based on wether or a store is updated.
+     *
+     * @param username  Username
+     * @param trade     New trade
+     * @return          Returns an int that is 1 if the store associated with the username in the parameter's trade is updated to the trade given in the methods parameters. 0 if it was not.
      */
     public int setTrade(String username, String trade){
         Statement statement = null;
@@ -1603,8 +1651,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with a shops description.
+     *
+     * @param username  Username
+     * @return          Returns a String with the description of the shop associated with the username in the methods parameter.
      */
     public String getShopDescription(String username){
         Statement statement = null;
@@ -1629,9 +1679,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param description
-     * @return
+     * Returns an int based on whether or not a stores description was succesfully updated.
+     *
+     * @param username      Username
+     * @param description   New Description
+     * @return              Returns an int that is 1 if the description of the store associated with the username given in the methods parameter's description is updated. 0 if it was not.
      */
     public int setStoreDescription(String username, String description){
         Statement statement = null;
@@ -1655,17 +1707,18 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param na
-     * @param mu
-     * @param tu
-     * @param sh
-     * @param sq
-     * @param ad
-     * @param tl
-     * @param ma
-     * @param ca
-     * @param de
-     * @return
+     * Returns an int based on whether or not a new center is created.
+     *
+     * @param na  New Centername
+     * @param mu  New Municipality
+     * @param tu  New turnover
+     * @param sh  New nr of shops
+     * @param ad  New address
+     * @param tl  New phonenumber
+     * @param ma  New Mail
+     * @param ca  New car park
+     * @param de  New Description
+     * @return    Returns an int that is 1 if a new center with the information given in the methods parameter is created. 0 if it is not.
      */
     public int newCenter(String na,String mu,String tu,String sh,String sq,String ad,String tl,String ma,String ca,String de){
         Statement statement = null;
@@ -1690,15 +1743,14 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param storeName
-     * @param centerName
-     * @param trade
-     * @param location
-     * @param floor
-     * @param openingHrs
-     * @param openingHrsWeekends
-     * @param description
-     * @return
+     * Returns an int based on whether or not a new store is created.
+     *
+     * @param location              New Location
+     * @param floor                 New Floor
+     * @param openingHrs            New OpeningHours
+     * @param openingHrsWeekends    New Weekend Openinghours
+     * @param description           New Description
+     * @return                      Returns an int that is 1 if a new Store with the information given in the methods parameters is created. 0 if it is not.
      */
     public int regNewStore(String storeName,String centerName,String trade, String location, String floor, String openingHrs,
                            String openingHrsWeekends, String description){
@@ -1735,9 +1787,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param newSqm
-     * @param centerName
-     * @return
+     * Returns a int based on whether or not a centers area is updated.
+     *
+     * @param newSqm        New Area
+     * @param centerName    Centername
+     * @return              Returns a int that is 1 if the center given in the parameter's area is updated. 0 if it is not.
      */
     public int setCenterSqm(String newSqm, String centerName){
         Statement statement = null;
@@ -1760,9 +1814,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param carPark
-     * @param centerName
-     * @return
+     * Returns an int if a centers car park status is updated.
+     *
+     * @param carPark       Car park status
+     * @param centerName    Centername
+     * @return              Returns an int that is 1 if the center given in the parameter's car park status is updated. 0 if it is not
      */
     public int setCenterCarPark(char carPark, String centerName){
         Statement statement = null;
@@ -1785,9 +1841,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param newDescription
-     * @param centerName
-     * @return
+     * Returns a int based on whether or not a centers description is updated.
+     *
+     * @param newDescription    New Description
+     * @param centerName        Centername
+     * @return                  Returns an int that is 1 if the center given in the parameter's description is updated. 0 if it is not.
      */
     public int setCenterDescription(String newDescription, String centerName){
         Statement statement = null;
@@ -1810,7 +1868,9 @@ public class DatabaseConnection {
 
     /**
      *
-     * @return
+     * Returns an ArrayList with the users currently registered in the db.
+     *
+     * @return Returns an ArrayList with the users currently registered in the db.
      */
     public ArrayList<String> getUsers(){
         Statement statement = null;
@@ -1836,8 +1896,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a int with a users accesslevel.
+     *
+     * @param username  Username
+     * @return          Returns a string with the accesslevel of the user given in the parameter.
      */
     public int getUserAccess(String username){
         Statement statement = null;
@@ -1862,8 +1924,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the activity status of a user.
+     *
+     * @param username Username
+     * @return         Returns a String with the activity status of the user given in the parameter.
      */
     public String getUserActiv(String username){
         Statement statement = null;
@@ -1888,8 +1952,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     * Returns a String with the title of a user.
+     *
+     * @param username  Username
+     * @return          Returns a String with the title of the user given in the parameter.
      */
     public String getUserTitle(String username){
         Statement statement = null;
@@ -1914,9 +1980,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param activ
-     * @param username
-     * @return
+     * Returns a int based on whether or not a users activity status is updated.
+     *
+     * @param activ       New activity status
+     * @param username    Username
+     * @return            Returns an int that is 1 if the activity status of the user given in the parameter is updated. 0 if it is not.
      */
     public int setUserActiv(String activ,String username){
         Statement statement = null;
@@ -1940,9 +2008,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centerName
-     * @param storename
-     * @return
+     * Returns a String with the username associated with a store.
+     *
+     * @param centerName        Centername
+     * @param storename         Storename
+     * @return                  Returns a String with the username of the store given in the parameter's manager.
      */
     public String getStoreUsername(String centerName, String storename){
         Statement statement = null;
@@ -1967,8 +2037,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centerName
-     * @return
+     * Returns a String with the username associated with a center.
+     *
+     * @param centerName    Centername
+     * @return              Returns a String with the username of the center given in the parameter's manager.
      */
     public String getCenterUsername(String centerName){
         Statement statement = null;
@@ -1993,9 +2065,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param newPassword
-     * @return
+     *Returns a int based on wether or not a users password was updated.
+     *
+     * @param username      Username
+     * @param newPassword   New password
+     * @return              Returns a int that is 1 if the user given in the parameter's password is updated. 0 if it is not.
      */
     public int setNewPassword(String username, String newPassword){
         Statement statement = null;
@@ -2018,8 +2092,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centername
-     * @return
+     * Returns a Arraylist of strings with the names of the users registered to a center.
+     *
+     * @param centername Centername
+     * @return           Returns a Arrraylist of Strings with the names of the users registered to the center given in the parameters.
      */
     public ArrayList<String> getUsersCenterManager(String centername){
         Statement statement = null;
@@ -2045,8 +2121,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centername
-     * @return
+     * Returns an Arraylist of strings with the names of all the stores in a center that has no User registered.
+     *
+     * @param centername    Centername
+     * @return              Returns a Arraylist of Strings with the names of all the stores in the center given in the methods parameter that have no user registered.
      */
     public ArrayList<String> getStoresWithoutUser(String centername){
         Statement statement = null;
@@ -2072,8 +2150,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centername
-     * @return
+     * Returns an Arraylist of Strings with the names of users in a center that are not registered to a store.
+     *
+     * @param centername    Centername
+     * @return              Returns a Arraylist of String with the names of the users in the center given in the methods parameter that are not registered to a store.
      */
     public ArrayList<String> getUsersWithoutStore(String centername){
         Statement statement = null;
@@ -2106,8 +2186,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param centername
-     * @return
+     * Returns an arraylist of Strings with the names of all the users in a center that are set to not active.
+     *
+     * @param centername    Username
+     * @return              Returns an Arraylist of Strings with the names of all the inactive users in the center given in the methods parameter.
      */
     public ArrayList<String> getUsersNotActiv(String centername){
         Statement statement = null;
@@ -2146,10 +2228,12 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param storename
-     * @param centername
-     * @return
+     * Returns an int based on whether or not a user is set to a store.
+     *
+     * @param username      Username
+     * @param storename     Storename
+     * @param centername    Centername
+     * @return              Returns a int that is 1 if the user in the methods parameter is set to manager of the store given in the methods parameters. 0 if he is not.
      */
     public int setStoreUser(String username, String storename, String centername){
         Statement statement = null;
@@ -2173,9 +2257,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param storename
-     * @param centername
-     * @return
+     * Returns an int based on whether or not a store is succesfully deleted.
+     *
+     * @param storename     Storename
+     * @param centername    Centername
+     * @return              Returns an int that is 1 if the store given in the methods parameters is deleted. 0 if it is not.
      */
     public int deleteStore(String storename, String centername){
         Statement statement = null;
@@ -2214,8 +2300,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     *Returns an int based on whether or not a person is succesfully deleted.
+     *
+     * @param username  Username
+     * @return          Returns an int that is 1 if the person given in the methods parameters is deleted. 0 if it is not.
      */
     public int deletePerson(String username){
         Statement statement = null;
@@ -2238,8 +2326,10 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @return
+     *Returns an int based on whether or not a user is succesfully deleted.
+     *
+     * @param username   Username
+     * @return           Returns an int that is 1 if the user given in the methods parameters is deleted. 0 if it is not.
      */
     public int deleteUser(String username){
         Statement statement = null;
@@ -2260,72 +2350,13 @@ public class DatabaseConnection {
         return ok;
     }
 
-    /**
-     *
-     * @param centername
-     * @return
-     */
-    public String getUsernameCenter(String centername){
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String retur="";
-        try {
-            String sqlGet = "SELECT DISTINCT username FROM center WHERE center_name='" + centername + "';";
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlGet);
-            resultSet.next();
-            retur = resultSet.getString("username");
-        }
-        catch (Exception e){
-            Database.printMesssage(e, "getUsersNotActiv");
-        }
-        finally {
-            Database.closeStatement(statement);
-            Database.closeResSet(resultSet);
-        }
-        return retur;
-    }
 
     /**
      *
-     * @param centerName
-     * @return
-     */
-    public int deleteCenter(String centerName){
-        Statement statement = null;
-        ResultSet resultSet = null;
-        int check=0;
-        ArrayList<String> list = getStore(centerName);
-        for(int i=0;i<list.size();i++){
-            String test =list.get(i);
-            deleteStore(test,centerName);
-        }
-        int ok = 0;
-        try {
-            String username = getCenterUsername(centerName);
-            int checkPerson = deletePerson(username);
-            if(checkPerson == 1){
-                check = deleteUser(username);
-            }
-            String sqlSubject = "DELETE FROM center WHERE center_name='"+centerName+"'";
-            statement = connection.createStatement();
-            ok = statement.executeUpdate(sqlSubject);
-        }
-        catch (Exception e){
-            Database.printMesssage(e, "deleteCenter");
-        }
-        finally {
-            Database.settAutoCommit(connection);
-            Database.closeStatement(statement);
-            Database.closeResSet(resultSet);
-        }
-        return ok;
-    }
-
-    /**
+     * Returns a Arrraylist of Strings with the names of the centers without users.
      *
-     * @param centername
-     * @return
+     * @param centername  Centername
+     * @return            Returns an Arraylist of Strings with name of the center if the center given in the methods parameter has no username.
      */
     public ArrayList<String> getCenterWithoutUser(String centername){
         Statement statement = null;
@@ -2351,9 +2382,11 @@ public class DatabaseConnection {
 
     /**
      *
-     * @param username
-     * @param centerName
-     * @return
+     * Returns an int based on whether or not a manager is set to a center.
+     *
+     * @param username     Username
+     * @param centerName   Centername
+     * @return             Returns an int that is 1 if the manager of the center given in the methods parameters is updated. 0 if it is not.
      */
     public int setCenterManager(String username, String centerName){
         Statement statement = null;
@@ -2376,10 +2409,10 @@ public class DatabaseConnection {
     }
 
     /**
-     *
-     * @param username
-     * @param turnover
-     * @return
+     * Returns an int based on whether or not a stores turnover is updated.
+     * @param username  Username
+     * @param turnover  New Turnover
+     * @return          Returns an int that is 1 if the turnover of the center given in the methods parameter is updated. 0 if it is not.
      */
     public int setAnnualTurnover(String username, int turnover){
         Statement statement = null;

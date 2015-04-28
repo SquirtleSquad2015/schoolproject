@@ -556,7 +556,7 @@ public class DatabaseConnectionTest extends DatabaseConnection {
         System.out.println("getCenterParking");
         String centername = "DummyCenter";
         String expResult = "y";
-        String result = getCenterParking(centername);
+        String result = getParking(centername);
         assertEquals(expResult, result);
        
     }
