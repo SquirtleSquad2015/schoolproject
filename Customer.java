@@ -205,32 +205,6 @@ class Customer extends JFrame{
             dispose();
         }
     }
-    /*//Update
-    class Knappelytter5 extends DatabaseConnection implements ActionListener {
-        public void actionPerformed(ActionEvent hendelse) {
-           JButton knapp5 = (JButton) hendelse.getSource();
-            int index = listbox.getSelectedIndex();
-
-            if(index>=0){
-                try{
-                    String centerName=list.get(index);
-                    openConnection();
-                    list2 = getStore(centerName);
-                    defaultListModel2.clear();
-                    for(int i = 0; i < list2.size(); i++){
-                        defaultListModel2.addElement(list2.get(i));
-                    }
-                    closeConnection();
-                }
-                catch (Exception e){
-                    Database.printMesssage(e, "getCenters");
-                }
-            }
-            else{
-                showMessageDialog (null, "Chose Center then press \"Update\" to update shops", "Fail", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }*/
 
     class Knappelytter5 extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent hendelse) {
