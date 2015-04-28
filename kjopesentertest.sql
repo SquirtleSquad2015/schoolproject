@@ -65,26 +65,15 @@ CONSTRAINT trade_pk PRIMARY KEY (trade,center_name));
 ALTER TABLE administration
 ADD CONSTRAINT administration_fk1 FOREIGN KEY(username) REFERENCES bruker(username);
 
---ALTER TABLE store
---ADD CONSTRAINT store_fk1 FOREIGN KEY(centre_navn)REFERENCES centre(centre_navn);
-
---ALTER TABLE store
---ADD CONSTRAINT store_fk2 FOREIGN KEY(administration)REFERENCES administration(navn);
-
---ALTER TABLE store
---ADD CONSTRAINT store_fk3 FOREIGN KEY(trade)REFERENCES industri(trade);
-
---ALTER TABLE industri
---ADD CONSTRAINT indistri_fk1 FOREIGN KEY(centre_navn)REFERENCES centre(centre_navn);
-
---ALTER TABLE customer_sak
---ADD CONSTRAINT customer_sak_fk1 FOREIGN KEY(centre_navn)REFERENCES centre(centre_navn);
 
 INSERT INTO center(center_name, muncipality,turnover,nr_shops ,sqm ,address ,mail ,tlf ,email ,car_park)
-VALUES('Circus','Trondheim',20,50,5000,'Veien 1', 'postboks 2012','12131415', 'Mailadresse@.com', 'y');
+VALUES('Sirkus','Trondheim',0, 3, 10000,'Veien 1', 'postboks 2012','12131415', 'Mailadresse@.com', 'y');
 
 INSERT INTO center(center_name, muncipality,turnover,nr_shops ,sqm ,address ,mail ,tlf ,email ,car_park)
-VALUES('City Syd','Trondheim',20,50,5000,'Gata 2', 'postboks 1337','12195415', 'Mailadr@asd.com', 'y');
+VALUES('City Syd','Trondheim',0,3 ,15000,'Gata 2', 'postboks 1337','12195415', 'Mailadr@asd.com', 'y');
+
+INSERT INTO center(center_name, muncipality,turnover,nr_shops ,sqm ,address ,mail ,tlf ,email ,car_park)
+VALUES('City Lade','Trondheim', 0,3 ,15000,'Gata 2', 'postboks 1337','12195415', 'Mailadr@asd.com', 'y');
 
 INSERT INTO bruker(access_lvl,username,password)
 VALUES(3,'petter1','password');
@@ -116,25 +105,3 @@ VALUES('Elektronikk','Ting som går på strøm','Circus');
 INSERT INTO trade(trade, description, center_name)
 VALUES('Kosmetikk','Maling for fjes','City Syd');
 
---Sorterer etter type handel
---SELECT * FROM industri LEFT JOIN store on (store.TRADE = industri.TRADE);
-
---finn butikk og senter som driver med en shandel
---SELECT store.store_navn,store.centre_navn, store.trade,description
---FROM store
---NATURAL JOIN industri
---WHERE (store.trade = 'Kosmetikk');
-
-
---SELECT BOLAG_NAVN
---FROM borettslag
---WHERE borettslag.BOLAG_NAVN in (SELECT bygning.BOLAG_NAVN 
---    FROM bygning 
---    RIGHT JOIN leilighet ON( leilighet.bygn_id = bygning.BYGN_ID AND leilighet.ANT_ROM = 4)
---);
-
---select * from administration RIGHT join bruker on (bruker.username = administration.username);
-
---lager et view av all informasjon lagret på center
---CREATE VIEW center_view AS
---SELECT * FROM center;
