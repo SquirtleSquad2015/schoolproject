@@ -91,7 +91,6 @@ public class AdminCenterView extends JFrame {
             if (check ==Back){
                 dispose();
             }
-            
         }
     }
     
@@ -104,11 +103,8 @@ public class AdminCenterView extends JFrame {
             try{
                 openConnection();//må opprette sin egen, max 1 extends per klasse
                 centerName = listbox.getSelectedValue().toString();
-                
                 closeConnection();
                 System.out.println(centerName);
-                
-
             }
             catch (Exception c){
                 Database.printMesssage(c, "getCenters For AdminView");
