@@ -2259,26 +2259,41 @@ public class DatabaseConnection {
             deleteStore(test, centerName);
         }
         int ok = 0;
-        try {/*
+        try {
             String username = getCenterUsername(centerName);
-            System.out.println(username);
-            int checkPerson = deletePerson(username);
-            if (checkPerson == 1) {
-                System.out.println(username);
-                check = deleteUser(username);
-            }  */
+
+
+
+
+
+
             ArrayList<String> usernameList = getAllUsername(centerName);
-            //usernameList.remove(username);
+            usernameList.remove(username);
             for (int i = 0; i < usernameList.size(); i++) {
+                System.out.println(usernameList.get(i));
                 int delPerson = deletePerson(usernameList.get(i));
                 if (delPerson == 1) {
                     deleteUser(usernameList.get(i));
                 }
             }
 
+             System.out.println(username);
+             int checkPerson = deletePerson(username);
+
+
+
+
             String sqlSubject = "DELETE FROM center WHERE center_name='" + centerName + "'";
             statement = connection.createStatement();
             ok = statement.executeUpdate(sqlSubject);
+             if (checkPerson == 1) {
+                 System.out.println(username);
+                 check = deleteUser(username);
+             }
+
+
+
+
         } catch (Exception e) {
             Database.printMesssage(e, "deleteCenter");
         } finally {
