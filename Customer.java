@@ -245,7 +245,7 @@ class Customer extends JFrame{
 
                 ledetekst2.setText("Addresse");
                 ledetekstSvar2.setText(getAddress(selectedCenter));
-                String parking_check = getCenterParking(selectedCenter);
+                String parking_check = getParking(selectedCenter);
                 String parking="";
                 if(parking_check.equalsIgnoreCase("y")){ parking = "\nThe center has its own parking facility.";}
                 if(parking_check.equalsIgnoreCase("n")){ parking = "\nThe center does not have its own parking facility.";}
