@@ -1571,6 +1571,7 @@ public class DatabaseConnection {
      * @param mu New Municipality
      * @param tu New turnover
      * @param sh New nr of shops
+     * @param sq new sqm
      * @param ad New address
      * @param tl New phonenumber
      * @param ma New Mail
@@ -1599,10 +1600,12 @@ public class DatabaseConnection {
 
     /**
      * Returns an int based on whether or not a new store is created.
-     *
+     * @param centerName         new centername
+     * @param storename          new storename
      * @param location           New Location
      * @param floor              New Floor
      * @param openingHrs         New OpeningHours
+     * @param trade              trade
      * @param openingHrsWeekends New Weekend Openinghours
      * @param description        New Description
      * @return Returns an int that is 1 if a new Store with the information given in the methods parameters is created. 0 if it is not.
