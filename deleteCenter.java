@@ -71,7 +71,7 @@ public class deleteCenter extends JFrame {
             if (check ==delete){
                 try{
                     openConnection();//må opprette sin egen, max 1 extends per klasse
-                    int i=deleteCenter(centerName);
+                    int i = deleteCenter(centerName);
                     closeConnection();
                     
                     dispose();
