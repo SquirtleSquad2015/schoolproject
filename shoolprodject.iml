@@ -28,33 +28,33 @@
         <jarDirectory url="file://$USER_HOME$/Java/jdk1.8.0_45/db" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar!/" />
+          <root url="jar://$USER_HOME$/mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../db-derby-10.11.1.1-bin/lib/derby.jar!/" />
+          <root url="jar://$USER_HOME$/db-derby-10.11.1.1-bin/lib/derby.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../db-derby-10.11.1.1-bin/lib/derbyclient.jar!/" />
+          <root url="jar://$USER_HOME$/db-derby-10.11.1.1-bin/lib/derbyclient.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
-

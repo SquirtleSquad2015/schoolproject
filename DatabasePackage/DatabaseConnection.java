@@ -1,16 +1,17 @@
 package shoolprodject.DatabasePackage;
 
-import shoolprodject.DatabasePackage.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
-
-
 
 public class DatabaseConnection {
 
     private Connection connection;
 
+    /**
+     *
+     * @throws Exception
+     */
     public void openConnection() throws Exception{
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -19,9 +20,21 @@ public class DatabaseConnection {
             Database.printMesssage(e, "Konstruktør");
         }
     }
+
+    /**
+     *
+     * @throws Exception
+     */
     public void closeConnection() throws Exception{
         Database.closeConnection(connection);
     }
+
+    /**
+     * Checks if the database can be connected.
+     *
+     * @return              Returns true if it can connect to our database, false otherwise.
+     * @throws Exception
+     */
     public boolean checkDB() throws Exception{
 
         Statement statement = null;
@@ -48,6 +61,14 @@ public class DatabaseConnection {
 
     }
 
+    /**
+     * Returns an ArrayList containing the names of shopping centers that matches the full or partial center
+     * name that is entered as argument.
+     * If the argument is empty, every center name will be returned.
+     *
+     * @param centername    A full or a partial name of a shopping center that the user wants to be returned.
+     * @return              Returns a list of shopping centers that matches the center name inserted.
+     */
     public ArrayList<String> getCenters(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -61,7 +82,7 @@ public class DatabaseConnection {
             }
             for(int i = 0; i<list.size(); i++){
                 System.out.println(list.get(i));
-        }
+            }
         }
         catch (Exception e){
             Database.printMesssage(e, "getCenters");
@@ -72,6 +93,14 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     * Returns an ArrayList containing the existing stores inside a specified center.
+     * The centerName argument must specify a complete center name.
+     *
+     * @param centerName    Complete name of a shopping center
+     * @return              ArrayList of existing stores specified by the centerName
+     */
     public ArrayList<String> getStore(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -94,6 +123,13 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     * Returns an ArrayList containing store name that are sorted out by a specific trade.
+     *
+     * @param centerName    Complete name of a shopping center
+     * @param trade         Name on a trade
+     * @return              ArrayList containing stores that are in the specified trade
+     */
     public ArrayList<String> getStoreAndTrade(String centerName, String trade){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -116,6 +152,13 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     * Returns an ArrayList containing center names in a specified municipality.
+     * If the argument is empty, all center names will be returned
+     *
+     * @param kommun    Complete or partial name of a municipality.
+     * @return          ArrayList containing center names in a specified municipality.
+     */
     public ArrayList<String> getMuncipality(String kommun){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -138,6 +181,12 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     * Return the municipality of a specified center name.
+     *
+     * @param centername    Complete or partial center name
+     * @return              Municipality a the center name
+     */
     public String getCenterMunicipality(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -160,6 +209,13 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     * Returns the annual turnover to a specific store in a specified center.
+     * If no annual turnover is found that matches the arguments, -1 is returned
+     * @param centername    Specific center name
+     * @param storename     Specific store name
+     * @return              Annual turnover for the selected store
+     */
     public Integer getTurnoverStore(String centername, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -183,6 +239,14 @@ public class DatabaseConnection {
         }
         return svar;
     }
+
+    /**
+     * Returns the trade of a specific store.
+     * If no store is found, "No trades found in store"
+     *
+     * @param Storename     Specific store name
+     * @return              Returns Trade
+     */
     public String getTradeStore(String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -205,13 +269,20 @@ public class DatabaseConnection {
         return retur;
     }
 
+    /**
+     * Returns a string that contains either n or y depending on the center.
+     * If no center is found "No parking information found" is returned.
+     *
+     * @param centername    Specific center name
+     * @return              y, n or "No parking information found".
+     */
     public String getParking(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
         String retur;
         try {
             statement = connection.createStatement();
-            String sqlStatement = "SELECT DISTINCT car_park FROM center WHERE LCASE(center_name) LIKE LCASE('" + centername + "')";
+            String sqlStatement = "SELECT car_park from center where center_name='" + centername + "'";
             resultSet = statement.executeQuery(sqlStatement);
             resultSet.next();
             retur=resultSet.getString("car_park");
@@ -226,6 +297,13 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     * Returns the address of a specific center.
+     *
+     * @param centername    Specific center name
+     * @return              Address
+     */
     public String getAddress(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -249,6 +327,13 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     * Returns the center manager of a specific center
+     *
+     * @param centername    Specific center name
+     * @return              The username to the center manager of the specified center
+     */
     public String getCenterManager(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -270,6 +355,14 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     * Returns the name of the store manager to the specific store and center
+     *
+     * @param centername    Specific center name
+     * @param storename     Specific store name
+     * @return              The name or "No store manager found" as a String
+     */
     public String getStoreManager(String centername,String storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -292,6 +385,12 @@ public class DatabaseConnection {
         return retur;
     }
 
+    /**
+     * Returns a String containing the name of the store manager.
+     *
+     * @param username  Specific username
+     * @return          Name or "No name found"
+     */
     public String getPersonName(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -314,6 +413,12 @@ public class DatabaseConnection {
         return retur;
     }
 
+    /**
+     * Returns a String containing the location and the floor to a specific store.
+     *
+     * @param Storename     Specific store name
+     * @return              The location or "No location found"
+     */
     public String getLocation(String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -336,6 +441,14 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     * Returns a String containing opening hours for a specific store.
+     *
+     * @param centerName    Specific store name
+     * @param Storename     Specific center name
+     * @return              Opening hours or "No opening hours found"
+     */
     public String getOpenings(String centerName,String Storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -360,6 +473,15 @@ public class DatabaseConnection {
     }
 
     //registrerer spørsmål sendt fra customer til customer support
+
+    /**
+     * Returns a boolean value of true or false depending on how the registration turns out.
+     *
+     * @param center        Center name
+     * @param subject       Subject of the question
+     * @param question      The actual question
+     * @return              True or false
+     */
     public boolean RegisterCustomerQuestion(String center, String subject, String question){
         Statement statement = null;        ;
         Statement resultSet = null;
@@ -384,6 +506,11 @@ public class DatabaseConnection {
         return ok;
     }
 
+    /**
+     * Returns the highest customer case index as a int.
+     *
+     * @return      highest number of the customer case id or -1
+     */
     public int getHighestCustomerCaseIndex(){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -406,6 +533,14 @@ public class DatabaseConnection {
         return retur;
     }
 
+    /**
+     * Returns a boolean value depending on the outcome of the username check.
+     * If the username is already registered in the database false is returned.
+     *
+     * @param userName      Specific username
+     * @return              True or false
+     * @throws Exception
+     */
     public boolean checkUsername(String userName) throws Exception{
         Statement statement = null;
         ResultSet resultSet = null;
@@ -430,8 +565,21 @@ public class DatabaseConnection {
         return ok;
     }
 
+    /**
+     * Returns an Integer depending on the outcome of the registration of the new user.
+     *
+     * @param userName      New username
+     * @param telephone     new phone number
+     * @param password      Password
+     * @param centerName    Specific Center name
+     * @param realName      Real name
+     * @param mail          Email
+     * @param userLevel     The user level
+     * @param title         The title of the user
+     * @return              Returns a number between 1 and 4
+     */
     public int regNewCenterUser(String userName, String telephone, char[] password,
-                                       String centerName, String realName, String mail, int userLevel, String title){
+                                String centerName, String realName, String mail, int userLevel, String title){
         Statement statement = null;
         ResultSet resultSet = null;
         int ok = 0;
@@ -477,6 +625,13 @@ public class DatabaseConnection {
         return ok;
     }
 
+    /**
+     * Returns a int value depending on the access level of the user.
+     *
+     * @param username     Username
+     * @param password     Password
+     * @return             Access level of the user or 0.
+     */
     public int checkLogIn(String username, String password){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -500,6 +655,17 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     * Returns an ArrayList containing subjects of the customer service questions that matches the title
+     * that is given.
+     * The title can be a complete word or just a partial. If it is left empty. Every subject is returned
+     *
+     * @param title             Complete or partial title word
+     * @param center_name       Center name
+     * @param solved            If the case is solved or not
+     * @return                  A list containing all subject names that matches the title complete or partially
+     */
     public ArrayList<String> customerServiceGetTitle(String title, String center_name, char solved){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -524,6 +690,12 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     * Returns the answer on a solved customer service case.
+     *
+     * @param caseID    The case ID given when the question was submitted
+     * @return          String that contains either the answer or is empty
+     */
     public String getCustomerAnswer(int caseID){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -546,7 +718,12 @@ public class DatabaseConnection {
         return answer;
     }
 
-
+    /**
+     * Returns a String containing the center name that the person with username is working on.
+     *
+     * @param username      Username
+     * @return              Center name or an empty String if no center is found matching the criteria
+     */
     public String getCenter(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -568,6 +745,12 @@ public class DatabaseConnection {
         return center;
     }
 
+    /**
+     * Returns a String containing the number of shops in a specific center
+     *
+     * @param centername        Center name
+     * @return                  Number of shops or empty if no center is found  matching the criteria
+     */
     public String getNoOfShops(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -590,6 +773,12 @@ public class DatabaseConnection {
         return no_of_shops;
     }
 
+    /**
+     * Returns a String containing the square meters of a specific center.
+     *
+     * @param centername        Center name
+     * @return                  Number of square meters or an empty string if no center is found matching the criteria.
+     */
     public String getSQM(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -611,6 +800,12 @@ public class DatabaseConnection {
         return SQM;
     }
 
+    /**
+     * Returns a String containing the phone number to a specific center
+     *
+     * @param centername        Center name
+     * @return                  Phone number or an empty string, if no center is found  matching the criteria
+     */
     public String getCenterTelephone(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -633,6 +828,12 @@ public class DatabaseConnection {
         return tlf;
     }
 
+    /**
+     * Return a String containing the email address to a specific center
+     *
+     * @param centername         Center name
+     * @return                   Email address or an empty string if no center is found matching the criteria  
+     */
     public String getCenterMail(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -655,29 +856,12 @@ public class DatabaseConnection {
         return email;
     }
 
-    public String getCenterParking(String centername){
-        Statement statement = null;
-        ResultSet resultSet = null;
-        String parking ="";
-
-        try {
-            String sqlSubject = "SELECT car_park from center where center_name='" + centername + "'";
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlSubject);
-            resultSet.next();
-            parking = resultSet.getString("car_park");
-
-        }
-        catch (Exception e){
-            Database.printMesssage(e, "getCenterParking");
-        }
-        finally {
-            Database.closeStatement(statement);
-            Database.closeResSet(resultSet);
-        }
-        return parking;
-    }
-
+    /**
+     * Returns a String containing the center description of a specific center.
+     *
+     * @param centername        Center name
+     * @return                  Center description or an empty string if no center is found matching the criteria
+     */
     public String getCenterDescription(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -700,7 +884,15 @@ public class DatabaseConnection {
         return description;
     }
 
-
+    /**
+     * Returns an ArrayList containing the customer case ID matching completely or
+     * partially matching the title.
+     *
+     * @param title             Title
+     * @param center_name       Center name
+     * @param solved            If the case is solved or not
+     * @return                  ArrayList containing the Customer case ID where the subject is matching the title
+     */
     public ArrayList<Integer> getCustomerCaseID(String title, String center_name, char solved){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -723,6 +915,13 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     * Returns a String containing the customer service question with matching case ID.
+     *
+     * @param caseID    Case ID
+     * @return          Question or an empty String depending on the database values
+     */
     public String getDescription(int caseID){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -743,6 +942,13 @@ public class DatabaseConnection {
         }
         return question;
     }
+
+    /**
+     *
+     * @param answer
+     * @param caseID
+     * @return
+     */
     public int setAnswer(String answer, int caseID){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -761,6 +967,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     * Returns a int
+     * @param caseID
+     * @return
+     */
     public int deleteCustomerCase(int caseID){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -779,6 +991,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getEmail(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -800,6 +1018,11 @@ public class DatabaseConnection {
         return mail;
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getPhoneNumber(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -820,6 +1043,13 @@ public class DatabaseConnection {
         }
         return phoneNumber;
     }
+
+    /**
+     *
+     * @param email
+     * @param username
+     * @return
+     */
     public int setEmail(String email, String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -838,6 +1068,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param phoneNumber
+     * @param username
+     * @return
+     */
     public int setPhoneNumber(String phoneNumber, String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -868,6 +1105,12 @@ public class DatabaseConnection {
         return ok;
     }
 
+    /**
+     *
+     * @param newMail
+     * @param centerName
+     * @return
+     */
     public int setCenterMail(String newMail, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -877,7 +1120,7 @@ public class DatabaseConnection {
             String sqlUpdateCenterMail = "UPDATE center SET mail='"+newMail+"' WHERE center_name='"+centerName +"'";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
-            }
+        }
         catch (Exception e){
             Database.printMesssage(e, "setCenterMail");
         }
@@ -887,6 +1130,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param newPhoneNumber
+     * @param centerName
+     * @return
+     */
     public int setCenterPhoneNumber(String newPhoneNumber, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -906,6 +1156,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopName(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -926,6 +1182,12 @@ public class DatabaseConnection {
         }
         return shopName;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopTrade(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -946,6 +1208,12 @@ public class DatabaseConnection {
         }
         return shopTrade;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopLocation(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -966,6 +1234,12 @@ public class DatabaseConnection {
         }
         return shopLocation;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopFloor(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -986,6 +1260,12 @@ public class DatabaseConnection {
         }
         return shopFloor;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopOpeningHrs(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1006,6 +1286,12 @@ public class DatabaseConnection {
         }
         return shopOpeningHrs;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopOpeningHrsWeekends(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1026,6 +1312,12 @@ public class DatabaseConnection {
         }
         return shopOpeningHrsWeekends;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopTurnover(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1046,6 +1338,13 @@ public class DatabaseConnection {
         }
         return shopTurnover;
     }
+
+    /**
+     *
+     * @param centerName
+     * @param storeName
+     * @return
+     */
     public String getShopDescription(String centerName, String storeName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1066,6 +1365,13 @@ public class DatabaseConnection {
         }
         return shopDescription;
     }
+
+    /**
+     *
+     * @param username
+     * @param newStoreName
+     * @return
+     */
     public int setStoreName(String username, String newStoreName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1085,6 +1391,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @param newStoreLocation
+     * @return
+     */
     public int setStoreLocation(String username, String newStoreLocation){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1104,6 +1417,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @param newFloor
+     * @return
+     */
     public int setStoreFloor(String username, int newFloor){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1123,6 +1443,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @param newOpeningHrs
+     * @return
+     */
     public int setStoreOpeningHrs(String username, String newOpeningHrs){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1142,6 +1469,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @param newOpeningHrsWeekends
+     * @return
+     */
     public int setStoreOpeningHrsWeekends(String username, String newOpeningHrsWeekends){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1161,6 +1495,11 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getTrades(){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1183,6 +1522,11 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     *
+     * @param trade
+     * @return
+     */
     public ArrayList<String> getCenterFromTrade(String trade){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1204,6 +1548,12 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     *
+     * @param trade
+     * @return
+     */
     public String getTradeDescription(String trade){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1224,6 +1574,13 @@ public class DatabaseConnection {
         }
         return description;
     }
+
+    /**
+     *
+     * @param username
+     * @param trade
+     * @return
+     */
     public int setTrade(String username, String trade){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1243,6 +1600,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getShopDescription(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1263,6 +1626,13 @@ public class DatabaseConnection {
         }
         return shopDescription;
     }
+
+    /**
+     *
+     * @param username
+     * @param description
+     * @return
+     */
     public int setStoreDescription(String username, String description){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1282,6 +1652,21 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param na
+     * @param mu
+     * @param tu
+     * @param sh
+     * @param sq
+     * @param ad
+     * @param tl
+     * @param ma
+     * @param ca
+     * @param de
+     * @return
+     */
     public int newCenter(String na,String mu,String tu,String sh,String sq,String ad,String tl,String ma,String ca,String de){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1289,9 +1674,9 @@ public class DatabaseConnection {
         try {
             statement = connection.createStatement();
             String sqlUpdate = "INSERT INTO  `14hing06`.`center` (`center_name` ,`username` ,`muncipality` ,`turnover` ,`nr_shops` ,`sqm` ,`address` ,`mail` ,`tlf` ,`car_park` ,`description`)"
-            +" VALUES ('"+na+"', NULL ,  '"+mu+"',  "+tu+",  "+sh+",  "+sq+",  '"+ad+"',  '"+tl+"',  '"+ma+"',  '"+ca+"',  '"+de+"');";
+                    +" VALUES ('"+na+"', NULL ,  '"+mu+"',  "+tu+",  "+sh+",  "+sq+",  '"+ad+"',  '"+tl+"',  '"+ma+"',  '"+ca+"',  '"+de+"');";
             ok = statement.executeUpdate(sqlUpdate);
-            
+
         }
         catch (Exception e){
             Database.printMesssage(e, "newCenter");
@@ -1302,6 +1687,19 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param storeName
+     * @param centerName
+     * @param trade
+     * @param location
+     * @param floor
+     * @param openingHrs
+     * @param openingHrsWeekends
+     * @param description
+     * @return
+     */
     public int regNewStore(String storeName,String centerName,String trade, String location, String floor, String openingHrs,
                            String openingHrsWeekends, String description){
         Statement statement = null;
@@ -1334,6 +1732,13 @@ public class DatabaseConnection {
         }
         return check;
     }
+
+    /**
+     *
+     * @param newSqm
+     * @param centerName
+     * @return
+     */
     public int setCenterSqm(String newSqm, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1352,6 +1757,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param carPark
+     * @param centerName
+     * @return
+     */
     public int setCenterCarPark(char carPark, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1370,6 +1782,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param newDescription
+     * @param centerName
+     * @return
+     */
     public int setCenterDescription(String newDescription, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1388,6 +1807,11 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getUsers(){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1409,6 +1833,12 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public int getUserAccess(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1429,6 +1859,12 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getUserActiv(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1448,7 +1884,13 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
         }
         return retur;
-    } 
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public String getUserTitle(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1468,7 +1910,14 @@ public class DatabaseConnection {
             Database.closeResSet(resultSet);
         }
         return retur;
-    } 
+    }
+
+    /**
+     *
+     * @param activ
+     * @param username
+     * @return
+     */
     public int setUserActiv(String activ,String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1478,7 +1927,7 @@ public class DatabaseConnection {
             String sqlUpdateCenterMail = "UPDATE users SET Activ='"+activ+"' WHERE username='"+username+"';";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
-            }
+        }
         catch (Exception e){
             Database.printMesssage(e, "setCenterMail");
         }
@@ -1488,6 +1937,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param centerName
+     * @param storename
+     * @return
+     */
     public String getStoreUsername(String centerName, String storename){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1508,7 +1964,13 @@ public class DatabaseConnection {
         }
         return storeUserName;
     }
-     public String getCenterUsername(String centerName){
+
+    /**
+     *
+     * @param centerName
+     * @return
+     */
+    public String getCenterUsername(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
         String centerUserName = "";
@@ -1528,7 +1990,14 @@ public class DatabaseConnection {
         }
         return centerUserName;
     }
-     public int setNewPassword(String username, String newPassword){
+
+    /**
+     *
+     * @param username
+     * @param newPassword
+     * @return
+     */
+    public int setNewPassword(String username, String newPassword){
         Statement statement = null;
         ResultSet resultSet = null;
         int ok = 0;
@@ -1546,7 +2015,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
-     public ArrayList<String> getUsersCenterManager(String centername){
+
+    /**
+     *
+     * @param centername
+     * @return
+     */
+    public ArrayList<String> getUsersCenterManager(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<String>();
@@ -1568,6 +2043,11 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     *
+     * @param centername
+     * @return
+     */
     public ArrayList<String> getStoresWithoutUser(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1589,6 +2069,12 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     *
+     * @param centername
+     * @return
+     */
     public ArrayList<String> getUsersWithoutStore(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1617,6 +2103,12 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     *
+     * @param centername
+     * @return
+     */
     public ArrayList<String> getUsersNotActiv(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1651,6 +2143,14 @@ public class DatabaseConnection {
         }
         return compareUsers;
     }
+
+    /**
+     *
+     * @param username
+     * @param storename
+     * @param centername
+     * @return
+     */
     public int setStoreUser(String username, String storename, String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1670,6 +2170,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param storename
+     * @param centername
+     * @return
+     */
     public int deleteStore(String storename, String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1704,6 +2211,12 @@ public class DatabaseConnection {
         }
         return check;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public int deletePerson(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1722,6 +2235,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public int deleteUser(String username){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1740,6 +2259,12 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param centername
+     * @return
+     */
     public String getUsernameCenter(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1760,6 +2285,12 @@ public class DatabaseConnection {
         }
         return retur;
     }
+
+    /**
+     *
+     * @param centerName
+     * @return
+     */
     public int deleteCenter(String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1791,6 +2322,11 @@ public class DatabaseConnection {
         return ok;
     }
 
+    /**
+     *
+     * @param centername
+     * @return
+     */
     public ArrayList<String> getCenterWithoutUser(String centername){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1812,6 +2348,13 @@ public class DatabaseConnection {
         }
         return list;
     }
+
+    /**
+     *
+     * @param username
+     * @param centerName
+     * @return
+     */
     public int setCenterManager(String username, String centerName){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1821,7 +2364,7 @@ public class DatabaseConnection {
             String sqlUpdateCenterMail = "UPDATE center SET username='"+username+"' WHERE center_name='"+centerName+"';";
             ok = statement.executeUpdate(sqlUpdateCenterMail);
             System.out.println(ok);
-            }
+        }
         catch (Exception e){
             Database.printMesssage(e, "setCenterManager");
         }
@@ -1831,6 +2374,13 @@ public class DatabaseConnection {
         }
         return ok;
     }
+
+    /**
+     *
+     * @param username
+     * @param turnover
+     * @return
+     */
     public int setAnnualTurnover(String username, int turnover){
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1849,5 +2399,5 @@ public class DatabaseConnection {
         }
         return ok;
     }
-    
+
 }
