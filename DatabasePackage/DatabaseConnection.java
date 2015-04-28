@@ -2249,6 +2249,14 @@ public class DatabaseConnection {
         return list;
     }
 
+    /**
+     *
+     * Returns a int based on whether or not a center was deleted.
+     *
+     * @param centerName   Centername
+     * @return             Returns a int that is 1 if the center given in the parameter is deleted, and 0 if it is not.
+     */
+
     public int deleteCenter(String centerName) {
         Statement statement = null;
         ResultSet resultSet = null;
