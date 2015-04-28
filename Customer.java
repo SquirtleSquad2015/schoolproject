@@ -8,7 +8,7 @@ package shoolprodject;
 
 import shoolprodject.DatabasePackage.Database;
 import shoolprodject.DatabasePackage.DatabaseConnection;
-import system.Center;
+
 
 import javax.swing.*;
 import java.awt.*;
