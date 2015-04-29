@@ -97,7 +97,7 @@ class Login extends JFrame{
                         menu.setLocationRelativeTo(null);
                         dispose();
                     }
-                } else {
+                } else if(ok > 0 && activ.equals("n")){
                     showMessageDialog(null, "Your user is not activ. Please contact Admin or center manager");
                 }
             }
