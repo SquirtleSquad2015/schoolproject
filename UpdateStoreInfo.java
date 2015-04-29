@@ -403,7 +403,7 @@ public class UpdateStoreInfo extends JFrame{
             public void actionPerformed(ActionEvent hendelse) {
                 try {
                     openConnection();
-                    username = getStoreUsername(storename, centername);
+                    username = getStoreUsername(centername, storename);
                     String currentStoreName = getShopName(username);
                     String currentTrade = getShopTrade(username);
                     String currentLocation = getShopLocation(username);
