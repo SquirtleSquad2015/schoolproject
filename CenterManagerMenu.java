@@ -164,7 +164,7 @@ public class CenterManagerMenu extends JFrame {
                 int index = storeList.getSelectedIndex();
                 try {
                     openConnection();
-                    UpdateStoreInfo updateStoreInfo = new UpdateStoreInfo(currentCenterName, stores.get(index));
+                    UpdateStoreInfo updateStoreInfo = new UpdateStoreInfo(stores.get(index), currentCenterName);
                     updateStoreInfo.setVisible(true);
                     updateStoreInfo.setLocationRelativeTo(null);
                     selectStoreFrame.dispose();

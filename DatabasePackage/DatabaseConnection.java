@@ -8,9 +8,9 @@ public class DatabaseConnection {
 
     private Connection connection;
 
-    /**
-     * @throws Exception
-     */
+
+
+
     public void openConnection() throws Exception {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -20,9 +20,9 @@ public class DatabaseConnection {
         }
     }
 
-    /**
-     * @throws Exception
-     */
+
+
+
     public void closeConnection() throws Exception {
         Database.closeConnection(connection);
     }
@@ -31,7 +31,6 @@ public class DatabaseConnection {
      * Checks if the database can be connected.
      *
      * @return Returns true if it can connect to our database, false otherwise.
-     * @throws Exception
      */
     public boolean checkDB() throws Exception {
 
@@ -505,7 +504,6 @@ public class DatabaseConnection {
      *
      * @param userName Specific username
      * @return True or false
-     * @throws Exception
      */
     public boolean checkUsername(String userName) throws Exception {
         Statement statement = null;
@@ -1440,10 +1438,10 @@ public class DatabaseConnection {
         return list;
     }
 
-    /**
-     * @param trade
-     * @return
-     */
+
+
+
+
     public ArrayList<String> getCenterFromTrade(String trade) {
         Statement statement = null;
         ResultSet resultSet = null;
@@ -1601,7 +1599,7 @@ public class DatabaseConnection {
     /**
      * Returns an int based on whether or not a new store is created.
      * @param centerName         new centername
-     * @param storename          new storename
+     * @param storeName          new storename
      * @param location           New Location
      * @param floor              New Floor
      * @param openingHrs         New OpeningHours
